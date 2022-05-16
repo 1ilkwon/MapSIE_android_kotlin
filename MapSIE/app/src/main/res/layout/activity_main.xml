@@ -31,5 +31,15 @@
         app:layout_constraintBottom_toBottomOf="@+id/welcome"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <Button
+        android:id="@+id/btnMyPage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="myPage"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/welcome" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

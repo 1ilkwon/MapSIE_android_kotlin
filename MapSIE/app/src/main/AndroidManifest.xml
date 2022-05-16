@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="kr.ac.tukorea.mapsie">
-    <!-- 인터넷 사용 권한 설정 -->
 
     <application
         android:allowBackup="true"
@@ -10,6 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MapSIE">
+        <activity
+            android:name=".MyPageActivity"
+            android:exported="false" />
         <activity
             android:name=".LoginActivity"
             android:exported="true" />
@@ -25,7 +27,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>
