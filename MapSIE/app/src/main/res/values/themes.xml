@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.MapSIE" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.MapSIE_andorid_kotlin" parent="Theme.AppCompat.Light">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -13,4 +13,13 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="StyleSplash" parent="Theme.AppCompat.Light.NoActionBar"> <!-- 타이틀바 없는거 -->
+
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#008899</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
 </resources>
