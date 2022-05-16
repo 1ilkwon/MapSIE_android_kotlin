@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id = "@+id/home"
+        android:icon = "@drawable/ic_baseline_home_24"
+        android:title = "홈 화면"
+        />
+    <item android:id = "@+id/mypage"
+        android:icon = "@drawable/ic_baseline_person_24"
+        android:title = "마이페이지"
+        />
+    <item android:id = "@+id/guideline"
+        android:icon = "@drawable/ic_baseline_library_books_24"
+        android:title = "가이드라인"
+        />
+</menu>
