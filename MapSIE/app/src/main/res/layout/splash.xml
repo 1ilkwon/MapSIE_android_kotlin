@@ -2,17 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
+    android:background="#ffffff"
     android:gravity="center">
 
     <!-- 첫 로딩화면(스플래시) 이미지 파일 -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="M a p\nS I E"
-        android:textSize="32dp"
-        android:textStyle="bold"
-        android:fontFamily="casual"
-        android:textColor="#FFFFFF"/>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:src="@mipmap/splashimg2"/>
+
 
 </LinearLayout>
