@@ -3,8 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/user/Documents/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/layout/activity_login.xml" value="0.176" />
         <entry key="..\:/Users/user/Documents/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/layout/activity_main.xml" value="0.22418478260869565" />
         <entry key="..\:/Users/user/Documents/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/layout/activity_second.xml" value="0.1" />
+        <entry key="..\:/Users/user/Documents/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/layout/activity_sign_up.xml" value="0.1" />
       </map>
     </option>
   </component>

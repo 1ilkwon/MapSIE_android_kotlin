@@ -3,87 +3,66 @@ package kr.ac.tukorea.mapsie
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.kakao.sdk.auth.LoginClient
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.AuthErrorCause
 import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
+import kr.ac.tukorea.mapsie.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
+    var db: FirebaseFirestore = Firebase.firestore
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        // 로그인 정보 확인
-        UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
-            if (error != null) {
-                Toast.makeText(this, "토큰 정보 보기 실패", Toast.LENGTH_SHORT).show()
-            }
-            else if (tokenInfo != null) {
-                Toast.makeText(this, "토큰 정보 보기 성공", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, SecondActivity::class.java)
-                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-                finish()
-            }
+        if (Firebase.auth.currentUser == null) {
+            startActivity(
+                Intent(this, LoginActivity::class.java)
+            )
+            finish()
         }
 
-//        val keyHash = Utility.getKeyHash(this)
-//        Log.d("Hash", keyHash)
-
-        val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
-            if (error != null) {
-                when {
-                    error.toString() == AuthErrorCause.AccessDenied.toString() -> {
-                        Toast.makeText(this, "접근이 거부 됨(동의 취소)", Toast.LENGTH_SHORT).show()
+        binding.buttonSignout.setOnClickListener {
+            val builder = AlertDialog.Builder(this)
+                .apply {
+                    setTitle("알림")
+                    setMessage("로그아웃 하시겠습니까?")
+                    setPositiveButton("네") { _, _ ->
+                        FirebaseAuth.getInstance().signOut()
+                        Handler().postDelayed({
+                            ActivityCompat.finishAffinity(this@MainActivity)
+                            System.runFinalization()
+                            System.exit(0)
+                        }, 1000)
                     }
-                    error.toString() == AuthErrorCause.InvalidClient.toString() -> {
-                        Toast.makeText(this, "유효하지 않은 앱", Toast.LENGTH_SHORT).show()
+                    setNegativeButton("아니요"){_,_,->
+                        return@setNegativeButton
                     }
-                    error.toString() == AuthErrorCause.InvalidGrant.toString() -> {
-                        Toast.makeText(this, "인증 수단이 유효하지 않아 인증할 수 없는 상태", Toast.LENGTH_SHORT).show()
-                    }
-                    error.toString() == AuthErrorCause.InvalidRequest.toString() -> {
-                        Toast.makeText(this, "요청 파라미터 오류", Toast.LENGTH_SHORT).show()
-                    }
-                    error.toString() == AuthErrorCause.InvalidScope.toString() -> {
-                        Toast.makeText(this, "유효하지 않은 scope ID", Toast.LENGTH_SHORT).show()
-                    }
-                    error.toString() == AuthErrorCause.Misconfigured.toString() -> {
-                        Toast.makeText(this, "설정이 올바르지 않음(android key hash)", Toast.LENGTH_SHORT).show()
-                    }
-                    error.toString() == AuthErrorCause.ServerError.toString() -> {
-                        Toast.makeText(this, "서버 내부 에러", Toast.LENGTH_SHORT).show()
-                    }
-                    error.toString() == AuthErrorCause.Unauthorized.toString() -> {
-                        Toast.makeText(this, "앱이 요청 권한이 없음", Toast.LENGTH_SHORT).show()
-                    }
-                    else -> { // Unknown
-                        Toast.makeText(this, "기타 에러", Toast.LENGTH_SHORT).show()
-                    }
+                    show()
                 }
-            }
-            else if (token != null) {
-                Toast.makeText(this, "로그인에 성공하였습니다.", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, SecondActivity::class.java)
-                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-                finish()
-            }
+
+
         }
 
-
-        val kakao_login_button = findViewById<ImageButton>(R.id.kakao_login_button) // 로그인 버튼
-
-        kakao_login_button.setOnClickListener {
-            if(LoginClient.instance.isKakaoTalkLoginAvailable(this)){
-                LoginClient.instance.loginWithKakaoTalk(this, callback = callback)
-
-
-            }else{
-                LoginClient.instance.loginWithKakaoAccount(this, callback = callback)
-            }
+        db.collection("users").document(Firebase.auth.currentUser?.uid ?: "No User").get().addOnSuccessListener {
+            binding.welcome.text = "닉네임: " + it["signName"].toString()
+        }.addOnFailureListener {
+            Toast.makeText(this, "내 정보 불러오기 실패. \n 다시 Login 해주세요.", Toast.LENGTH_SHORT).show()
         }
     }
 }
