@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/drawable/ic_baseline_arrow_back_ios_new_24.xml" value="0.329" />
+        <entry key="..\:/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.116" />
+        <entry key="..\:/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/drawable/ic_baseline_library_books_24.xml" value="0.116" />
+        <entry key="..\:/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/drawable/ic_baseline_login_24.xml" value="0.116" />
+        <entry key="..\:/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.116" />
+        <entry key="..\:/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
+        <entry key="..\:/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/layout/activity_main.xml" value="0.3333333333333333" />
+        <entry key="..\:/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/layout/main_drawer_header.xml" value="0.3333333333333333" />
+        <entry key="..\:/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/layout/main_layout.xml" value="0.1" />
+        <entry key="..\:/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/layout/main_menu.xml" value="0.1" />
+        <entry key="..\:/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/layout/main_toolbar.xml" value="0.1" />
+        <entry key="..\:/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/menu/menu.xml" value="0.21296296296296297" />
+        <entry key="..\:/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/menu/menu_drawer_navigation.xml" value="0.22" />
+        <entry key="..\:/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/menu/toolbar.xml" value="0.3546875" />
+        <entry key="..\:/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/menu/toolbar_menu.xml" value="0.3546875" />
+        <entry key="..\:/Users/user/Desktop/MS_View/MapSIE/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/user/Desktop/MS_View/MapSIE/app/src/main/res/layout/main_drawer_header.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/user/Desktop/MS_View/MapSIE/app/src/main/res/layout/main_layout.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/user/Desktop/MS_View/MapSIE/app/src/main/res/layout/main_toolbar.xml" value="0.25364583333333335" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
