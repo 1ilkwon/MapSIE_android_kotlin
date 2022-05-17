@@ -12,14 +12,18 @@
         <entry key="..\:/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/drawable/ic_baseline_sports_esports_24.xml" value="0.1885" />
         <entry key="..\:/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="..\:/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/drawable/layout_background.xml" value="0.1885" />
+        <entry key="..\:/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/layout/activity_detail.xml" value="0.16666666666666666" />
         <entry key="..\:/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/layout/activity_main.xml" value="0.16666666666666666" />
         <entry key="..\:/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/layout/dd.xml" value="0.18020833333333333" />
+        <entry key="..\:/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/layout/detail_body.xml" value="0.3333333333333333" />
+        <entry key="..\:/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/layout/detail_toolbar.xml" value="0.3432971014492754" />
         <entry key="..\:/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/layout/main_body.xml" value="0.16666666666666666" />
         <entry key="..\:/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/layout/main_drawer.xml" value="0.18020833333333333" />
         <entry key="..\:/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/layout/main_drawer_header.xml" value="0.22" />
         <entry key="..\:/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/layout/main_layout.xml" value="0.1" />
         <entry key="..\:/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/layout/main_menu.xml" value="0.1" />
         <entry key="..\:/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/layout/main_toolbar.xml" value="0.16666666666666666" />
+        <entry key="..\:/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/menu/detail_toolbar_menu.xml" value="0.35520833333333335" />
         <entry key="..\:/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/menu/menu.xml" value="0.21296296296296297" />
         <entry key="..\:/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/menu/menu_drawer_navigation.xml" value="0.22" />
         <entry key="..\:/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/menu/toolbar.xml" value="0.3546875" />
