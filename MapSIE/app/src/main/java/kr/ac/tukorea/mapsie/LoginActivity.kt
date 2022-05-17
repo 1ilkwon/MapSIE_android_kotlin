@@ -21,9 +21,9 @@ class LoginActivity : AppCompatActivity() {
 
         // 로그인 버튼 클릭 이벤트 -> doLogin(하단에 함수 있음)
         binding.login.setOnClickListener{
-            val userEmail = binding.username.text.toString()
-            val password = binding.password.text.toString()
-            doLogin(userEmail, password)
+                val userEmail = binding.username.text.toString()
+                val password = binding.password.text.toString()
+                doLogin(userEmail, password)
         }
 
         // 회원가입 버튼 클릭 이벤트 -> 회원가입 페이지로 인텐트

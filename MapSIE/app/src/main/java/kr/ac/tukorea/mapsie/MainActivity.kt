@@ -16,6 +16,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kr.ac.tukorea.mapsie.databinding.ActivityMainBinding
 
+
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     // firestore 연결 위해 기입
@@ -26,7 +27,6 @@ class MainActivity : AppCompatActivity() {
         //binding 방식으로 변경
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        //만약 firebase auth에 현재 user가 비어있으면 시작 페이지를 LoginActivity로 하고 auth가 있으면(즉, 로그인 되어있으면) MainActivity로 연결
         if (Firebase.auth.currentUser == null) {
             startActivity(
                 Intent(this, LoginActivity::class.java)
