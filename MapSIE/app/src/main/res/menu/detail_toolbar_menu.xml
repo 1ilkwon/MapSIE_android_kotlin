@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/heart"
+        android:title="tool_heart"
+        android:icon="@drawable/ic_baseline_favorite_border_24"
+        app:showAsAction="always"
+        />
+    <item
         android:id="@+id/toolbar_menu"
         android:title="tool_menu"
         android:icon="@drawable/ic_baseline_menu_24"

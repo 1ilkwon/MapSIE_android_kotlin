@@ -5,19 +5,26 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
+import androidx.core.view.GravityCompat
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.activity_detail.*
+import kotlinx.android.synthetic.main.main_body.*
+import kotlinx.android.synthetic.main.main_drawer_header.*
+import kotlinx.android.synthetic.main.main_toolbar.*
 import kr.ac.tukorea.mapsie.databinding.ActivityMainBinding
 
-
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var binding: ActivityMainBinding
     // firestore 연결 위해 기입
     var db: FirebaseFirestore = Firebase.firestore
@@ -27,15 +34,24 @@ class MainActivity : AppCompatActivity() {
         //binding 방식으로 변경
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        //만약 firebase auth에 현재 user가 비어있으면 시작 페이지를 LoginActivity로 하고 auth가 있으면(즉, 로그인 되어있으면) MainActivity로 연결
         if (Firebase.auth.currentUser == null) {
             startActivity(
                 Intent(this, LoginActivity::class.java)
             )
             finish()
         }
+        setSupportActionBar(toolbar)
 
-        // 로그아웃 버튼 누르면 dialog페이지로 예, 아니오 AlertDialog 나타남
-        binding.buttonSignout.setOnClickListener {
+        supportActionBar?.setDisplayHomeAsUpEnabled(true) //왼쪽에 뒤로가기버튼생성
+        supportActionBar?.setDisplayShowTitleEnabled(false) // 툴바에 타이틀 안보이게
+        toolbar.title = "MapSIE"
+        binding.navigationView.setNavigationItemSelectedListener(this)
+
+
+
+        buttonSignout.setOnClickListener{
             val builder = AlertDialog.Builder(this)
                 .apply {
                     setTitle("알림")
@@ -53,21 +69,48 @@ class MainActivity : AppCompatActivity() {
                     }
                     show()
                 }
-
-
         }
 
-        binding.btnMyPage.setOnClickListener{
-            startActivity(
-                Intent(this, MyPageActivity::class.java)
-            )
-        }
-
-        //db에서 users 컬렉션에서 해당하는 닉네임 가져오는 부분
         db.collection("users").document(Firebase.auth.currentUser?.uid ?: "No User").get().addOnSuccessListener {
-            binding.welcome.text = "닉네임: " + it["signName"].toString()
+            member_nickname.text = it["signName"].toString()
         }.addOnFailureListener {
-            Toast.makeText(this, "내 정보 불러오기 실패. \n 다시 Login 해주세요.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, ".", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.toolbar_menu, menu)       //툴바 메뉴
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            android.R.id.home-> {   //뒤로가기 버튼
+                finish()
+                return true
+            }
+            R.id.toolbar_menu->{ // 메뉴 버튼
+                drawer_layout.openDrawer(GravityCompat.END)    // 네비게이션 드로어 열기(오른쪽에서 왼쪽으로)
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onBackPressed() {
+        if(drawer_layout.isDrawerOpen(GravityCompat.END)){
+            drawer_layout.closeDrawers()
+            // 테스트를 위해 뒤로가기 버튼시 Toast 메시지
+            Toast.makeText(this,"뒤로가기버튼 테스트",Toast.LENGTH_SHORT).show()
+        } else{
+            super.onBackPressed()
+        }
+    }
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.home -> Toast.makeText(this,"홈화면 실행",Toast.LENGTH_SHORT).show()
+            R.id.mypage-> startActivity(Intent(this, MyPageActivity::class.java))
+            R.id.guideline-> startActivity(Intent(this, GuideActivity::class.java))
+        }
+        return false
     }
 }

@@ -1,37 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="kr.ac.tukorea.mapsie">
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher_foreground"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:networkSecurityConfig="@xml/network_security_config"
-        android:roundIcon="@drawable/ic_launcher_foreground"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MapSIE_andorid_kotlin"
-        android:usesCleartextTraffic="true">
-        <activity<<<<<<< hyeonjin
+        android:theme="@style/Theme.MapSIE">
+        <activity
+            android:name=".GuideActivity"
+            android:exported="false" />
+        <activity
+            android:name=".guideActivity"
+            android:exported="false" />
+        <activity
             android:name=".MyPageActivity"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"
-            android:name=".guideActivity"
             android:exported="true" />
         <activity
-            android:name=".SplashActivity"
-            android:exported="true"
-            android:theme="@style/StyleSplash"> <!-- 로딩화면 -->
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:name=".SignUpActivity"
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -41,9 +33,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <meta-data
-            android:name="com.kakao.sdk.AppKey"
-            android:value="c1b5ca94561879af6baf9473990ac39b" />
     </application>
 
 </manifest>
