@@ -1,60 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <LinearLayout
+    <fragment
+        android:id="@+id/map_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="3"
-        android:orientation="horizontal"
-        android:gravity="top"
-        android:background="#FFFFFF">
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=" 선택한 테마 보여주기 "
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:textColor="#000000"
-            android:background="#FFFFFF"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="뒤로가기"
-            android:layout_marginTop="10dp"
-            android:textColor="#000000"
-            android:background="#FFFFFF"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/map_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical">
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="3"
-        android:orientation="horizontal"
-        android:gravity="center">
-        <EditText
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="10dp"
-            android:hint="주소를 입력하시오"/>
-        <Button
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:text="GPS"/>
-    </LinearLayout><!---->
+        android:name="com.naver.maps.map.MapFragment" />
 
 </LinearLayout>
