@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MapSIE">
         <activity
+
             android:name=".GuideActivity"
             android:exported="false" />
         <activity
@@ -25,6 +26,11 @@
             android:name=".SignUpActivity"
             android:exported="true" />
         <activity
+
+            android:name=".DetailActivity"
+            android:exported="false" />
+        <activity
+
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

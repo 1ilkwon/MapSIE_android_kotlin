@@ -17,7 +17,6 @@
         layout="@layout/main_body"/>
 
 
-
     <!--Navigation Drawer-->
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigationView"

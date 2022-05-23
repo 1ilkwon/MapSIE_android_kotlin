@@ -3,6 +3,7 @@ package kr.ac.tukorea.mapsie
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+
 import android.os.Handler
 import android.util.Log
 import android.view.Menu
@@ -110,6 +111,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.home -> Toast.makeText(this,"홈화면 실행",Toast.LENGTH_SHORT).show()
             R.id.mypage-> startActivity(Intent(this, MyPageActivity::class.java))
             R.id.guideline-> startActivity(Intent(this, GuideActivity::class.java))
+
         }
         return false
     }

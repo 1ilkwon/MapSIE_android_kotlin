@@ -85,6 +85,7 @@
             android:drawableTop="@drawable/ic_baseline_sports_esports_24"
             android:text="장소테마제목"
             />
+
         <Button
             android:id="@+id/buttonSignout"
             android:layout_margin="10dp"
@@ -95,9 +96,6 @@
             android:drawableTop="@drawable/ic_baseline_sports_esports_24"
             android:text="로그아웃"
             />
-
-
-
     </LinearLayout>
 
 </LinearLayout>
