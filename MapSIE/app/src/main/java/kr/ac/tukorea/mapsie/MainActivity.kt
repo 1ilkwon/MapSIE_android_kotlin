@@ -1,27 +1,82 @@
 package kr.ac.tukorea.mapsie
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+
+import android.os.Handler
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ImageButton
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
-import kotlinx.android.synthetic.main.activity_main.*
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.activity_detail.*
+import kotlinx.android.synthetic.main.main_body.*
+import kotlinx.android.synthetic.main.main_drawer_header.*
 import kotlinx.android.synthetic.main.main_toolbar.*
+import kr.ac.tukorea.mapsie.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+    private lateinit var binding: ActivityMainBinding
+    // firestore 연결 위해 기입
+    var db: FirebaseFirestore = Firebase.firestore
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        //binding 방식으로 변경
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        setSupportActionBar(toolbar) //툴바를 액티비티의 앱바로 지정
+        //만약 firebase auth에 현재 user가 비어있으면 시작 페이지를 LoginActivity로 하고 auth가 있으면(즉, 로그인 되어있으면) MainActivity로 연결
+        if (Firebase.auth.currentUser == null) {
+            startActivity(
+                Intent(this, LoginActivity::class.java)
+            )
+            finish()
+        }
+        setSupportActionBar(toolbar)
+
         supportActionBar?.setDisplayHomeAsUpEnabled(true) //왼쪽에 뒤로가기버튼생성
         supportActionBar?.setDisplayShowTitleEnabled(false) // 툴바에 타이틀 안보이게
         toolbar.title = "MapSIE"
+        binding.navigationView.setNavigationItemSelectedListener(this)
 
-        navigationView.setNavigationItemSelectedListener(this) //navigation 리스너
+
+
+        buttonSignout.setOnClickListener{
+            val builder = AlertDialog.Builder(this)
+                .apply {
+                    setTitle("알림")
+                    setMessage("로그아웃 하시겠습니까?")
+                    setPositiveButton("네") { _, _ ->
+                        FirebaseAuth.getInstance().signOut()
+                        Handler().postDelayed({
+                            ActivityCompat.finishAffinity(this@MainActivity)
+                            System.runFinalization()
+                            System.exit(0)
+                        }, 1000)
+                    }
+                    setNegativeButton("아니요"){_,_,->
+                        return@setNegativeButton
+                    }
+                    show()
+                }
+        }
+
+        db.collection("users").document(Firebase.auth.currentUser?.uid ?: "No User").get().addOnSuccessListener {
+            member_nickname.text = it["signName"].toString()
+        }.addOnFailureListener {
+            Toast.makeText(this, ".", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -54,8 +109,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.home -> Toast.makeText(this,"홈화면 실행",Toast.LENGTH_SHORT).show()
-            R.id.mypage-> Toast.makeText(this,"마이페이지 실행",Toast.LENGTH_SHORT).show()
-            R.id.guideline-> Toast.makeText(this,"가이드라인 실행",Toast.LENGTH_SHORT).show()
+            R.id.mypage-> startActivity(Intent(this, MyPageActivity::class.java))
+            R.id.guideline-> startActivity(Intent(this, GuideActivity::class.java))
+
         }
         return false
     }
