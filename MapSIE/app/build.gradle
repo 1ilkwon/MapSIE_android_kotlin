@@ -1,7 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'com.google.gms.google-services'
+    //id 'com.google.gms.google-services'
     id 'kotlin-android-extensions'
 }
 
@@ -21,7 +21,6 @@ android {
 
         vectorDrawables.useSupportLibrary = true
     }
-
     buildTypes {
         release {
             minifyEnabled false
@@ -56,5 +55,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     
     implementation 'androidx.legacy:legacy-support-v4:1.0.0' // DrawerLayout
-
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'   //recyclerview
 }
