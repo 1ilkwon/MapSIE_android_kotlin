@@ -10,10 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MapSIE">
         <activity
-            android:name=".GuideActivity"
+            android:name=".AddPageActivity"
             android:exported="false" />
         <activity
-            android:name=".guideActivity"
+            android:name=".GuideActivity"
             android:exported="false" />
         <activity
             android:name=".MyPageActivity"
