@@ -14,7 +14,7 @@
     <include
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        layout="@layout/main_body"/>
+        layout="@layout/add_body"/>
 
 
     <!--Navigation Drawer-->
@@ -28,6 +28,3 @@
 
     </com.google.android.material.navigation.NavigationView>
 </androidx.drawerlayout.widget.DrawerLayout>
-
-
-

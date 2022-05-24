@@ -65,39 +65,16 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp">
 
-        <Button
-            android:id="@+id/thema_title"
-            android:layout_margin="10dp"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/btn_background"
-            android:drawableTop="@drawable/ic_baseline_sports_esports_24"
-            android:text="장소테마제목"
-            />
-        <Button
-            android:id="@+id/thema_title2"
-            android:layout_margin="10dp"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/btn_background"
-            android:drawableTop="@drawable/ic_baseline_sports_esports_24"
-            android:text="장소테마제목"
-            />
-        <Button
-            android:id="@+id/buttonSignout"
-            android:layout_margin="10dp"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/btn_background"
-            android:drawableTop="@drawable/ic_baseline_sports_esports_24"
-            android:text="로그아웃"
-            />
 
-
-
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/theme_recycler"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/theme_item"
+            />
     </LinearLayout>
 
 </LinearLayout>
