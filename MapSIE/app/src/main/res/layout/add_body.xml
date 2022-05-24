@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/main_toolbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="50dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="ADRSS" />
+
+        <EditText
+            android:id="@+id/add_adress"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:hint="장소 검색" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="NAME" />
+
+        <EditText
+            android:id="@+id/add_name"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:hint="장소이름(고정)" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="THEME" />
+
+        <Spinner
+            android:id="@+id/add_theme"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:hint="테마선택" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="IMAGE (선택)" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="첨부하기"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="INTRODUCE" />
+
+        <EditText
+            android:id="@+id/add_introduce"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:hint="설명글" />
+    </LinearLayout>
+    <Button
+        android:id="@+id/saveBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SAVE"/>
+</LinearLayout>

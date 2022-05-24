@@ -8,6 +8,7 @@ import android.os.Handler
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ArrayAdapter
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -30,6 +31,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     // firestore 연결 위해 기입
     var db: FirebaseFirestore = Firebase.firestore
 
+    //recyclerview를 위한 코드
+    lateinit var themeAdapter: ThemeAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //binding 방식으로 변경
@@ -45,14 +49,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
         setSupportActionBar(toolbar)
 
+
         supportActionBar?.setDisplayHomeAsUpEnabled(true) //왼쪽에 뒤로가기버튼생성
         supportActionBar?.setDisplayShowTitleEnabled(false) // 툴바에 타이틀 안보이게
         toolbar.title = "MapSIE"
         binding.navigationView.setNavigationItemSelectedListener(this)
 
-
-
-        buttonSignout.setOnClickListener{
+        /*
+        //예전에 버튼있던 거 밑에 메뉴바로 옮겨놨습니다.
+       logout.setOnClickListener{
             val builder = AlertDialog.Builder(this)
                 .apply {
                     setTitle("알림")
@@ -71,12 +76,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     show()
                 }
         }
+         */
 
         db.collection("users").document(Firebase.auth.currentUser?.uid ?: "No User").get().addOnSuccessListener {
             member_nickname.text = it["signName"].toString()
         }.addOnFailureListener {
             Toast.makeText(this, ".", Toast.LENGTH_SHORT).show()
         }
+
+        initRecycler() //recyclerview를 위한 함수
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -84,7 +92,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {   //툴바에 있는 메뉴 누를 때
         when(item.itemId){
             android.R.id.home-> {   //뒤로가기 버튼
                 finish()
@@ -97,7 +105,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onBackPressed() {
+    override fun onBackPressed() {  //기본 폰에 내장되어 있는 ◀뒤로가기 누르면
         if(drawer_layout.isDrawerOpen(GravityCompat.END)){
             drawer_layout.closeDrawers()
             // 테스트를 위해 뒤로가기 버튼시 Toast 메시지
@@ -106,13 +114,40 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             super.onBackPressed()
         }
     }
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {    //메뉴바 클릭 시 실행하는 메서드
         when(item.itemId){
             R.id.home -> Toast.makeText(this,"홈화면 실행",Toast.LENGTH_SHORT).show()
             R.id.mypage-> startActivity(Intent(this, MyPageActivity::class.java))
             R.id.guideline-> startActivity(Intent(this, GuideActivity::class.java))
-
+            R.id.login->{
+                val builder = AlertDialog.Builder(this)
+                    .apply {
+                        setTitle("알림")
+                        setMessage("로그아웃 하시겠습니까?")
+                        setPositiveButton("네") { _, _ ->
+                            FirebaseAuth.getInstance().signOut()
+                            Handler().postDelayed({
+                                ActivityCompat.finishAffinity(this@MainActivity)
+                                System.runFinalization()
+                                System.exit(0)
+                            }, 1000)
+                        }
+                        setNegativeButton("아니요"){_,_,->
+                            return@setNegativeButton
+                        }
+                        show()
+                    }
+            }
         }
         return false
+    }
+    private fun initRecycler(){
+        var themeList = arrayListOf<ThemeData>(
+            ThemeData("이미지", "제목")  //테마 추가
+        )
+        themeAdapter = ThemeAdapter(this, themeList)
+        theme_recycler.adapter = themeAdapter   // main_body.xml에 id값 theme_recycler
+
+        themeAdapter.notifyDataSetChanged()
     }
 }
