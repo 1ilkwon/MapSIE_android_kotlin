@@ -12,7 +12,6 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.splash)
 
         startLoading()
-
     }
 
     private fun startLoading() {
