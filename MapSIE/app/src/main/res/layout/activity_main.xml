@@ -12,6 +12,7 @@
 
     <!--메인 레이아웃-->
     <include
+        android:id="@+id/main_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         layout="@layout/main_body"/>

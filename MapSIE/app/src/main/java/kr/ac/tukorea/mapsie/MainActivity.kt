@@ -13,6 +13,7 @@ import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -61,7 +62,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             Toast.makeText(this, ".", Toast.LENGTH_SHORT).show()
         }
 
-        initRecycler() //recyclerview를 위한 함수
+        initRecycler()  //recyclerview 보여주는 메서드
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -96,6 +98,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.home -> Toast.makeText(this,"홈화면 실행",Toast.LENGTH_SHORT).show()
             R.id.mypage-> startActivity(Intent(this, MyPageActivity::class.java))
             R.id.guideline-> startActivity(Intent(this, GuideActivity::class.java))
+            R.id.addPage -> startActivity(Intent(this, AddActivity::class.java))
             R.id.logout->{
                 val builder = AlertDialog.Builder(this)
                     .apply {
@@ -120,11 +123,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return false
     }
     private fun initRecycler(){
-        var themeList = arrayListOf<ThemeData>(
-            ThemeData("이미지", "제목")  //테마 추가
+        var themeList = arrayListOf<ThemeData>( //테마 추가
+            ThemeData(ContextCompat.getDrawable(this, R.drawable.ic_baseline_favorite_border_24)!!, "테마 제목"),  //테마 추가
+            ThemeData(ContextCompat.getDrawable(this, R.drawable.flower)!!, "꽃구경 가기 좋은 공원")
         )
         themeAdapter = ThemeAdapter(this, themeList)
-        theme_recycler.adapter = themeAdapter   // main_body.xml에 id값 theme_recycler
+        binding.mainLayout.themeRecycler.adapter = themeAdapter   // main_body.xml에 id값 theme_recycler
 
         themeAdapter.notifyDataSetChanged()
     }
