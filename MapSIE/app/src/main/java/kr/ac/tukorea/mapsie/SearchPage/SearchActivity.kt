@@ -20,7 +20,7 @@ import kr.ac.tukorea.mapsie.KakaoAPI
 import kr.ac.tukorea.mapsie.MapaPage.MapActivity
 import kr.ac.tukorea.mapsie.R
 import kr.ac.tukorea.mapsie.ResultSearchKeyword
-import kr.ac.tukorea.mapsie.databinding.ActivityMainBinding
+import kr.ac.tukorea.mapsie.databinding.ActivitySearchBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -28,7 +28,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
-class MainActivity : AppCompatActivity(), OnMapReadyCallback {
+class SearchActivity : AppCompatActivity(), OnMapReadyCallback {
 
     var TAG: String = "로그"
 
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         const val API_KEY = "KakaoAK d17bbf0efd9f63a03f1bfc74fa148dbd"  // REST API 키
     }
 
-    private lateinit var binding : ActivityMainBinding
+    private lateinit var binding : ActivitySearchBinding
     private val listItems = arrayListOf<ListLayout>()   // 리사이클러 뷰 아이템
     private val listAdapter = ListAdapter(listItems)    // 리사이클러 뷰 어댑터
     private var pageNumber = 1      // 검색 페이지 번호
@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivitySearchBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
 
@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             override fun onClick(v: View, position: Int) {
                 val cameraUpdate = CameraUpdate.scrollAndZoomTo(LatLng(listItems[position].y, listItems[position].x), 11.3)
                 naverMap.moveCamera(cameraUpdate)
-                /* 리사이클러 뷰에서 선택한 부분만 마커 표시 (off) */
+                /* 리사이클러 뷰에서 선택한 부분만 마커 표시 (off)
                 val marker = Marker()
                 marker.position = LatLng(listItems[position].y, listItems[position].x)
                 marker.map = naverMap
@@ -90,7 +90,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 marker.setOnClickListener { overlay ->
                     infoWindow.open(marker)
                     true
-                }
+                }*/
             }
         })
 
@@ -233,11 +233,24 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 )
                 listItems.add(item)
                 listAdapter.notifyDataSetChanged()
-                /* 검색 결과 전부 다 마커 표시하기 (on)
+                /* 검색 결과 전부 다 마커 표시하기 (on)*/
                 val marker = Marker()
                 marker.position = LatLng(document.y.toDouble(), document.x.toDouble())
                 marker.map = naverMap
-                */
+
+
+                // infowindow 작성
+                val infoWindow = InfoWindow()
+                infoWindow.adapter = object : InfoWindow.DefaultTextAdapter(application) {
+                    override fun getText(infoWindow: InfoWindow): CharSequence {
+                        return "내 장소 등록/수정하기"
+                    }
+                }
+                infoWindow.position = LatLng(document.y.toDouble(), document.x.toDouble())
+                marker.setOnClickListener { overlay ->
+                    infoWindow.open(marker)
+                    true
+                }
             }
 
             binding.btnNextPage.isEnabled = !searchResult.meta.is_end // 페이지가 더 있을 경우 다음 버튼 활성화
