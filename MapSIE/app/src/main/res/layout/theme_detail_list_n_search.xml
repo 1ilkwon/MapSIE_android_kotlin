@@ -5,21 +5,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_gravity="center"
     android:orientation="vertical">
+
     <EditText
         android:id="@+id/themesearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:hint="장소를 입력하시오."
-        android:layout_margin="10dp"/>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_main_list"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:minHeight="48dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"

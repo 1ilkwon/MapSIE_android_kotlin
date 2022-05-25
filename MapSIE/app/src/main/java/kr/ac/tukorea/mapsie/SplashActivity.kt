@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Handler
-import kr.ac.tukorea.mapsie.SearchPage.MainActivity
+import kr.ac.tukorea.mapsie.SearchPage.SearchActivity
 
 class SplashActivity : AppCompatActivity() {
 
@@ -18,7 +18,7 @@ class SplashActivity : AppCompatActivity() {
     private fun startLoading() {
 
         Handler().postDelayed({
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, SearchActivity::class.java)
             startActivity(intent)
             finish()
         }, 1250)
