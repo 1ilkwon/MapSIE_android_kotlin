@@ -55,29 +55,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toolbar.title = "MapSIE"
         binding.navigationView.setNavigationItemSelectedListener(this)
 
-        /*
-        //예전에 버튼있던 거 밑에 메뉴바로 옮겨놨습니다.
-       logout.setOnClickListener{
-            val builder = AlertDialog.Builder(this)
-                .apply {
-                    setTitle("알림")
-                    setMessage("로그아웃 하시겠습니까?")
-                    setPositiveButton("네") { _, _ ->
-                        FirebaseAuth.getInstance().signOut()
-                        Handler().postDelayed({
-                            ActivityCompat.finishAffinity(this@MainActivity)
-                            System.runFinalization()
-                            System.exit(0)
-                        }, 1000)
-                    }
-                    setNegativeButton("아니요"){_,_,->
-                        return@setNegativeButton
-                    }
-                    show()
-                }
-        }
-         */
-
         db.collection("users").document(Firebase.auth.currentUser?.uid ?: "No User").get().addOnSuccessListener {
             member_nickname.text = it["signName"].toString()
         }.addOnFailureListener {
@@ -119,7 +96,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.home -> Toast.makeText(this,"홈화면 실행",Toast.LENGTH_SHORT).show()
             R.id.mypage-> startActivity(Intent(this, MyPageActivity::class.java))
             R.id.guideline-> startActivity(Intent(this, GuideActivity::class.java))
-            R.id.login->{
+            R.id.logout->{
                 val builder = AlertDialog.Builder(this)
                     .apply {
                         setTitle("알림")
@@ -138,6 +115,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                         show()
                     }
             }
+            R.id.addPage -> startActivity(Intent(this, AddActivity::class.java))
         }
         return false
     }

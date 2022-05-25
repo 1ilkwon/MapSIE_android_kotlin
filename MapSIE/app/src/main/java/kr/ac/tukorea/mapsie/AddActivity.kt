@@ -2,6 +2,7 @@ package kr.ac.tukorea.mapsie
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import kr.ac.tukorea.mapsie.databinding.ActivityAddBinding
 import kr.ac.tukorea.mapsie.databinding.ActivityMainBinding
 import kr.ac.tukorea.mapsie.databinding.AddBodyBinding
@@ -16,7 +17,6 @@ class AddActivity : AppCompatActivity() {
         //binding 방식으로 변경
         binding = AddBodyBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
 
     }
 }
