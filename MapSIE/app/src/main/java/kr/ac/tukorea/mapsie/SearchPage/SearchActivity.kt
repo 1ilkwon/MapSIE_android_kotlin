@@ -142,7 +142,7 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback {
         var tv_pageNumber = findViewById<TextView>(R.id.tv_pageNumber)
         var rv_list = findViewById<RecyclerView>(R.id.rv_list)
 
-        Log.d(TAG, "MainActivity - onMapReady")
+        Log.d(TAG, "SearchActivity - onMapReady")
         this.naverMap = naverMap
         naverMap.locationSource = locationSource
         naverMap.uiSettings.isLocationButtonEnabled = true // GPS 현위치 버튼 생성하는거 true
@@ -166,17 +166,17 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback {
         permissions: Array<String>,
         grantResults: IntArray
     ) {
-        Log.d(TAG, "MainActivity - onRequestPermissionsResult")
+        Log.d(TAG, "SearchActivity - onRequestPermissionsResult")
         if (locationSource.onRequestPermissionsResult(
                 requestCode, permissions,
                 grantResults
             )
         ) {
             if (!locationSource.isActivated) { // 권한 거부됨
-                Log.d(TAG, "MainActivity - onRequestPermissionsResult 권한 거부됨")
+                Log.d(TAG, "SearchActivity - onRequestPermissionsResult 권한 거부됨")
                 naverMap.locationTrackingMode = LocationTrackingMode.None
             } else {
-                Log.d(TAG, "MainActivity - onRequestPermissionsResult 권한 승인됨")
+                Log.d(TAG, "SearchActivity - onRequestPermissionsResult 권한 승인됨")
                 naverMap.locationTrackingMode = LocationTrackingMode.Follow // 현위치 버튼 컨트롤 활성
             }
             return
