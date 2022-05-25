@@ -1,5 +1,6 @@
-package kr.ac.tukorea.mapsie
+package kr.ac.tukorea.mapsie.SearchPage
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -13,9 +14,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
 import com.naver.maps.map.overlay.InfoWindow
-import com.naver.maps.map.overlay.InfoWindow.DefaultTextAdapter
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.util.FusedLocationSource
+import kr.ac.tukorea.mapsie.KakaoAPI
+import kr.ac.tukorea.mapsie.MapaPage.MapActivity
+import kr.ac.tukorea.mapsie.R
+import kr.ac.tukorea.mapsie.ResultSearchKeyword
 import kr.ac.tukorea.mapsie.databinding.ActivityMainBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -55,6 +59,11 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         var btn_nextPage = findViewById<Button>(R.id.btn_nextPage)
         var tv_pageNumber = findViewById<TextView>(R.id.tv_pageNumber)
         var rv_list = findViewById<RecyclerView>(R.id.rv_list)
+
+        binding.btn1.setOnClickListener {
+            val intent = Intent(this, MapActivity::class.java)
+            startActivity(intent)
+        }
 
         // 리사이클러 뷰
         binding.rvList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)

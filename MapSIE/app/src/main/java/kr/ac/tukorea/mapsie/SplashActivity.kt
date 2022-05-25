@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Handler
+import kr.ac.tukorea.mapsie.SearchPage.MainActivity
 
 class SplashActivity : AppCompatActivity() {
 
