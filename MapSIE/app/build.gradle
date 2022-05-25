@@ -1,15 +1,22 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    //id 'com.google.gms.google-services'
-    id 'kotlin-android-extensions'
+    // id 'com.google.gms.google-services'
+    id 'kotlin-android-extensions' // (아래꺼로 수정)
+    // id 'kotlin-parcelize' // 이거 원래 없는거 위에꺼 오류로 인해서 생성
 }
 
 android {
-    compileSdk 31
-    viewBinding {
+    buildFeatures{
+        viewBinding true
+    }
+
+    dataBinding {
         enabled = true
     }
+
+    compileSdk 31
+
     defaultConfig {
         applicationId "kr.ac.tukorea.mapsie"
         minSdk 21
@@ -33,10 +40,6 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
-    }
-
-    viewBinding{
-        enabled = true
     }
 }
 

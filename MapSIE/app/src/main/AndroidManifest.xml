@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MapSIE">
         <activity
+            android:name=".SplashActivity"
+            android:exported="true" />
+        <activity
             android:name=".AddPageActivity"
             android:exported="false" />
         <activity

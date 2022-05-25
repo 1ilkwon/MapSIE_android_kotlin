@@ -12,5 +12,4 @@
         android:adjustViewBounds="true"
         android:src="@mipmap/splashimg2"/>
 
-
 </LinearLayout>

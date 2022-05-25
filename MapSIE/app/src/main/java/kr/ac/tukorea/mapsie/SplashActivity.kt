@@ -18,7 +18,7 @@ class SplashActivity : AppCompatActivity() {
     private fun startLoading() {
 
         Handler().postDelayed({
-            val intent = Intent(this, SearchActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
         }, 1250)
