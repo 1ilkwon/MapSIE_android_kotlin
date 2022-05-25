@@ -65,8 +65,9 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             override fun onClick(v: View, position: Int) {
                 val cameraUpdate = CameraUpdate.scrollAndZoomTo(LatLng(listItems[position].y, listItems[position].x), 11.3)
                 naverMap.moveCamera(cameraUpdate)
-                /* 리사이클러 뷰에서 선택한 부분만 마커 표시 (off) */
+
                 val marker = Marker()
+                /* 리사이클러 뷰에서 선택한 부분만 마커 표시 (off) */
                 /*
                 marker.position = LatLng(listItems[position].y, listItems[position].x)
                 marker.map = naverMap
@@ -97,8 +98,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             btn_prevPage.visibility = View.VISIBLE
             btn_nextPage.visibility = View.VISIBLE
             tv_pageNumber.visibility = View.VISIBLE
-
-
         }
 
         // 이전 페이지 버튼
