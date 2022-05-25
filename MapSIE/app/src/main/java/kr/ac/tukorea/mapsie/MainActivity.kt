@@ -118,6 +118,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                         show()
                     }
             }
+            R.id.addPage -> startActivity(Intent(this, AddActivity::class.java))
         }
         return false
     }

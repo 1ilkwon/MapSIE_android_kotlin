@@ -21,6 +21,7 @@ import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.add_body.*
 import kotlinx.android.synthetic.main.main_drawer_header.*
 import kotlinx.android.synthetic.main.main_toolbar.*
+import android.widget.ArrayAdapter
 import kr.ac.tukorea.mapsie.databinding.ActivityAddBinding
 import kr.ac.tukorea.mapsie.databinding.ActivityMainBinding
 import kr.ac.tukorea.mapsie.databinding.AddBodyBinding
@@ -35,7 +36,6 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
         //binding 방식으로 변경
         binding = ActivityAddBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true) //왼쪽에 뒤로가기버튼생성
         supportActionBar?.setDisplayShowTitleEnabled(false) // 툴바에 타이틀 안보이게
@@ -117,5 +117,6 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
         var adapter:ArrayAdapter<String>
         adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, themeList)
         binding.mainLayout.addTheme.adapter = adapter
+
     }
 }
