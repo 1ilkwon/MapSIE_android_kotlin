@@ -67,10 +67,12 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 naverMap.moveCamera(cameraUpdate)
                 /* 리사이클러 뷰에서 선택한 부분만 마커 표시 (off) */
                 val marker = Marker()
+                /*
                 marker.position = LatLng(listItems[position].y, listItems[position].x)
                 marker.map = naverMap
+                */
 
-                // infowindow 작성
+                // infowindow 작성 -> marker 눌렀을때 나오는 설명
                 val infoWindow = InfoWindow()
                 infoWindow.adapter = object : InfoWindow.DefaultTextAdapter(application) {
                     override fun getText(infoWindow: InfoWindow): CharSequence {
@@ -224,11 +226,11 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 )
                 listItems.add(item)
                 listAdapter.notifyDataSetChanged()
-                /* 검색 결과 전부 다 마커 표시하기 (on)
+                /* 검색 결과 전부 다 마커 표시하기 (on)*/
                 val marker = Marker()
                 marker.position = LatLng(document.y.toDouble(), document.x.toDouble())
                 marker.map = naverMap
-                */
+
             }
 
             binding.btnNextPage.isEnabled = !searchResult.meta.is_end // 페이지가 더 있을 경우 다음 버튼 활성화
