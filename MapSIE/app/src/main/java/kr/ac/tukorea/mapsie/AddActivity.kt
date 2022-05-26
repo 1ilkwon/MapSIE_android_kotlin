@@ -4,12 +4,14 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
+import androidx.core.os.HandlerCompat.postDelayed
 import androidx.core.view.GravityCompat
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -17,19 +19,23 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.kakao.sdk.common.util.SdkLogLevel
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.add_body.*
 import kotlinx.android.synthetic.main.main_drawer_header.*
 import kotlinx.android.synthetic.main.main_toolbar.*
-import android.widget.ArrayAdapter
 import kr.ac.tukorea.mapsie.databinding.ActivityAddBinding
 import kr.ac.tukorea.mapsie.databinding.ActivityMainBinding
 import kr.ac.tukorea.mapsie.databinding.AddBodyBinding
+import kotlin.math.log
 
 class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var binding: ActivityAddBinding
 
     var db: FirebaseFirestore = Firebase.firestore
+    var Cafe1: String =""
+    var Cafe2: String =""
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +47,14 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
         supportActionBar?.setDisplayShowTitleEnabled(false) // 툴바에 타이틀 안보이게
         toolbar.title = "MapSIE"
         binding.navigationView.setNavigationItemSelectedListener(this)
+
+        db.collection("Cafes").document("Cafe1").get().addOnSuccessListener {
+            Cafe1 = it["Tname"].toString()
+            Log.d("loglog1",Cafe1)
+        }
+        db.collection("Cafes").document("Cafe2").get().addOnSuccessListener {
+            Cafe2 = it["Tname"].toString()
+        }
 
         db.collection("users").document(Firebase.auth.currentUser?.uid ?: "No User").get().addOnSuccessListener {
             member_nickname.text = it["signName"].toString()
@@ -112,11 +126,22 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
     }
 
     private fun themeSpinner(){ //테마스피너 항목 추가 및 어댑터
-        var themeList = arrayOf("카공하기 좋은 카페", "혼밥하기 좋은 식당", "꽃구경 가기 좋은 공원")
+
+
+//        val arrayList: ArrayList<String> = arrayListOf<String>()
+//        arrayList.add(Cafe1)
+//        arrayList.add(Cafe2)
+        //arrayList.add(Cafe3)
+         var themeList = arrayOf(Cafe1, Cafe2)
+        Log.d("loglog2",Cafe1)
+        var adapter: ArrayAdapter<String>
+        adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, themeList)
+        binding.mainLayout.addTheme.adapter = adapter
+/*        var themeList = arrayOf("카공하기 좋은 카페", "혼밥하기 좋은 식당", "꽃구경 가기 좋은 공원")
 
         var adapter:ArrayAdapter<String>
         adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, themeList)
-        binding.mainLayout.addTheme.adapter = adapter
+        binding.mainLayout.addTheme.adapter = adapter*/
 
     }
 }
