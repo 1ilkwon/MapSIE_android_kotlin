@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/user/Documents/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/drawable-v24/ic_baseline_person_24.xml" value="0.1235" />
+        <entry key="..\:/Users/user/Documents/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.239" />
         <entry key="..\:/Users/user/Documents/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/drawable/btn_background.xml" value="0.1" />
         <entry key="..\:/Users/user/Documents/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/drawable/edge.xml" value="0.1405" />
         <entry key="..\:/Users/user/Documents/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/drawable/ic_baseline_access_time_24.xml" value="0.113" />
@@ -12,6 +13,15 @@
         <entry key="..\:/Users/user/Documents/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/drawable/ic_baseline_close_24.xml" value="0.113" />
         <entry key="..\:/Users/user/Documents/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/drawable/ic_baseline_create_24.xml" value="0.113" />
         <entry key="..\:/Users/user/Documents/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/drawable/ic_baseline_favorite_border_24.xml" value="0.113" />
+        <entry key="..\:/Users/user/Documents/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.239" />
+        <entry key="..\:/Users/user/Documents/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/drawable/ic_baseline_image_24.xml" value="0.239" />
+        <entry key="..\:/Users/user/Documents/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/drawable/ic_baseline_location_on_24.xml" value="0.239" />
+        <entry key="..\:/Users/user/Documents/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/drawable/ic_baseline_login_24.xml" value="0.239" />
+        <entry key="..\:/Users/user/Documents/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/drawable/ic_baseline_logout_24.xml" value="0.239" />
+        <entry key="..\:/Users/user/Documents/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.239" />
+        <entry key="..\:/Users/user/Documents/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/drawable/ic_baseline_tag_24.xml" value="0.239" />
+        <entry key="..\:/Users/user/Documents/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/drawable/layout_background.xml" value="0.239" />
+        <entry key="..\:/Users/user/Documents/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/layout/activity_add.xml" value="0.1" />
         <entry key="..\:/Users/user/Documents/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/layout/activity_add_page.xml" value="0.264" />
         <entry key="..\:/Users/user/Documents/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/layout/activity_detail.xml" value="0.14764492753623187" />
         <entry key="..\:/Users/user/Documents/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/layout/activity_guide.xml" value="0.25364583333333335" />
@@ -20,7 +30,7 @@
         <entry key="..\:/Users/user/Documents/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/layout/activity_my_page.xml" value="0.176" />
         <entry key="..\:/Users/user/Documents/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/layout/activity_second.xml" value="0.1" />
         <entry key="..\:/Users/user/Documents/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/layout/activity_sign_up.xml" value="0.18106995884773663" />
-        <entry key="..\:/Users/user/Documents/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/layout/add_body.xml" value="0.1403985507246377" />
+        <entry key="..\:/Users/user/Documents/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/layout/add_body.xml" value="0.2" />
         <entry key="..\:/Users/user/Documents/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/layout/detail_body.xml" value="0.2390625" />
         <entry key="..\:/Users/user/Documents/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/layout/main_body.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/user/Documents/GitHub/MapSIE_android_kotlin/MapSIE/app/src/main/res/layout/main_drawer_header.xml" value="0.14764492753623187" />
