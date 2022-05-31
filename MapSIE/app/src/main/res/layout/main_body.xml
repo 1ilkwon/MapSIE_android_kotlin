@@ -48,11 +48,11 @@
                 android:layout_height="wrap_content"
                 android:text="cafe"/>
             <Button
-                android:id="@+id/place"
+                android:id="@+id/park"
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="place"/>
+                android:text="Park"/>
         </TableRow>
     </TableLayout>
 
