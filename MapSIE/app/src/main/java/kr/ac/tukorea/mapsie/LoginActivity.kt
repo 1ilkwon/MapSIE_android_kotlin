@@ -10,6 +10,7 @@ import com.google.firebase.ktx.Firebase
 import kr.ac.tukorea.mapsie.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +33,6 @@ class LoginActivity : AppCompatActivity() {
             startActivity(
                 Intent(this, SignUpActivity::class.java)
             )
-
         }
     }
 
