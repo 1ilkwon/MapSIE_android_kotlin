@@ -1,5 +1,6 @@
 package kr.ac.tukorea.mapsie
 
+import kr.ac.tukorea.mapsie.SearchPage.ResultSearchKeyword
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header

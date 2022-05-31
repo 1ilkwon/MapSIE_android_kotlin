@@ -15,6 +15,7 @@
         android:layout_height="wrap_content"
         android:text="카카오맵 위치" />
     <androidx.appcompat.widget.SearchView
+        android:id="@+id/search_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"

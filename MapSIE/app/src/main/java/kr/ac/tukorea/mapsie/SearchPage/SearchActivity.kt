@@ -1,6 +1,5 @@
 package kr.ac.tukorea.mapsie.SearchPage
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -18,8 +17,8 @@ import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.util.FusedLocationSource
 import kr.ac.tukorea.mapsie.KakaoAPI
 import kr.ac.tukorea.mapsie.R
-import kr.ac.tukorea.mapsie.ResultSearchKeyword
 import kr.ac.tukorea.mapsie.databinding.ActivitySearchBinding
+import kr.ac.tukorea.mapsie.SearchPage.ResultSearchKeyword
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -98,8 +97,6 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback {
             btn_prevPage.visibility = View.VISIBLE
             btn_nextPage.visibility = View.VISIBLE
             tv_pageNumber.visibility = View.VISIBLE
-
-
         }
 
         // 이전 페이지 버튼

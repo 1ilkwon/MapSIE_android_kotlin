@@ -18,6 +18,9 @@
         <activity
             android:name=".MapActivity"
             android:exported="true" />
+        <activity
+            android:name=".SearchPage.SearchActivity"
+            android:exported="true" />
         <!-- 로딩화면 -->
         <activity
             android:name=".SplashActivity"
@@ -29,9 +32,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".AddPageActivity"
-            android:exported="false" />
         <activity
             android:name=".GuideActivity"
             android:exported="false" />

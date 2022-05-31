@@ -5,11 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
 import android.os.Handler
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.ArrayAdapter
-import android.widget.ImageButton
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
@@ -69,6 +67,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         supportActionBar?.setDisplayShowTitleEnabled(false) // 툴바에 타이틀 안보이게
         toolbar.title = "MapSIE"
         binding.navigationView.setNavigationItemSelectedListener(this)
+
+        // 원빈 추가 (돋보기 모양 누르면 Search 페이지로)
+        binding.mainLayout.searchEditText.setOnClickListener {
+            startActivity(Intent(this, SearchActivity::class.java))
+        }
 
         db.collection("users").document(Firebase.auth.currentUser?.uid ?: "No User").get().addOnSuccessListener {
             member_nickname.text = it["signName"].toString()
