@@ -92,6 +92,7 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                 }
                                 // db에 저장 완료 시 "저장완료" 토스트메시지로 출력
                                 Toast.makeText(this@AddActivity, "저장 완료!", Toast.LENGTH_SHORT).show()
+
                             }
                         } // 이하 반복
                         1 -> { //디저트 맛집 Cafe2
@@ -249,7 +250,6 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                     }
                 }
         }
-        Toast.makeText(this, "생성완료", Toast.LENGTH_SHORT).show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

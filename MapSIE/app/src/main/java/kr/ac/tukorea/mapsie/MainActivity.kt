@@ -186,7 +186,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     themeAdapter = ThemeAdapter(this,themeList)
                     binding.mainLayout.themeRecycler.adapter = themeAdapter
                     themeAdapter.notifyDataSetChanged()
-                }
+            }
                 }
                 db.collection("Foods").get().addOnSuccessListener { result ->
                     for (document in result) {

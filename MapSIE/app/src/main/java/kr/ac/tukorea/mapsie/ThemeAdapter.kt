@@ -37,6 +37,8 @@ class ThemeAdapter(private val context:Context, private val themeList: ArrayList
         val listener = View.OnClickListener { it ->
             Toast.makeText(it.context, "title : ${item.title}", Toast.LENGTH_SHORT).show()
         }
+
+
         holder.apply {
             bind(listener, item)
             itemView.tag = item
