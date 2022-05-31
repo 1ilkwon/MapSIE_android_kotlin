@@ -3,7 +3,6 @@ plugins {
     id 'kotlin-android'
     id 'com.google.gms.google-services'
     id 'kotlin-android-extensions'
-    id 'kotlin-android-extensions' // (아래꺼로 수정)
     // id 'kotlin-parcelize' // 이거 원래 없는거 위에꺼 오류로 인해서 생성
 }
 
