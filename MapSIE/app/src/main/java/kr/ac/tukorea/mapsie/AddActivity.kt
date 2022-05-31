@@ -4,8 +4,13 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.Adapter
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
@@ -17,20 +22,31 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_detail.*
-import kotlinx.android.synthetic.main.add_body.*
-import kotlinx.android.synthetic.main.main_drawer_header.*
 import kotlinx.android.synthetic.main.main_toolbar.*
-import android.widget.ArrayAdapter
 import kr.ac.tukorea.mapsie.databinding.ActivityAddBinding
-import kr.ac.tukorea.mapsie.databinding.ActivityMainBinding
-import kr.ac.tukorea.mapsie.databinding.AddBodyBinding
 
 class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+    // 스피너 배열 index로 뽑아오기 위해 사용
+    var pos = 0
+    // 스피너에 들어갈 배열
+    var dataArr = arrayOf(
+        "카공하기 좋은 곳",
+        "디저트 맛집",
+        "뷰가 좋은 카페",
+        "양식이 땡길 때",
+        "혼밥하기 좋은 곳",
+        "소개팅 할 때 추천",
+        "산책하기 좋은 공원",
+        "런닝하기 좋은 공원",
+        "꽃구경하기 좋은 공원"
+    )
+
     private lateinit var binding: ActivityAddBinding
 
     var db: FirebaseFirestore = Firebase.firestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         //binding 방식으로 변경
         binding = ActivityAddBinding.inflate(layoutInflater)
@@ -41,31 +57,213 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
         toolbar.title = "MapSIE"
         binding.navigationView.setNavigationItemSelectedListener(this)
 
-        db.collection("users").document(Firebase.auth.currentUser?.uid ?: "No User").get().addOnSuccessListener {
-            member_nickname.text = it["signName"].toString()
-        }.addOnFailureListener {
-            Toast.makeText(this, ".", Toast.LENGTH_SHORT).show()
+        var adapter: ArrayAdapter<String>
+        adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, dataArr)
+        binding.mainLayout.addTheme.adapter = adapter
+        // 스피너 수정 -> 목록에 스피너 띄우기
+        binding.mainLayout.addTheme.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+
+                }
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?,position: Int, id: Long) {
+                    pos = position
+                    // 스피너 선택 이벤트, pos는 0 부터 위 dataArr의 배열에서 index로 들고옴
+                    when (position) {
+                        0 -> { //카공하기 좋은 곳 Cafe1
+                            var countNum: Int = 0
+                            binding.mainLayout.saveBtn.setOnClickListener {
+                                // 사용자가 모든 정보를 입력하지 않으면 "모든 정보를 입력해주세요" 토스트메시지
+                                if (binding.mainLayout.addName.text.toString().equals("") || binding.mainLayout.addAdress.text.toString().equals("") || binding.mainLayout.addIntroduce.text.toString().equals(""))
+                                {Toast.makeText(this@AddActivity, "모든 정보를 입력해주세요", Toast.LENGTH_SHORT).show()
+                                } else {
+                                    // 저장할 장소에 함께 들어가야 할 데이터 hashmap으로 저장 -> **(차후에 address 지도 팀이랑 연결 필요)
+                                    var storeInfoMap = hashMapOf(
+                                        "address" to binding.mainLayout.addAdress.text.toString(),
+                                        "name" to binding.mainLayout.addName.text.toString(),
+                                        "introduce" to binding.mainLayout.addIntroduce.text.toString()
+                                    )
+                                    // firebase 구조에 따라 데이터 저장
+                                    db.collection("Cafes").document("Cafe1").collection("cafe1")
+                                        .document("Cafe1_" + countNum.toString())
+                                        .set(storeInfoMap)
+                                    // 0 -> {...} 함수 내에서 count를 해줌으로 하나의 테마에 새로운 장소가 저장될 때마다 각각 1을 count 해줌
+                                    countNum++
+                                }
+                                // db에 저장 완료 시 "저장완료" 토스트메시지로 출력
+                                Toast.makeText(this@AddActivity, "저장 완료!", Toast.LENGTH_SHORT).show()
+                            }
+                        } // 이하 반복
+                        1 -> { //디저트 맛집 Cafe2
+                            var countNum: Int = 0
+                            binding.mainLayout.saveBtn.setOnClickListener {
+                                if (binding.mainLayout.addName.text.toString().equals("") || binding.mainLayout.addAdress.text.toString().equals("") || binding.mainLayout.addIntroduce.text.toString().equals(""))
+                                {Toast.makeText(this@AddActivity, "모든 정보를 입력해주세요", Toast.LENGTH_SHORT).show()
+                                } else {
+                                    var storeInfoMap = hashMapOf(
+                                        "address" to binding.mainLayout.addAdress.text.toString(),
+                                        "name" to binding.mainLayout.addName.text.toString(),
+                                        "introduce" to binding.mainLayout.addIntroduce.text.toString()
+                                    )
+                                    db.collection("Cafes").document("Cafe2").collection("cafe2")
+                                        .document("Cafe2_" + countNum.toString())
+                                        .set(storeInfoMap)
+                                    countNum++
+                                }
+                                Toast.makeText(this@AddActivity, "저장 완료!", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                        2 -> { //뷰가 좋은 카페 Cafe3
+                            var countNum: Int = 0
+                            binding.mainLayout.saveBtn.setOnClickListener {
+                                if (binding.mainLayout.addName.text.toString().equals("") || binding.mainLayout.addAdress.text.toString().equals("") || binding.mainLayout.addIntroduce.text.toString().equals(""))
+                                {Toast.makeText(this@AddActivity, "모든 정보를 입력해주세요", Toast.LENGTH_SHORT).show()
+                                } else {
+                                    var storeInfoMap = hashMapOf(
+                                        "address" to binding.mainLayout.addAdress.text.toString(),
+                                        "name" to binding.mainLayout.addName.text.toString(),
+                                        "introduce" to binding.mainLayout.addIntroduce.text.toString()
+                                    )
+                                    db.collection("Cafes").document("Cafe3").collection("cafe3")
+                                        .document("Cafe3_" + countNum.toString())
+                                        .set(storeInfoMap)
+                                    countNum++
+                                }
+                                Toast.makeText(this@AddActivity, "저장 완료!", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                        3 -> { //양식이 땡길 때 Food1
+                            var countNum: Int = 0
+                            binding.mainLayout.saveBtn.setOnClickListener {
+                                if (binding.mainLayout.addName.text.toString().equals("") || binding.mainLayout.addAdress.text.toString().equals("") || binding.mainLayout.addIntroduce.text.toString().equals(""))
+                                {Toast.makeText(this@AddActivity, "모든 정보를 입력해주세요", Toast.LENGTH_SHORT).show()
+                                } else {
+                                    var storeInfoMap = hashMapOf(
+                                        "address" to binding.mainLayout.addAdress.text.toString(),
+                                        "name" to binding.mainLayout.addName.text.toString(),
+                                        "introduce" to binding.mainLayout.addIntroduce.text.toString()
+                                    )
+                                    db.collection("Foods").document("Food1").collection("food1")
+                                        .document("Food1_" + countNum.toString())
+                                        .set(storeInfoMap)
+                                    countNum++
+                                }
+                                Toast.makeText(this@AddActivity, "저장 완료!", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                        4 -> { //혼밥하기 좋은 곳 Food2
+                            var countNum: Int = 0
+                            binding.mainLayout.saveBtn.setOnClickListener {
+                                if (binding.mainLayout.addName.text.toString().equals("") || binding.mainLayout.addAdress.text.toString().equals("") || binding.mainLayout.addIntroduce.text.toString().equals(""))
+                                {Toast.makeText(this@AddActivity, "모든 정보를 입력해주세요", Toast.LENGTH_SHORT).show()
+                                } else {
+                                    var storeInfoMap = hashMapOf(
+                                        "address" to binding.mainLayout.addAdress.text.toString(),
+                                        "name" to binding.mainLayout.addName.text.toString(),
+                                        "introduce" to binding.mainLayout.addIntroduce.text.toString()
+                                    )
+                                    db.collection("Foods").document("Food2").collection("food2")
+                                        .document("Food2_" + countNum.toString())
+                                        .set(storeInfoMap)
+                                    countNum++
+                                }
+                                Toast.makeText(this@AddActivity, "저장 완료!", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                        5 -> { //소개팅 할 때 추천 Food3
+                            var countNum: Int = 0
+                            binding.mainLayout.saveBtn.setOnClickListener {
+                                if (binding.mainLayout.addName.text.toString().equals("") || binding.mainLayout.addAdress.text.toString().equals("") || binding.mainLayout.addIntroduce.text.toString().equals(""))
+                                {Toast.makeText(this@AddActivity, "모든 정보를 입력해주세요", Toast.LENGTH_SHORT).show()
+                                } else {
+                                    var storeInfoMap = hashMapOf(
+                                        "address" to binding.mainLayout.addAdress.text.toString(),
+                                        "name" to binding.mainLayout.addName.text.toString(),
+                                        "introduce" to binding.mainLayout.addIntroduce.text.toString()
+                                    )
+                                    db.collection("Foods").document("Food3").collection("food3")
+                                        .document("Food3_" + countNum.toString())
+                                        .set(storeInfoMap)
+                                    countNum++
+                                }
+                                Toast.makeText(this@AddActivity, "저장 완료!", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                        6 -> { //산책하기 좋은 공원 Park1
+                            var countNum: Int = 0
+                            binding.mainLayout.saveBtn.setOnClickListener {
+                                if (binding.mainLayout.addName.text.toString().equals("") || binding.mainLayout.addAdress.text.toString().equals("") || binding.mainLayout.addIntroduce.text.toString().equals(""))
+                                {Toast.makeText(this@AddActivity, "모든 정보를 입력해주세요", Toast.LENGTH_SHORT).show()
+                                } else {
+                                    var storeInfoMap = hashMapOf(
+                                        "address" to binding.mainLayout.addAdress.text.toString(),
+                                        "name" to binding.mainLayout.addName.text.toString(),
+                                        "introduce" to binding.mainLayout.addIntroduce.text.toString()
+                                    )
+                                    db.collection("Park").document("Park1").collection("park1")
+                                        .document("Park1_"+ countNum.toString())
+                                        .set(storeInfoMap)
+                                    countNum++
+                                }
+                                Toast.makeText(this@AddActivity, "저장 완료!", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                        7 -> { //런닝하기 좋은 공원 Park2
+                            var countNum: Int = 0
+                            binding.mainLayout.saveBtn.setOnClickListener {
+                                if (binding.mainLayout.addName.text.toString().equals("") || binding.mainLayout.addAdress.text.toString().equals("") || binding.mainLayout.addIntroduce.text.toString().equals(""))
+                                {Toast.makeText(this@AddActivity, "모든 정보를 입력해주세요", Toast.LENGTH_SHORT).show()
+                                } else {
+                                    var storeInfoMap = hashMapOf(
+                                        "address" to binding.mainLayout.addAdress.text.toString(),
+                                        "name" to binding.mainLayout.addName.text.toString(),
+                                        "introduce" to binding.mainLayout.addIntroduce.text.toString()
+                                    )
+                                    db.collection("Park").document("Park2").collection("park2")
+                                        .document("Park2_"+ countNum.toString())
+                                        .set(storeInfoMap)
+                                    countNum++
+                                }
+                                Toast.makeText(this@AddActivity, "저장 완료!", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                        8 -> { //꽃구경하기 좋은 공원 Park3
+                            var countNum: Int = 0
+                            binding.mainLayout.saveBtn.setOnClickListener {
+                                if (binding.mainLayout.addName.text.toString().equals("") || binding.mainLayout.addAdress.text.toString().equals("") || binding.mainLayout.addIntroduce.text.toString().equals(""))
+                                {Toast.makeText(this@AddActivity, "모든 정보를 입력해주세요", Toast.LENGTH_SHORT).show()
+                                } else {
+                                    var storeInfoMap = hashMapOf(
+                                        "address" to binding.mainLayout.addAdress.text.toString(),
+                                        "name" to binding.mainLayout.addName.text.toString(),
+                                        "introduce" to binding.mainLayout.addIntroduce.text.toString()
+                                    )
+                                    db.collection("Park").document("Park3").collection("park3")
+                                        .document("Park3_"+ countNum.toString())
+                                        .set(storeInfoMap)
+                                    countNum++
+                                }
+                                Toast.makeText(this@AddActivity, "저장 완료!", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+                }
         }
-
-        binding.mainLayout.saveBtn.setOnClickListener{
-            Toast.makeText(this, "저장되었습니다.", Toast.LENGTH_SHORT).show()
-        }
-
-        themeSpinner() //스피너메서드
-
+        Toast.makeText(this, "생성완료", Toast.LENGTH_SHORT).show()
     }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar_menu, menu)       //툴바 메뉴
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {   //툴바에 있는 메뉴 누를 때
-        when(item.itemId){
-            android.R.id.home-> {   //뒤로가기 버튼
+        when (item.itemId) {
+            android.R.id.home -> {   //뒤로가기 버튼
                 finish()
                 return true
             }
-            R.id.toolbar_menu->{ // 메뉴 버튼
+            R.id.toolbar_menu -> { // 메뉴 버튼
                 drawer_layout.openDrawer(GravityCompat.END)    // 네비게이션 드로어 열기(오른쪽에서 왼쪽으로)
             }
         }
@@ -73,21 +271,22 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
     }
 
     override fun onBackPressed() {  //기본 폰에 내장되어 있는 ◀뒤로가기 누르면
-        if(drawer_layout.isDrawerOpen(GravityCompat.END)){
+        if (drawer_layout.isDrawerOpen(GravityCompat.END)) {
             drawer_layout.closeDrawers()
             // 테스트를 위해 뒤로가기 버튼시 Toast 메시지
-            Toast.makeText(this,"뒤로가기버튼 테스트",Toast.LENGTH_SHORT).show()
-        } else{
+            Toast.makeText(this, "뒤로가기버튼 테스트", Toast.LENGTH_SHORT).show()
+        } else {
             super.onBackPressed()
         }
     }
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {    //메뉴바 클릭 시 실행하는 메서드
-        when(item.itemId){
+        when (item.itemId) {
             R.id.home -> startActivity(Intent(this, MainActivity::class.java))
-            R.id.mypage-> startActivity(Intent(this, MyPageActivity::class.java))
-            R.id.guideline-> startActivity(Intent(this, GuideActivity::class.java))
-            R.id.addPage -> Toast.makeText(this,"추가화면 실행",Toast.LENGTH_SHORT).show()
-            R.id.logout->{
+            R.id.mypage -> startActivity(Intent(this, MyPageActivity::class.java))
+            R.id.guideline -> startActivity(Intent(this, GuideActivity::class.java))
+            R.id.addPage -> Toast.makeText(this, "추가화면 실행", Toast.LENGTH_SHORT).show()
+            R.id.logout -> {
                 val builder = AlertDialog.Builder(this)
                     .apply {
                         setTitle("알림")
@@ -100,7 +299,7 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                 System.exit(0)
                             }, 1000)
                         }
-                        setNegativeButton("아니요"){_,_,->
+                        setNegativeButton("아니요") { _, _, ->
                             return@setNegativeButton
                         }
                         show()
@@ -108,14 +307,5 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
             }
         }
         return false
-    }
-
-    private fun themeSpinner(){ //테마스피너 항목 추가 및 어댑터
-        var themeList = arrayOf("카공하기 좋은 카페", "혼밥하기 좋은 식당", "꽃구경 가기 좋은 공원")
-
-        var adapter:ArrayAdapter<String>
-        adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, themeList)
-        binding.mainLayout.addTheme.adapter = adapter
-
     }
 }

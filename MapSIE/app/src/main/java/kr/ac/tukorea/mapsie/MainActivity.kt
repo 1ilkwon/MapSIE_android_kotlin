@@ -31,6 +31,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var binding: ActivityMainBinding
     // firestore 연결 위해 기입
     var db: FirebaseFirestore = Firebase.firestore
+    var pos = 0
+    var i : Int = 1
+    var dataArr = arrayOf(
+        "카공하기 좋은 곳",
+        "디저트 맛집",
+        "뷰가 좋은 카페",
+        "양식이 땡길 때",
+        "혼밥하기 좋은 곳",
+        "소개팅 할 때 추천",
+        "산책하기 좋은 공원",
+        "런닝하기 좋은 공원",
+        "꽃구경하기 좋은 공원"
+    )
 
     //recyclerview를 위한 코드
     lateinit var themeAdapter: ThemeAdapter
@@ -123,13 +136,132 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return false
     }
     private fun initRecycler(){
-        var themeList = arrayListOf<ThemeData>( //테마 추가
-            ThemeData(ContextCompat.getDrawable(this, R.drawable.ic_baseline_favorite_border_24)!!, "테마 제목"),  //테마 추가
-            ThemeData(ContextCompat.getDrawable(this, R.drawable.flower)!!, "꽃구경 가기 좋은 공원")
-        )
-        themeAdapter = ThemeAdapter(this, themeList)
-        binding.mainLayout.themeRecycler.adapter = themeAdapter   // main_body.xml에 id값 theme_recycler
+        // **<생각해 보니 테마까지 db에서 가져올 필요 없을 수도 있을 것 같음> => 수정 필요
+        // 각각의 리사이클러뷰 아이템 클릭하면 지도 떠야함 => 연결 필요
+        // All에 넣는게 더 효율적을 것으로 보이긴 함
+        var themeList = arrayListOf<ThemeData>()
+        db.collection("Cafes").get().addOnSuccessListener { result ->
+            for (document in result) {
+                var Tname = document.data?.get("Tname").toString()
+                themeList.add(
+                    ThemeData(ContextCompat.getDrawable(this,R.drawable.ic_baseline_favorite_border_24)!!, Tname)
+                )
+                themeAdapter = ThemeAdapter(this,themeList)
+                binding.mainLayout.themeRecycler.adapter = themeAdapter
+                themeAdapter.notifyDataSetChanged()
+            }
+        }
+        db.collection("Foods").get().addOnSuccessListener { result ->
+            for (document in result) {
+                var Tname = document.data?.get("Tname").toString()
+                themeList.add(
+                    ThemeData(ContextCompat.getDrawable(this,R.drawable.ic_baseline_favorite_border_24)!!, Tname)
+                )
+                themeAdapter = ThemeAdapter(this,themeList)
+                binding.mainLayout.themeRecycler.adapter = themeAdapter
+                themeAdapter.notifyDataSetChanged()
+            }
+        }
+        db.collection("Park").get().addOnSuccessListener { result ->
+            for (document in result) {
+                var Tname = document.data?.get("Tname").toString()
+                themeList.add(
+                    ThemeData(ContextCompat.getDrawable(this,R.drawable.ic_baseline_favorite_border_24)!!, Tname)
+                )
+                themeAdapter = ThemeAdapter(this,themeList)
+                binding.mainLayout.themeRecycler.adapter = themeAdapter
+                themeAdapter.notifyDataSetChanged()
+            }
+        }
+        // 첫 페이지에서 All 눌렀을 때
+        // (차후에 firebase에 'All' Collection 만들어서 나누는게 효율적일지 고민 중)
+        binding.mainLayout.all.setOnClickListener {
+        var themeList = arrayListOf<ThemeData>()
+            db.collection("Cafes").get().addOnSuccessListener { result ->
+                for (document in result) {
+                    var Tname = document.data?.get("Tname").toString()
+                    themeList.add(
+                        ThemeData(ContextCompat.getDrawable(this,R.drawable.ic_baseline_favorite_border_24)!!, Tname)
+                    )
+                    themeAdapter = ThemeAdapter(this,themeList)
+                    binding.mainLayout.themeRecycler.adapter = themeAdapter
+                    themeAdapter.notifyDataSetChanged()
+                }
+                }
+                db.collection("Foods").get().addOnSuccessListener { result ->
+                    for (document in result) {
+                        var Tname = document.data?.get("Tname").toString()
+                        themeList.add(
+                            ThemeData(ContextCompat.getDrawable(this,R.drawable.ic_baseline_favorite_border_24)!!, Tname)
+                        )
+                        themeAdapter = ThemeAdapter(this,themeList)
+                        binding.mainLayout.themeRecycler.adapter = themeAdapter
+                        themeAdapter.notifyDataSetChanged()
+                    }
+                }
+                db.collection("Park").get().addOnSuccessListener { result ->
+                    for (document in result) {
+                        var Tname = document.data?.get("Tname").toString()
+                        themeList.add(
+                            ThemeData(ContextCompat.getDrawable(this,R.drawable.ic_baseline_favorite_border_24)!!, Tname)
+                        )
+                        themeAdapter = ThemeAdapter(this,themeList)
+                        binding.mainLayout.themeRecycler.adapter = themeAdapter
+                        themeAdapter.notifyDataSetChanged()
+                    }
+                }
+            }
 
-        themeAdapter.notifyDataSetChanged()
+
+        binding.mainLayout.cafe.setOnClickListener {
+            var themeList = arrayListOf<ThemeData>()
+            db.collection("Cafes").get().addOnSuccessListener { result ->
+                for (document in result) {
+                    var Tname = document.data?.get("Tname").toString()
+                    themeList.add(
+                        ThemeData(ContextCompat.getDrawable(this,R.drawable.ic_baseline_favorite_border_24)!!, Tname)
+                    )
+                    themeAdapter = ThemeAdapter(this,themeList)
+                    binding.mainLayout.themeRecycler.adapter = themeAdapter
+                    themeAdapter.notifyDataSetChanged()
+                }
+            }
+        }
+        binding.mainLayout.food.setOnClickListener {
+            var themeList = arrayListOf<ThemeData>()
+            db.collection("Foods").get().addOnSuccessListener { result ->
+                for (document in result) {
+                    var Tname = document.data?.get("Tname").toString()
+                    themeList.add(
+                        ThemeData(ContextCompat.getDrawable(this,R.drawable.ic_baseline_favorite_border_24)!!, Tname)
+                    )
+                    themeAdapter = ThemeAdapter(this,themeList)
+                    binding.mainLayout.themeRecycler.adapter = themeAdapter
+                    themeAdapter.notifyDataSetChanged()
+                }
+            }
+        }
+        binding.mainLayout.park.setOnClickListener {
+            var themeList = arrayListOf<ThemeData>()
+            db.collection("Park").get().addOnSuccessListener { result ->
+                for (document in result) {
+                    var Tname = document.data?.get("Tname").toString()
+                    themeList.add(
+                        ThemeData(ContextCompat.getDrawable(this,R.drawable.ic_baseline_favorite_border_24)!!, Tname)
+                    )
+                    themeAdapter = ThemeAdapter(this,themeList)
+                    binding.mainLayout.themeRecycler.adapter = themeAdapter
+                    themeAdapter.notifyDataSetChanged()
+                }
+            }
+        }
+//        var themeList = arrayListOf<ThemeData>( //테마 추가
+//            ThemeData(ContextCompat.getDrawable(this, R.drawable.ic_baseline_favorite_border_24)!!, "테마 제목"),  //테마 추가
+//            ThemeData(ContextCompat.getDrawable(this, R.drawable.flower)!!, "꽃구경 가기 좋은 공원")
+//        )
+//        themeAdapter = ThemeAdapter(this, themeList)
+//        binding.mainLayout.themeRecycler.adapter = themeAdapter   // main_body.xml에 id값 theme_recycler
+//
+//        themeAdapter.notifyDataSetChanged()
     }
 }
