@@ -16,8 +16,9 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         //binding으로 변경
-        val binding = ActivityLoginBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
         // 로그인 버튼 클릭 이벤트 -> doLogin(하단에 함수 있음)
         binding.login.setOnClickListener{
