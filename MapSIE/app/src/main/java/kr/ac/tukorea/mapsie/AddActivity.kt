@@ -8,24 +8,51 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Adapter
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.naver.maps.geometry.LatLng
+import com.naver.maps.map.LocationTrackingMode
+import com.naver.maps.map.overlay.InfoWindow
+import com.naver.maps.map.overlay.Marker
+import com.naver.maps.map.util.FusedLocationSource
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.main_toolbar.*
+import kr.ac.tukorea.mapsie.SearchPage.ListAdapter
+import kr.ac.tukorea.mapsie.SearchPage.ListLayout
+import kr.ac.tukorea.mapsie.SearchPage.SearchActivity
 import kr.ac.tukorea.mapsie.databinding.ActivityAddBinding
+import kr.ac.tukorea.mapsie.databinding.ActivitySearchBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+    private lateinit var locationSource: FusedLocationSource
+
+    companion object {
+        private const val LOCATION_PERMISSION_REQUEST_CODE = 1000
+
+        // 카카오 검색 API
+        const val BASE_URL = "https://dapi.kakao.com/"
+        const val API_KEY = "KakaoAK d17bbf0efd9f63a03f1bfc74fa148dbd"  // REST API 키
+    }
+
+    private val listItems = arrayListOf<ListLayout>()   // 리사이클러 뷰 아이템
+    private val listAdapter = ListAdapter(listItems)    // 리사이클러 뷰 어댑터
+    private var keyword = ""        // 검색 키워드
+
     // 스피너 배열 index로 뽑아오기 위해 사용
     var pos = 0
     // 스피너에 들어갈 배열
@@ -308,4 +335,59 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
         }
         return false
     }
+
+
+// 여기부터 수정
+
+    // 키워드 검색 함수
+    private fun searchKeyword(keyword: String, page: Int) {
+        val retrofit = Retrofit.Builder()          // Retrofit 구성
+            .baseUrl(SearchActivity.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        val api = retrofit.create(KakaoAPI::class.java)            // 통신 인터페이스를 객체로 생성
+        val call = api.getSearchKeyword(SearchActivity.API_KEY, "경기도 시흥시 $keyword", page)    // 검색 조건 입력
+
+        // API 서버에 요청
+        call.enqueue(object : Callback<ResultSearchKeyword> {
+            override fun onResponse(
+                call: Call<ResultSearchKeyword>,
+                response: Response<ResultSearchKeyword>
+            ) {
+                // 통신 성공
+                Log.w("LocalSearch", "통신 성공")
+                addItemsAndMarkers(response.body())
+            }
+
+            override fun onFailure(call: Call<ResultSearchKeyword>, t: Throwable) {
+                // 통신 실패
+                Log.w("LocalSearch", "통신 실패: ${t.message}")
+            }
+        })
+    }
+
+    // 검색 결과 처리 함수
+    private fun addItemsAndMarkers(searchResult: ResultSearchKeyword?) {
+        if (!searchResult?.documents.isNullOrEmpty()) {
+            // 검색 결과 있음
+            listItems.clear()                   // 리스트 초기화
+            for (document in searchResult!!.documents) {
+                // 결과를 리사이클러 뷰에 추가
+                val item = ListLayout(
+                    document.place_name,
+                    document.road_address_name,
+                    document.address_name,
+                    document.x.toDouble(),
+                    document.y.toDouble()
+                )
+                listItems.add(item)
+                listAdapter.notifyDataSetChanged()
+            }
+
+        } else {
+            // 검색 결과 없음
+            Toast.makeText(this, "검색 결과가 없습니다", Toast.LENGTH_SHORT).show()
+        }
+    }
+
 }
