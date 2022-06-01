@@ -12,6 +12,9 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import com.kakao.sdk.common.KakaoSdk.init
 import kotlinx.android.synthetic.main.theme_item.view.*
 
@@ -21,9 +24,10 @@ class ThemeAdapter(private val context:Context, private val themeList: ArrayList
         inner class ItemViewHolder(itemView:View): RecyclerView.ViewHolder(itemView){
             private var view:View = itemView
 
+
             fun bind(listener: View.OnClickListener, item:ThemeData) {
                 view.theme_title.text = item.title
-                view.theme_img.setImageDrawable(item.img)
+                Glide.with(itemView).load(item.img).into(view.theme_img)
                 view.setOnClickListener(listener)
             }
         }
