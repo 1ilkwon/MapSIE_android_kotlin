@@ -138,6 +138,7 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                     when (position) {
                         0 -> { //카공하기 좋은 곳 Cafe1
                             var countNum: Int = 0
+                            var allCountNum: Int = 0
                             binding.mainLayout.saveBtn.setOnClickListener {
                                 // 사용자가 모든 정보를 입력하지 않으면 "모든 정보를 입력해주세요" 토스트메시지
                                 if (binding.mainLayout.addName.text.toString().equals("") || binding.mainLayout.addAdress.text.toString().equals("") || binding.mainLayout.addIntroduce.text.toString().equals(""))
@@ -150,18 +151,25 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                         "introduce" to binding.mainLayout.addIntroduce.text.toString()
                                     )
                                     // firebase 구조에 따라 데이터 저장
-                                    db.collection("Cafes").document("Cafe1").collection("cafe1")
+                                    db.collection("Cafes").document("Cafe1").collection("Cafe1")
                                         .document("Cafe1_" + countNum.toString())
                                         .set(storeInfoMap)
                                     // 0 -> {...} 함수 내에서 count를 해줌으로 하나의 테마에 새로운 장소가 저장될 때마다 각각 1을 count 해줌
                                     countNum++
+
+                                    // firebase All 전체 저장
+                                    db.collection("All").document("All1").collection("All1").document("All1_" + countNum.toString())
+                                        .set(storeInfoMap)
+                                    allCountNum++
                                 }
                                 // db에 저장 완료 시 "저장완료" 토스트메시지로 출력
                                 Toast.makeText(this@AddActivity, "저장 완료!", Toast.LENGTH_SHORT).show()
+
                             }
                         } // 이하 반복
                         1 -> { //디저트 맛집 Cafe2
                             var countNum: Int = 0
+                            var allCountNum: Int = 0
                             binding.mainLayout.saveBtn.setOnClickListener {
                                 if (binding.mainLayout.addName.text.toString().equals("") || binding.mainLayout.addAdress.text.toString().equals("") || binding.mainLayout.addIntroduce.text.toString().equals(""))
                                 {Toast.makeText(this@AddActivity, "모든 정보를 입력해주세요", Toast.LENGTH_SHORT).show()
@@ -171,16 +179,22 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                         "name" to binding.mainLayout.addName.text.toString(),
                                         "introduce" to binding.mainLayout.addIntroduce.text.toString()
                                     )
-                                    db.collection("Cafes").document("Cafe2").collection("cafe2")
+                                    db.collection("Cafes").document("Cafe2").collection("Cafe2")
                                         .document("Cafe2_" + countNum.toString())
                                         .set(storeInfoMap)
                                     countNum++
+
+                                    // firebase All 전체 저장
+                                    db.collection("All").document("All2").collection("All2").document("All2_" + countNum.toString())
+                                        .set(storeInfoMap)
+                                    allCountNum++
                                 }
                                 Toast.makeText(this@AddActivity, "저장 완료!", Toast.LENGTH_SHORT).show()
                             }
                         }
                         2 -> { //뷰가 좋은 카페 Cafe3
                             var countNum: Int = 0
+                            var allCountNum: Int = 0
                             binding.mainLayout.saveBtn.setOnClickListener {
                                 if (binding.mainLayout.addName.text.toString().equals("") || binding.mainLayout.addAdress.text.toString().equals("") || binding.mainLayout.addIntroduce.text.toString().equals(""))
                                 {Toast.makeText(this@AddActivity, "모든 정보를 입력해주세요", Toast.LENGTH_SHORT).show()
@@ -190,16 +204,22 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                         "name" to binding.mainLayout.addName.text.toString(),
                                         "introduce" to binding.mainLayout.addIntroduce.text.toString()
                                     )
-                                    db.collection("Cafes").document("Cafe3").collection("cafe3")
+                                    db.collection("Cafes").document("Cafe3").collection("Cafe3")
                                         .document("Cafe3_" + countNum.toString())
                                         .set(storeInfoMap)
                                     countNum++
+
+                                    // firebase All 전체 저장
+                                    db.collection("All").document("All3").collection("All3").document("All3_" + countNum.toString())
+                                        .set(storeInfoMap)
+                                    allCountNum++
                                 }
                                 Toast.makeText(this@AddActivity, "저장 완료!", Toast.LENGTH_SHORT).show()
                             }
                         }
                         3 -> { //양식이 땡길 때 Food1
                             var countNum: Int = 0
+                            var allCountNum: Int = 0
                             binding.mainLayout.saveBtn.setOnClickListener {
                                 if (binding.mainLayout.addName.text.toString().equals("") || binding.mainLayout.addAdress.text.toString().equals("") || binding.mainLayout.addIntroduce.text.toString().equals(""))
                                 {Toast.makeText(this@AddActivity, "모든 정보를 입력해주세요", Toast.LENGTH_SHORT).show()
@@ -209,16 +229,22 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                         "name" to binding.mainLayout.addName.text.toString(),
                                         "introduce" to binding.mainLayout.addIntroduce.text.toString()
                                     )
-                                    db.collection("Foods").document("Food1").collection("food1")
+                                    db.collection("Foods").document("Food1").collection("Food1")
                                         .document("Food1_" + countNum.toString())
                                         .set(storeInfoMap)
                                     countNum++
+
+                                    // firebase All 전체 저장
+                                    db.collection("All").document("All4").collection("All4").document("All4_" + countNum.toString())
+                                        .set(storeInfoMap)
+                                    allCountNum++
                                 }
                                 Toast.makeText(this@AddActivity, "저장 완료!", Toast.LENGTH_SHORT).show()
                             }
                         }
                         4 -> { //혼밥하기 좋은 곳 Food2
                             var countNum: Int = 0
+                            var allCountNum: Int = 0
                             binding.mainLayout.saveBtn.setOnClickListener {
                                 if (binding.mainLayout.addName.text.toString().equals("") || binding.mainLayout.addAdress.text.toString().equals("") || binding.mainLayout.addIntroduce.text.toString().equals(""))
                                 {Toast.makeText(this@AddActivity, "모든 정보를 입력해주세요", Toast.LENGTH_SHORT).show()
@@ -228,16 +254,22 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                         "name" to binding.mainLayout.addName.text.toString(),
                                         "introduce" to binding.mainLayout.addIntroduce.text.toString()
                                     )
-                                    db.collection("Foods").document("Food2").collection("food2")
+                                    db.collection("Foods").document("Food2").collection("Food2")
                                         .document("Food2_" + countNum.toString())
                                         .set(storeInfoMap)
                                     countNum++
+
+                                    // firebase All 전체 저장
+                                    db.collection("All").document("All5").collection("All5").document("All5_" + countNum.toString())
+                                        .set(storeInfoMap)
+                                    allCountNum++
                                 }
                                 Toast.makeText(this@AddActivity, "저장 완료!", Toast.LENGTH_SHORT).show()
                             }
                         }
                         5 -> { //소개팅 할 때 추천 Food3
                             var countNum: Int = 0
+                            var allCountNum: Int = 0
                             binding.mainLayout.saveBtn.setOnClickListener {
                                 if (binding.mainLayout.addName.text.toString().equals("") || binding.mainLayout.addAdress.text.toString().equals("") || binding.mainLayout.addIntroduce.text.toString().equals(""))
                                 {Toast.makeText(this@AddActivity, "모든 정보를 입력해주세요", Toast.LENGTH_SHORT).show()
@@ -247,16 +279,22 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                         "name" to binding.mainLayout.addName.text.toString(),
                                         "introduce" to binding.mainLayout.addIntroduce.text.toString()
                                     )
-                                    db.collection("Foods").document("Food3").collection("food3")
+                                    db.collection("Foods").document("Food3").collection("Food3")
                                         .document("Food3_" + countNum.toString())
                                         .set(storeInfoMap)
                                     countNum++
+
+                                    // firebase All 전체 저장
+                                    db.collection("All").document("All6").collection("All6").document("All6_" + countNum.toString())
+                                        .set(storeInfoMap)
+                                    allCountNum++
                                 }
                                 Toast.makeText(this@AddActivity, "저장 완료!", Toast.LENGTH_SHORT).show()
                             }
                         }
                         6 -> { //산책하기 좋은 공원 Park1
                             var countNum: Int = 0
+                            var allCountNum: Int = 0
                             binding.mainLayout.saveBtn.setOnClickListener {
                                 if (binding.mainLayout.addName.text.toString().equals("") || binding.mainLayout.addAdress.text.toString().equals("") || binding.mainLayout.addIntroduce.text.toString().equals(""))
                                 {Toast.makeText(this@AddActivity, "모든 정보를 입력해주세요", Toast.LENGTH_SHORT).show()
@@ -266,16 +304,22 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                         "name" to binding.mainLayout.addName.text.toString(),
                                         "introduce" to binding.mainLayout.addIntroduce.text.toString()
                                     )
-                                    db.collection("Park").document("Park1").collection("park1")
+                                    db.collection("Park").document("Park1").collection("Park1")
                                         .document("Park1_"+ countNum.toString())
                                         .set(storeInfoMap)
                                     countNum++
+
+                                    // firebase All 전체 저장
+                                    db.collection("All").document("All7").collection("All7").document("All7_" + countNum.toString())
+                                        .set(storeInfoMap)
+                                    allCountNum++
                                 }
                                 Toast.makeText(this@AddActivity, "저장 완료!", Toast.LENGTH_SHORT).show()
                             }
                         }
                         7 -> { //런닝하기 좋은 공원 Park2
                             var countNum: Int = 0
+                            var allCountNum: Int = 0
                             binding.mainLayout.saveBtn.setOnClickListener {
                                 if (binding.mainLayout.addName.text.toString().equals("") || binding.mainLayout.addAdress.text.toString().equals("") || binding.mainLayout.addIntroduce.text.toString().equals(""))
                                 {Toast.makeText(this@AddActivity, "모든 정보를 입력해주세요", Toast.LENGTH_SHORT).show()
@@ -285,16 +329,22 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                         "name" to binding.mainLayout.addName.text.toString(),
                                         "introduce" to binding.mainLayout.addIntroduce.text.toString()
                                     )
-                                    db.collection("Park").document("Park2").collection("park2")
+                                    db.collection("Park").document("Park2").collection("Park2")
                                         .document("Park2_"+ countNum.toString())
                                         .set(storeInfoMap)
                                     countNum++
+
+                                    // firebase All 전체 저장
+                                    db.collection("All").document("All8").collection("All8").document("All8_" + countNum.toString())
+                                        .set(storeInfoMap)
+                                    allCountNum++
                                 }
                                 Toast.makeText(this@AddActivity, "저장 완료!", Toast.LENGTH_SHORT).show()
                             }
                         }
                         8 -> { //꽃구경하기 좋은 공원 Park3
                             var countNum: Int = 0
+                            var allCountNum: Int = 0
                             binding.mainLayout.saveBtn.setOnClickListener {
                                 if (binding.mainLayout.addName.text.toString().equals("") || binding.mainLayout.addAdress.text.toString().equals("") || binding.mainLayout.addIntroduce.text.toString().equals(""))
                                 {Toast.makeText(this@AddActivity, "모든 정보를 입력해주세요", Toast.LENGTH_SHORT).show()
@@ -304,10 +354,15 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                         "name" to binding.mainLayout.addName.text.toString(),
                                         "introduce" to binding.mainLayout.addIntroduce.text.toString()
                                     )
-                                    db.collection("Park").document("Park3").collection("park3")
+                                    db.collection("Park").document("Park3").collection("Park3")
                                         .document("Park3_"+ countNum.toString())
                                         .set(storeInfoMap)
                                     countNum++
+
+                                    // firebase All 전체 저장
+                                    db.collection("All").document("All9").collection("All9").document("All9_" + countNum.toString())
+                                        .set(storeInfoMap)
+                                    allCountNum++
                                 }
                                 Toast.makeText(this@AddActivity, "저장 완료!", Toast.LENGTH_SHORT).show()
                             }
@@ -315,7 +370,6 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                     }
                 }
         }
-        Toast.makeText(this, "생성완료", Toast.LENGTH_SHORT).show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

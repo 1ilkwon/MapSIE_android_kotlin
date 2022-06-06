@@ -33,6 +33,12 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".ListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddPageActivity"
+            android:exported="false" />
+        <activity
             android:name=".GuideActivity"
             android:exported="false" />
         <activity
