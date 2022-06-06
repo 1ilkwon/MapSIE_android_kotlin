@@ -49,8 +49,9 @@ class ThemePlaceRecycleActivity : AppCompatActivity() {
                     var name = document.data?.get("name").toString()
                     var address = document["address"].toString()
                     var theme = document["Tname"].toString()
+                    var storeNum = document["storeNum"].toString()
                     //modelList.add(ThemePlaceList(name,address))
-                    modelList.add(ThemePlaceList(name, address,theme))
+                    modelList.add(ThemePlaceList(name, address,theme, storeNum))
 
 
                     val rAdapter = ThemePlaceAdapter(this,modelList)

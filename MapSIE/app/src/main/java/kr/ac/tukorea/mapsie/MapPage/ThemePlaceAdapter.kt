@@ -37,6 +37,7 @@ class ThemePlaceAdapter(private val context: Context, private val themePlaceList
             intent.putExtra("Sname", item.placename)
             intent.putExtra("Saddress", item.placeaddress)
             intent.putExtra("Stheme", item.placeTheme)
+            intent.putExtra("SstoreName", item.placeNum) // 문서 이름
 
 
             intent.run {

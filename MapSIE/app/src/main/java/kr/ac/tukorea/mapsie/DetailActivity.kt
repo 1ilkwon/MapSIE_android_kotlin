@@ -16,6 +16,7 @@ import androidx.core.view.GravityCompat
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -50,6 +51,7 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         Log.d("sname",sName.toString())
         var sAddress = intent.getStringExtra("Saddress")
         var sTheme = intent.getStringExtra("Stheme")
+        //var sStoreNum = intent.getStringExtra("SstoreName")
         Log.d("snamead", sAddress.toString())
         binding.mainLayout.placeName.text = sName.toString()
         binding.mainLayout.placeAddress.text = sAddress.toString()
@@ -67,7 +69,6 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             Toast.makeText(this, ".", Toast.LENGTH_SHORT).show()
         }
 
-
         initRecycler()  //recyclerview 보여주는 메서드
     }
 
@@ -77,13 +78,36 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {   //툴바에 있는 메뉴 누를 때
+        var sStoreNum = intent.getStringExtra("SstoreName")
+        var sName = intent.getStringExtra("Sname")
+        var sTheme = intent.getStringExtra("Stheme")
+        var countNum : Int
         when(item.itemId){
             android.R.id.home-> {   //뒤로가기 버튼
                 finish()
                 return true
             }
             R.id.heart->{ // 하트 버튼
-                Toast.makeText(this,"저장완료" , Toast.LENGTH_SHORT).show()
+                //Toast.makeText(this,"저장완료" , Toast.LENGTH_SHORT).show()
+                db.collection("users").document(Firebase.auth.currentUser?.uid?:"No User")
+                    .get().addOnSuccessListener {
+                        countNum = it["count"].hashCode()
+                        var heartMap = hashMapOf(
+                            "name" to sName,
+                            "Tname" to sTheme,
+                        )
+                        db.collection("users").document(Firebase.auth.currentUser?.uid?:"No User")
+                            .collection("hearts").document("hearts_" + countNum.toString())
+                            .set(heartMap)
+                        countNum++
+
+                        // count 하나씩 올려줌
+                        db.collection("users").document(Firebase.auth.currentUser?.uid?:"No User")
+                            .update("count", FieldValue.increment(1))
+                        Toast.makeText(this,"즐겨찾기 완료", Toast.LENGTH_SHORT).show()
+                    }
+
+
             }
             R.id.toolbar_menu->{ // 메뉴 버튼
                 drawer_layout.openDrawer(GravityCompat.END)    // 네비게이션 드로어 열기(오른쪽에서 왼쪽으로)
