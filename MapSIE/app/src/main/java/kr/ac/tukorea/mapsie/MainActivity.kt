@@ -5,13 +5,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
 import android.os.Handler
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.ArrayAdapter
-import android.widget.ImageButton
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.SearchView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
@@ -26,6 +25,7 @@ import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.main_body.*
 import kotlinx.android.synthetic.main.main_drawer_header.*
 import kotlinx.android.synthetic.main.main_toolbar.*
+import kr.ac.tukorea.mapsie.SearchPage.SearchActivity
 import kr.ac.tukorea.mapsie.databinding.ActivityMainBinding
 import java.util.ArrayList
 
@@ -73,6 +73,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toolbar.title = "MapSIE"
         binding.navigationView.setNavigationItemSelectedListener(this)
 
+        // (돋보기 모양 누르면 Search 페이지로)
+        binding.mainLayout.searchEditText.setOnClickListener {
+            startActivity(Intent(this, SearchActivity::class.java))
+        }
+       /* binding.mainLayout.searchEditText.setOnClickListener {
+            startActivity(Intent(this, SearchActivity::class.java))
+        }*/
+
         db.collection("users").document(Firebase.auth.currentUser?.uid ?: "No User").get().addOnSuccessListener {
             member_nickname.text = it["signName"].toString()
             Glide.with(this).load(it["signImg"]).into(member_icon)
@@ -110,9 +118,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             super.onBackPressed()
         }
     }
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {    //메뉴바 클릭 시 실행하는 메서드
         when(item.itemId){
-            R.id.home -> Toast.makeText(this,"홈화면 실행",Toast.LENGTH_SHORT).show()
+            R.id.home -> Toast.makeText(this, "홈화면 실행", Toast.LENGTH_SHORT).show()
             R.id.mypage-> startActivity(Intent(this, MyPageActivity::class.java))
             R.id.guideline-> startActivity(Intent(this, GuideActivity::class.java))
             R.id.addPage -> startActivity(Intent(this, AddActivity::class.java))

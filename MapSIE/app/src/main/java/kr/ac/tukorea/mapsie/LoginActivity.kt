@@ -34,6 +34,12 @@ class LoginActivity : AppCompatActivity() {
                 Intent(this, SignUpActivity::class.java)
             )
         }
+
+        /*
+        startActivity(
+            Intent(this, MainActivity::class.java)
+        )
+        */
     }
 
     // 로그인 함수, Firebase auth에 입력받은 userEmail과 password가 있다면 로그인 성공시켜서 MainActivity로 인텐트 시킴

@@ -11,7 +11,6 @@ import com.google.firebase.ktx.Firebase
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
 import com.naver.maps.map.util.FusedLocationSource
-import kr.ac.tukorea.mapsie.R
 import kr.ac.tukorea.mapsie.databinding.ActivityMapBinding
 import kr.ac.tukorea.mapsie.ThemeAdapter
 

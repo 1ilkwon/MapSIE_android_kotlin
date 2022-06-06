@@ -41,6 +41,7 @@ class ThemeAdapter(private val context:Context, private val themeList: ArrayList
         val listener = View.OnClickListener { it ->
             //Toast.makeText(it.context, "title : ${item.title}", Toast.LENGTH_SHORT).show()
             val intent = Intent(context, MapActivity::class.java)
+
             intent.putExtra("ThemeName", item.num)
             intent.putExtra("ThemeCollection", item.collect)
             Log.d("checktest", item.num)
