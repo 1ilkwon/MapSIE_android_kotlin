@@ -10,6 +10,7 @@ import android.view.MenuItem
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.SearchView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
@@ -68,10 +69,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toolbar.title = "MapSIE"
         binding.navigationView.setNavigationItemSelectedListener(this)
 
-        // 원빈 추가 (돋보기 모양 누르면 Search 페이지로)
+        // (돋보기 모양 누르면 Search 페이지로)
         binding.mainLayout.searchEditText.setOnClickListener {
             startActivity(Intent(this, SearchActivity::class.java))
         }
+       /* binding.mainLayout.searchEditText.setOnClickListener {
+            startActivity(Intent(this, SearchActivity::class.java))
+        }*/
 
         db.collection("users").document(Firebase.auth.currentUser?.uid ?: "No User").get().addOnSuccessListener {
             member_nickname.text = it["signName"].toString()

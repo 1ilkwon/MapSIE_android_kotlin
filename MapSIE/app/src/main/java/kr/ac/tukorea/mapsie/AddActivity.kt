@@ -97,9 +97,16 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
         rv_list.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         rv_list.adapter = listAdapter
 
+        if (intent.hasExtra("road") && intent.hasExtra("name")) {
+            add_name.setText(intent.getStringExtra("name"))
+            add_adress.setText(intent.getStringExtra("road"))
+//            Toast.makeText(this@AddActivity, "주소,장소 값 INTENT TEST", Toast.LENGTH_SHORT).show()
+        }
+
+
         // 검색 버튼
         btnSearch.setOnClickListener {
-            keyword = add_adress.text.toString()
+            keyword = add_name.text.toString()
             pageNumber = 1
             searchKeyword(keyword, pageNumber)
             rv_list.visibility = View.VISIBLE
@@ -109,7 +116,6 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
         // 리사이클러 뷰 (아이템 클릭 시)
         listAdapter.setItemClickListener(object: ListAdapter.OnItemClickListener {
             override fun onClick(v: View, position: Int) {
-                //
                 add_adress.setText(listItems[position].road)
                 add_name.setText(listItems[position].name)
                 rv_list.visibility = View.GONE

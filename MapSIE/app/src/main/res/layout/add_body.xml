@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="ADRSS" />
+            android:text="NAME" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -53,7 +53,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/add_adress"
+                android:id="@+id/add_name"
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -72,13 +72,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="NAME" />
+            android:text="ADRSS" />
 
         <EditText
-            android:id="@+id/add_name"
+            android:id="@+id/add_adress"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:hint="장소이름(고정)" />
+            android:hint="장소주소(고정)" />
 
         <TextView
             android:layout_width="match_parent"
