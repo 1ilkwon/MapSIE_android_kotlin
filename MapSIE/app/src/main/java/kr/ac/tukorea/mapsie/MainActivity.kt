@@ -15,6 +15,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
+import com.bumptech.glide.Glide
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -26,6 +27,7 @@ import kotlinx.android.synthetic.main.main_body.*
 import kotlinx.android.synthetic.main.main_drawer_header.*
 import kotlinx.android.synthetic.main.main_toolbar.*
 import kr.ac.tukorea.mapsie.databinding.ActivityMainBinding
+import java.util.ArrayList
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var binding: ActivityMainBinding
@@ -71,6 +73,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         db.collection("users").document(Firebase.auth.currentUser?.uid ?: "No User").get().addOnSuccessListener {
             member_nickname.text = it["signName"].toString()
+            Glide.with(this).load(it["signImg"]).into(member_icon)
         }.addOnFailureListener {
             Toast.makeText(this, ".", Toast.LENGTH_SHORT).show()
         }
@@ -143,8 +146,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         db.collection("Cafes").get().addOnSuccessListener { result ->
             for (document in result) {
                 var Tname = document.data?.get("Tname").toString()
+                var Timg = document["Timg"].toString()
                 themeList.add(
-                    ThemeData(ContextCompat.getDrawable(this,R.drawable.ic_baseline_favorite_border_24)!!, Tname)
+                    ThemeData(Timg, Tname)
                 )
                 themeAdapter = ThemeAdapter(this,themeList)
                 binding.mainLayout.themeRecycler.adapter = themeAdapter
@@ -154,8 +158,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         db.collection("Foods").get().addOnSuccessListener { result ->
             for (document in result) {
                 var Tname = document.data?.get("Tname").toString()
+                var Timg = document["Timg"].toString()
                 themeList.add(
-                    ThemeData(ContextCompat.getDrawable(this,R.drawable.ic_baseline_favorite_border_24)!!, Tname)
+                    ThemeData(Timg, Tname)
                 )
                 themeAdapter = ThemeAdapter(this,themeList)
                 binding.mainLayout.themeRecycler.adapter = themeAdapter
@@ -165,8 +170,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         db.collection("Park").get().addOnSuccessListener { result ->
             for (document in result) {
                 var Tname = document.data?.get("Tname").toString()
+                var Timg = document["Timg"].toString()
                 themeList.add(
-                    ThemeData(ContextCompat.getDrawable(this,R.drawable.ic_baseline_favorite_border_24)!!, Tname)
+                    ThemeData(Timg, Tname)
                 )
                 themeAdapter = ThemeAdapter(this,themeList)
                 binding.mainLayout.themeRecycler.adapter = themeAdapter
@@ -180,8 +186,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             db.collection("Cafes").get().addOnSuccessListener { result ->
                 for (document in result) {
                     var Tname = document.data?.get("Tname").toString()
+                    var Timg = document["Timg"].toString()
                     themeList.add(
-                        ThemeData(ContextCompat.getDrawable(this,R.drawable.ic_baseline_favorite_border_24)!!, Tname)
+                        ThemeData(Timg, Tname)
                     )
                     themeAdapter = ThemeAdapter(this,themeList)
                     binding.mainLayout.themeRecycler.adapter = themeAdapter
@@ -191,8 +198,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 db.collection("Foods").get().addOnSuccessListener { result ->
                     for (document in result) {
                         var Tname = document.data?.get("Tname").toString()
+                        var Timg = document["Timg"].toString()
                         themeList.add(
-                            ThemeData(ContextCompat.getDrawable(this,R.drawable.ic_baseline_favorite_border_24)!!, Tname)
+                            ThemeData(Timg, Tname)
                         )
                         themeAdapter = ThemeAdapter(this,themeList)
                         binding.mainLayout.themeRecycler.adapter = themeAdapter
@@ -202,8 +210,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 db.collection("Park").get().addOnSuccessListener { result ->
                     for (document in result) {
                         var Tname = document.data?.get("Tname").toString()
+                        var Timg = document["Timg"].toString()
                         themeList.add(
-                            ThemeData(ContextCompat.getDrawable(this,R.drawable.ic_baseline_favorite_border_24)!!, Tname)
+                            ThemeData(Timg, Tname)
                         )
                         themeAdapter = ThemeAdapter(this,themeList)
                         binding.mainLayout.themeRecycler.adapter = themeAdapter
@@ -218,8 +227,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             db.collection("Cafes").get().addOnSuccessListener { result ->
                 for (document in result) {
                     var Tname = document.data?.get("Tname").toString()
+                    var Timg = document["Timg"].toString()
                     themeList.add(
-                        ThemeData(ContextCompat.getDrawable(this,R.drawable.ic_baseline_favorite_border_24)!!, Tname)
+                        ThemeData(Timg, Tname)
                     )
                     themeAdapter = ThemeAdapter(this,themeList)
                     binding.mainLayout.themeRecycler.adapter = themeAdapter
@@ -232,8 +242,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             db.collection("Foods").get().addOnSuccessListener { result ->
                 for (document in result) {
                     var Tname = document.data?.get("Tname").toString()
+                    var Timg = document["Timg"].toString()
                     themeList.add(
-                        ThemeData(ContextCompat.getDrawable(this,R.drawable.ic_baseline_favorite_border_24)!!, Tname)
+                        ThemeData(Timg, Tname)
                     )
                     themeAdapter = ThemeAdapter(this,themeList)
                     binding.mainLayout.themeRecycler.adapter = themeAdapter
@@ -246,8 +257,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             db.collection("Park").get().addOnSuccessListener { result ->
                 for (document in result) {
                     var Tname = document.data?.get("Tname").toString()
+                    var Timg = document["Timg"].toString()
                     themeList.add(
-                        ThemeData(ContextCompat.getDrawable(this,R.drawable.ic_baseline_favorite_border_24)!!, Tname)
+                        ThemeData(Timg, Tname)
                     )
                     themeAdapter = ThemeAdapter(this,themeList)
                     binding.mainLayout.themeRecycler.adapter = themeAdapter
