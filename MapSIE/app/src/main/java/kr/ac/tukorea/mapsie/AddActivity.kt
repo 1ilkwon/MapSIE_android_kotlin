@@ -85,14 +85,14 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                         "introduce" to binding.mainLayout.addIntroduce.text.toString()
                                     )
                                     // firebase 구조에 따라 데이터 저장
-                                    db.collection("Cafes").document("Cafe1").collection("cafe1")
+                                    db.collection("Cafes").document("Cafe1").collection("Cafe1")
                                         .document("Cafe1_" + countNum.toString())
                                         .set(storeInfoMap)
                                     // 0 -> {...} 함수 내에서 count를 해줌으로 하나의 테마에 새로운 장소가 저장될 때마다 각각 1을 count 해줌
                                     countNum++
 
                                     // firebase All 전체 저장
-                                    db.collection("All").document("All1").collection("all1").document("All1_" + countNum.toString())
+                                    db.collection("All").document("All1").collection("All1").document("All1_" + countNum.toString())
                                         .set(storeInfoMap)
                                     allCountNum++
                                 }
@@ -113,13 +113,13 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                         "name" to binding.mainLayout.addName.text.toString(),
                                         "introduce" to binding.mainLayout.addIntroduce.text.toString()
                                     )
-                                    db.collection("Cafes").document("Cafe2").collection("cafe2")
+                                    db.collection("Cafes").document("Cafe2").collection("Cafe2")
                                         .document("Cafe2_" + countNum.toString())
                                         .set(storeInfoMap)
                                     countNum++
 
                                     // firebase All 전체 저장
-                                    db.collection("All").document("All2").collection("all2").document("All2_" + countNum.toString())
+                                    db.collection("All").document("All2").collection("All2").document("All2_" + countNum.toString())
                                         .set(storeInfoMap)
                                     allCountNum++
                                 }
@@ -138,13 +138,13 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                         "name" to binding.mainLayout.addName.text.toString(),
                                         "introduce" to binding.mainLayout.addIntroduce.text.toString()
                                     )
-                                    db.collection("Cafes").document("Cafe3").collection("cafe3")
+                                    db.collection("Cafes").document("Cafe3").collection("Cafe3")
                                         .document("Cafe3_" + countNum.toString())
                                         .set(storeInfoMap)
                                     countNum++
 
                                     // firebase All 전체 저장
-                                    db.collection("All").document("All3").collection("all3").document("All3_" + countNum.toString())
+                                    db.collection("All").document("All3").collection("All3").document("All3_" + countNum.toString())
                                         .set(storeInfoMap)
                                     allCountNum++
                                 }
@@ -163,13 +163,13 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                         "name" to binding.mainLayout.addName.text.toString(),
                                         "introduce" to binding.mainLayout.addIntroduce.text.toString()
                                     )
-                                    db.collection("Foods").document("Food1").collection("food1")
+                                    db.collection("Foods").document("Food1").collection("Food1")
                                         .document("Food1_" + countNum.toString())
                                         .set(storeInfoMap)
                                     countNum++
 
                                     // firebase All 전체 저장
-                                    db.collection("All").document("All4").collection("all4").document("All4_" + countNum.toString())
+                                    db.collection("All").document("All4").collection("All4").document("All4_" + countNum.toString())
                                         .set(storeInfoMap)
                                     allCountNum++
                                 }
@@ -188,13 +188,13 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                         "name" to binding.mainLayout.addName.text.toString(),
                                         "introduce" to binding.mainLayout.addIntroduce.text.toString()
                                     )
-                                    db.collection("Foods").document("Food2").collection("food2")
+                                    db.collection("Foods").document("Food2").collection("Food2")
                                         .document("Food2_" + countNum.toString())
                                         .set(storeInfoMap)
                                     countNum++
 
                                     // firebase All 전체 저장
-                                    db.collection("All").document("All5").collection("all5").document("All5_" + countNum.toString())
+                                    db.collection("All").document("All5").collection("All5").document("All5_" + countNum.toString())
                                         .set(storeInfoMap)
                                     allCountNum++
                                 }
@@ -213,13 +213,13 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                         "name" to binding.mainLayout.addName.text.toString(),
                                         "introduce" to binding.mainLayout.addIntroduce.text.toString()
                                     )
-                                    db.collection("Foods").document("Food3").collection("food3")
+                                    db.collection("Foods").document("Food3").collection("Food3")
                                         .document("Food3_" + countNum.toString())
                                         .set(storeInfoMap)
                                     countNum++
 
                                     // firebase All 전체 저장
-                                    db.collection("All").document("All6").collection("all6").document("All6_" + countNum.toString())
+                                    db.collection("All").document("All6").collection("All6").document("All6_" + countNum.toString())
                                         .set(storeInfoMap)
                                     allCountNum++
                                 }
@@ -238,13 +238,13 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                         "name" to binding.mainLayout.addName.text.toString(),
                                         "introduce" to binding.mainLayout.addIntroduce.text.toString()
                                     )
-                                    db.collection("Park").document("Park1").collection("park1")
+                                    db.collection("Park").document("Park1").collection("Park1")
                                         .document("Park1_"+ countNum.toString())
                                         .set(storeInfoMap)
                                     countNum++
 
                                     // firebase All 전체 저장
-                                    db.collection("All").document("All7").collection("all7").document("All7_" + countNum.toString())
+                                    db.collection("All").document("All7").collection("All7").document("All7_" + countNum.toString())
                                         .set(storeInfoMap)
                                     allCountNum++
                                 }
@@ -263,13 +263,13 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                         "name" to binding.mainLayout.addName.text.toString(),
                                         "introduce" to binding.mainLayout.addIntroduce.text.toString()
                                     )
-                                    db.collection("Park").document("Park2").collection("park2")
+                                    db.collection("Park").document("Park2").collection("Park2")
                                         .document("Park2_"+ countNum.toString())
                                         .set(storeInfoMap)
                                     countNum++
 
                                     // firebase All 전체 저장
-                                    db.collection("All").document("All8").collection("all8").document("All8_" + countNum.toString())
+                                    db.collection("All").document("All8").collection("All8").document("All8_" + countNum.toString())
                                         .set(storeInfoMap)
                                     allCountNum++
                                 }
@@ -288,13 +288,13 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                         "name" to binding.mainLayout.addName.text.toString(),
                                         "introduce" to binding.mainLayout.addIntroduce.text.toString()
                                     )
-                                    db.collection("Park").document("Park3").collection("park3")
+                                    db.collection("Park").document("Park3").collection("Park3")
                                         .document("Park3_"+ countNum.toString())
                                         .set(storeInfoMap)
                                     countNum++
 
                                     // firebase All 전체 저장
-                                    db.collection("All").document("All9").collection("all9").document("All9_" + countNum.toString())
+                                    db.collection("All").document("All9").collection("All9").document("All9_" + countNum.toString())
                                         .set(storeInfoMap)
                                     allCountNum++
                                 }

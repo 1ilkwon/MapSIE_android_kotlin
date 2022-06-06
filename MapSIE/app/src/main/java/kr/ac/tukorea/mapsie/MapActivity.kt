@@ -5,17 +5,22 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
 import com.naver.maps.map.util.FusedLocationSource
 import kr.ac.tukorea.mapsie.R
 import kr.ac.tukorea.mapsie.databinding.ActivityMapBinding
+import kr.ac.tukorea.mapsie.ThemeAdapter
 
 
 class MapActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var binding: ActivityMapBinding
     var TAG: String = "로그"
+    var db: FirebaseFirestore = Firebase.firestore
 
     private lateinit var locationSource: FusedLocationSource
     private lateinit var naverMap: NaverMap
@@ -33,16 +38,30 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         binding = ActivityMapBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+        // db의 컬렉션 가져오기
+        val Tvalue = intent.getStringExtra("ThemeName")
+        val TCollect = intent.getStringExtra("ThemeCollection")
+        Toast.makeText(this, Tvalue.toString(), Toast.LENGTH_SHORT).show()
+        Log.d("checktest", "title: $Tvalue")
 
-        //val secondIntent = intent
-        //TEXTVIEW.text = secondIntent.getStringExtra("ThemeName")
 
         binding.themaDetailListButton.setOnClickListener {
             val dialog = CustomDialog(this)
             //dialog.showDia()
-            val value1 = intent.getStringExtra("ThemeName")
-            Toast.makeText(this, value1.toString(), Toast.LENGTH_SHORT).show()
+            db.collection(TCollect.toString()).document(Tvalue.toString()).collection(Tvalue.toString())
+                .get().addOnSuccessListener { result ->
+                    for(document in result) {
+                        var name = document.data?.get("name").toString()
+                        var address = document["address"].toString()
+                        var introduce = document["introduce"].toString()
+                        Log.d("checkVname", name)
+                        Log.d("checkVaddress", address)
+                        Log.d("checkVintroduce", introduce)
+                    }
+                }
+
         }
+
 
 
         // 타이틀바 숨기기

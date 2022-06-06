@@ -56,6 +56,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+
         //만약 firebase auth에 현재 user가 비어있으면 시작 페이지를 LoginActivity로 하고 auth가 있으면(즉, 로그인 되어있으면) MainActivity로 연결
         if (Firebase.auth.currentUser == null) {
             startActivity(
@@ -79,7 +81,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
 
         initRecycler()  //recyclerview 보여주는 메서드
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -147,8 +148,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             for (document in result) {
                 var Tname = document.data?.get("Tname").toString()
                 var Timg = document["Timg"].toString()
+                var Tnum = document["Tnum"].toString()
+                var Tcollect = document["Tcollect"].toString()
                 themeList.add(
-                    ThemeData(Timg, Tname)
+                    ThemeData(Timg, Tname, Tnum, Tcollect)
                 )
                 themeAdapter = ThemeAdapter(this,themeList)
                 binding.mainLayout.themeRecycler.adapter = themeAdapter
@@ -159,8 +162,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             for (document in result) {
                 var Tname = document.data?.get("Tname").toString()
                 var Timg = document["Timg"].toString()
+                var Tnum = document["Tnum"].toString()
+                var Tcollect = document["Tcollect"].toString()
                 themeList.add(
-                    ThemeData(Timg, Tname)
+                    ThemeData(Timg, Tname,Tnum, Tcollect)
                 )
                 themeAdapter = ThemeAdapter(this,themeList)
                 binding.mainLayout.themeRecycler.adapter = themeAdapter
@@ -171,8 +176,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             for (document in result) {
                 var Tname = document.data?.get("Tname").toString()
                 var Timg = document["Timg"].toString()
+                var Tnum = document["Tnum"].toString()
+                var Tcollect = document["Tcollect"].toString()
                 themeList.add(
-                    ThemeData(Timg, Tname)
+                    ThemeData(Timg, Tname,Tnum, Tcollect)
                 )
                 themeAdapter = ThemeAdapter(this,themeList)
                 binding.mainLayout.themeRecycler.adapter = themeAdapter
@@ -187,8 +194,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 for (document in result) {
                     var Tname = document.data?.get("Tname").toString()
                     var Timg = document["Timg"].toString()
+                    var Tnum = document["Tnum"].toString()
+                    var Tcollect = document["Tcollect"].toString()
                     themeList.add(
-                        ThemeData(Timg, Tname)
+                        ThemeData(Timg, Tname,Tnum, Tcollect)
                     )
                     themeAdapter = ThemeAdapter(this,themeList)
                     binding.mainLayout.themeRecycler.adapter = themeAdapter
@@ -199,8 +208,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     for (document in result) {
                         var Tname = document.data?.get("Tname").toString()
                         var Timg = document["Timg"].toString()
+                        var Tnum = document["Tnum"].toString()
+                        var Tcollect = document["Tcollect"].toString()
                         themeList.add(
-                            ThemeData(Timg, Tname)
+                            ThemeData(Timg, Tname,Tnum, Tcollect)
                         )
                         themeAdapter = ThemeAdapter(this,themeList)
                         binding.mainLayout.themeRecycler.adapter = themeAdapter
@@ -211,8 +222,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     for (document in result) {
                         var Tname = document.data?.get("Tname").toString()
                         var Timg = document["Timg"].toString()
+                        var Tnum = document["Tnum"].toString()
+                        var Tcollect = document["Tcollect"].toString()
                         themeList.add(
-                            ThemeData(Timg, Tname)
+                            ThemeData(Timg, Tname,Tnum,Tcollect)
                         )
                         themeAdapter = ThemeAdapter(this,themeList)
                         binding.mainLayout.themeRecycler.adapter = themeAdapter
@@ -228,8 +241,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 for (document in result) {
                     var Tname = document.data?.get("Tname").toString()
                     var Timg = document["Timg"].toString()
+                    var Tnum = document["Tnum"].toString()
+                    var Tcollect = document["Tcollect"].toString()
                     themeList.add(
-                        ThemeData(Timg, Tname)
+                        ThemeData(Timg, Tname,Tnum, Tcollect)
                     )
                     themeAdapter = ThemeAdapter(this,themeList)
                     binding.mainLayout.themeRecycler.adapter = themeAdapter
@@ -243,8 +258,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 for (document in result) {
                     var Tname = document.data?.get("Tname").toString()
                     var Timg = document["Timg"].toString()
+                    var Tnum = document["Tnum"].toString()
+                    var Tcollect = document["Tcollect"].toString()
                     themeList.add(
-                        ThemeData(Timg, Tname)
+                        ThemeData(Timg, Tname,Tnum, Tcollect)
                     )
                     themeAdapter = ThemeAdapter(this,themeList)
                     binding.mainLayout.themeRecycler.adapter = themeAdapter
@@ -258,8 +275,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 for (document in result) {
                     var Tname = document.data?.get("Tname").toString()
                     var Timg = document["Timg"].toString()
+                    var Tnum = document["Tnum"].toString()
+                    var Tcollect = document["Tcollect"].toString()
                     themeList.add(
-                        ThemeData(Timg, Tname)
+                        ThemeData(Timg, Tname, Tnum,Tcollect)
                     )
                     themeAdapter = ThemeAdapter(this,themeList)
                     binding.mainLayout.themeRecycler.adapter = themeAdapter
