@@ -4,12 +4,14 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.GravityCompat
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -22,6 +24,8 @@ import kotlinx.android.synthetic.main.detail_body.*
 import kotlinx.android.synthetic.main.main_body.*
 import kotlinx.android.synthetic.main.main_drawer_header.*
 import kotlinx.android.synthetic.main.main_toolbar.*
+import kr.ac.tukorea.mapsie.MapActivity.Companion.TCollect
+import kr.ac.tukorea.mapsie.MapActivity.Companion.Tvalue
 import kr.ac.tukorea.mapsie.databinding.ActivityDetailBinding
 import kr.ac.tukorea.mapsie.databinding.ActivityMainBinding
 
@@ -32,18 +36,24 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
 
     //recyclerview를 위한 코드
     lateinit var reviewAdapter: ReviewAdapter
+    //intent로 받기
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //intent로 받기
-        var sName = intent.getStringExtra("Sname")
-        var sAddress = intent.getStringExtra("Saddress")
 
+
+        var sName = intent.getStringExtra("Sname")
+        Log.d("sname",sName.toString())
+        var sAddress = intent.getStringExtra("Saddress")
+        var sTheme = intent.getStringExtra("Stheme")
+        Log.d("snamead", sAddress.toString())
         binding.mainLayout.placeName.text = sName.toString()
         binding.mainLayout.placeAddress.text = sAddress.toString()
+        binding.mainLayout.placeTheme.text = sTheme.toString()
 
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true) //왼쪽에 뒤로가기버튼생성
@@ -56,8 +66,6 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         }.addOnFailureListener {
             Toast.makeText(this, ".", Toast.LENGTH_SHORT).show()
         }
-
-
 
 
         initRecycler()  //recyclerview 보여주는 메서드

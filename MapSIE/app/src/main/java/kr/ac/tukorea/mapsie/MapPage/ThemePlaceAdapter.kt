@@ -34,6 +34,11 @@ class ThemePlaceAdapter(private val context: Context, private val themePlaceList
         val item = themePlaceList[position]
         val listener = View.OnClickListener {
             val intent = Intent(context, DetailActivity::class.java)
+            intent.putExtra("Sname", item.placename)
+            intent.putExtra("Saddress", item.placeaddress)
+            intent.putExtra("Stheme", item.placeTheme)
+
+
             intent.run {
                 context.startActivity(this)
             }

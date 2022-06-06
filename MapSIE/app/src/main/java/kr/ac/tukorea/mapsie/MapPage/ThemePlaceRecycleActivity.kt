@@ -48,13 +48,10 @@ class ThemePlaceRecycleActivity : AppCompatActivity() {
                 for (document in result) {
                     var name = document.data?.get("name").toString()
                     var address = document["address"].toString()
+                    var theme = document["Tname"].toString()
                     //modelList.add(ThemePlaceList(name,address))
-                    modelList.add(ThemePlaceList(name, address))
+                    modelList.add(ThemePlaceList(name, address,theme))
 
-                    //Detail 으로 값 넘겨주기
-                    val detailIntent = Intent(this, DetailActivity::class.java)
-                    detailIntent.putExtra("Sname", name)
-                    detailIntent.putExtra("Saddress",address)
 
                     val rAdapter = ThemePlaceAdapter(this,modelList)
                     binding.re.adapter = rAdapter

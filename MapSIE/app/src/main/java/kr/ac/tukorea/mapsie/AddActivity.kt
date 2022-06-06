@@ -152,7 +152,9 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                         var storeInfoMap = hashMapOf(
                                             "address" to binding.mainLayout.addAdress.text.toString(),
                                             "name" to binding.mainLayout.addName.text.toString(),
-                                            "introduce" to binding.mainLayout.addIntroduce.text.toString()
+                                            "introduce" to binding.mainLayout.addIntroduce.text.toString(),
+                                            "storeNum" to "Cafe1_" + countNum.toString(),
+                                            "Tname" to "카공하기 좋은 곳",
                                         )
                                         // firebase 구조에 따라 데이터 저장
                                         db.collection("Cafes").document("Cafe1").collection("Cafe1")
@@ -193,7 +195,9 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                         var storeInfoMap = hashMapOf(
                                             "address" to binding.mainLayout.addAdress.text.toString(),
                                             "name" to binding.mainLayout.addName.text.toString(),
-                                            "introduce" to binding.mainLayout.addIntroduce.text.toString()
+                                            "introduce" to binding.mainLayout.addIntroduce.text.toString(),
+                                            "storeNum" to "Cafe2_" + countNum.toString(),
+                                            "Tname" to "디저트 맛집",
                                         )
                                         db.collection("Cafes").document("Cafe2").collection("Cafe2")
                                             .document("Cafe2_" + countNum.toString())
@@ -230,7 +234,9 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                         var storeInfoMap = hashMapOf(
                                             "address" to binding.mainLayout.addAdress.text.toString(),
                                             "name" to binding.mainLayout.addName.text.toString(),
-                                            "introduce" to binding.mainLayout.addIntroduce.text.toString()
+                                            "introduce" to binding.mainLayout.addIntroduce.text.toString(),
+                                            "storeNum" to "Cafe3_" + countNum.toString(),
+                                            "Tname" to "뷰가 좋은 카페",
                                         )
                                         db.collection("Cafes").document("Cafe3").collection("Cafe3")
                                             .document("Cafe3_" + countNum.toString())
@@ -267,7 +273,9 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                         var storeInfoMap = hashMapOf(
                                             "address" to binding.mainLayout.addAdress.text.toString(),
                                             "name" to binding.mainLayout.addName.text.toString(),
-                                            "introduce" to binding.mainLayout.addIntroduce.text.toString()
+                                            "introduce" to binding.mainLayout.addIntroduce.text.toString(),
+                                            "storeNum" to "Food1_" + countNum.toString(),
+                                            "Tname" to "양식이 땡길 때",
                                         )
                                         db.collection("Foods").document("Food1").collection("Food1")
                                             .document("Food1_" + countNum.toString())
@@ -305,7 +313,9 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                         var storeInfoMap = hashMapOf(
                                             "address" to binding.mainLayout.addAdress.text.toString(),
                                             "name" to binding.mainLayout.addName.text.toString(),
-                                            "introduce" to binding.mainLayout.addIntroduce.text.toString()
+                                            "introduce" to binding.mainLayout.addIntroduce.text.toString(),
+                                            "storeNum" to "Food2_" + countNum.toString(),
+                                            "Tname" to "혼밥하기 좋은 곳",
                                         )
                                         db.collection("Foods").document("Food2").collection("Food2")
                                             .document("Food2_" + countNum.toString())
@@ -344,7 +354,9 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                         var storeInfoMap = hashMapOf(
                                             "address" to binding.mainLayout.addAdress.text.toString(),
                                             "name" to binding.mainLayout.addName.text.toString(),
-                                            "introduce" to binding.mainLayout.addIntroduce.text.toString()
+                                            "introduce" to binding.mainLayout.addIntroduce.text.toString(),
+                                            "storeNum" to "Food3_" + countNum.toString(),
+                                            "Tname" to "소개팅할때 추천",
                                         )
                                         db.collection("Foods").document("Food3").collection("Food3")
                                             .document("Food3_" + countNum.toString())
@@ -382,7 +394,9 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                         var storeInfoMap = hashMapOf(
                                             "address" to binding.mainLayout.addAdress.text.toString(),
                                             "name" to binding.mainLayout.addName.text.toString(),
-                                            "introduce" to binding.mainLayout.addIntroduce.text.toString()
+                                            "introduce" to binding.mainLayout.addIntroduce.text.toString(),
+                                            "storeNum" to "Park1_" + countNum.toString(),
+                                            "Tname" to "산책하기 좋은 공원",
                                         )
                                         db.collection("Park").document("Park1").collection("Park1")
                                             .document("Park1_" + countNum.toString())
@@ -415,12 +429,14 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                 if (binding.mainLayout.addName.text.toString().equals("") || binding.mainLayout.addAdress.text.toString().equals("") || binding.mainLayout.addIntroduce.text.toString().equals(""))
                                 {Toast.makeText(this@AddActivity, "모든 정보를 입력해주세요", Toast.LENGTH_SHORT).show()
                                 } else {
-                                    db.collection("Food").document("Food2").get().addOnSuccessListener {
+                                    db.collection("Park").document("Park2").get().addOnSuccessListener {
                                         countNum = it["count"].hashCode()
                                         var storeInfoMap = hashMapOf(
                                             "address" to binding.mainLayout.addAdress.text.toString(),
                                             "name" to binding.mainLayout.addName.text.toString(),
-                                            "introduce" to binding.mainLayout.addIntroduce.text.toString()
+                                            "introduce" to binding.mainLayout.addIntroduce.text.toString(),
+                                            "storeNum" to "Park2_" + countNum.toString(),
+                                            "Tname" to "런닝하기 좋은 공원",
                                         )
                                         db.collection("Park").document("Park2").collection("Park2")
                                             .document("Park2_" + countNum.toString())
@@ -458,7 +474,9 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                         var storeInfoMap = hashMapOf(
                                             "address" to binding.mainLayout.addAdress.text.toString(),
                                             "name" to binding.mainLayout.addName.text.toString(),
-                                            "introduce" to binding.mainLayout.addIntroduce.text.toString()
+                                            "introduce" to binding.mainLayout.addIntroduce.text.toString(),
+                                            "storeNum" to "Park3_" + countNum.toString(),
+                                            "Tname" to "꽃구경하기 좋은 공원",
                                         )
                                         db.collection("Park").document("Park3").collection("Park3")
                                             .document("Park3_" + countNum.toString())
