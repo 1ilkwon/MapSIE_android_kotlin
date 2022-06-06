@@ -2,6 +2,7 @@ package kr.ac.tukorea.mapsie
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import com.naver.maps.geometry.LatLng
@@ -33,10 +34,16 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         val view = binding.root
         setContentView(view)
 
+        //val secondIntent = intent
+        //TEXTVIEW.text = secondIntent.getStringExtra("ThemeName")
+
         binding.themaDetailListButton.setOnClickListener {
             val dialog = CustomDialog(this)
-            dialog.showDia()
+            //dialog.showDia()
+            val value1 = intent.getStringExtra("ThemeName")
+            Toast.makeText(this, value1.toString(), Toast.LENGTH_SHORT).show()
         }
+
 
         // 타이틀바 숨기기
         var actionBar: ActionBar?

@@ -17,7 +17,6 @@ import kotlinx.android.synthetic.main.theme_item.view.*
 
 class ThemeAdapter(private val context:Context, private val themeList: ArrayList<ThemeData>):
     RecyclerView.Adapter<ThemeAdapter.ItemViewHolder>(){
-
         inner class ItemViewHolder(itemView:View): RecyclerView.ViewHolder(itemView){
             private var view:View = itemView
 
@@ -39,8 +38,9 @@ class ThemeAdapter(private val context:Context, private val themeList: ArrayList
             //Toast.makeText(it.context, "title : ${item.title}", Toast.LENGTH_SHORT).show()
             val intent = Intent(context, MapActivity::class.java)
             intent.run { context.startActivity(this) }
+            //intent.putExtra("ThemeName","${item.title.toString()}" )
+            intent.putExtra("ThemeName", "${themeList[position].title}")
         }
-
 
         holder.apply {
             bind(listener, item)

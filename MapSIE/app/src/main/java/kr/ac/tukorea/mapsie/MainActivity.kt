@@ -255,13 +255,5 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 }
             }
         }
-//        var themeList = arrayListOf<ThemeData>( //테마 추가
-//            ThemeData(ContextCompat.getDrawable(this, R.drawable.ic_baseline_favorite_border_24)!!, "테마 제목"),  //테마 추가
-//            ThemeData(ContextCompat.getDrawable(this, R.drawable.flower)!!, "꽃구경 가기 좋은 공원")
-//        )
-//        themeAdapter = ThemeAdapter(this, themeList)
-//        binding.mainLayout.themeRecycler.adapter = themeAdapter   // main_body.xml에 id값 theme_recycler
-//
-//        themeAdapter.notifyDataSetChanged()
     }
 }
