@@ -110,6 +110,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             super.onBackPressed()
         }
     }
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {    //메뉴바 클릭 시 실행하는 메서드
         when(item.itemId){
             R.id.home -> Toast.makeText(this, "홈화면 실행", Toast.LENGTH_SHORT).show()

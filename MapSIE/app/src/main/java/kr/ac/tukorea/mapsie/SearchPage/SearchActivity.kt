@@ -14,11 +14,11 @@ import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
 import com.naver.maps.map.overlay.InfoWindow
 import com.naver.maps.map.overlay.Marker
+import com.naver.maps.map.overlay.Overlay
 import com.naver.maps.map.util.FusedLocationSource
-import kr.ac.tukorea.mapsie.KakaoAPI
+import kr.ac.tukorea.mapsie.*
 import kr.ac.tukorea.mapsie.R
 import kr.ac.tukorea.mapsie.databinding.ActivitySearchBinding
-import kr.ac.tukorea.mapsie.SearchPage.ResultSearchKeyword
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,6 +29,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 class SearchActivity : AppCompatActivity(), OnMapReadyCallback {
 
     var TAG: String = "로그"
+
+    val infoWindow = InfoWindow()
 
     private lateinit var locationSource: FusedLocationSource
     private lateinit var naverMap: NaverMap
@@ -57,7 +59,14 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback {
         var btn_nextPage = findViewById<Button>(R.id.btn_nextPage)
         var tv_pageNumber = findViewById<TextView>(R.id.tv_pageNumber)
         var rv_list = findViewById<RecyclerView>(R.id.rv_list)
+/*
+        infoWindow.setOnClickListener(object : Overlay.OnClickListener {
+            override fun onClick(overlay: Overlay): Boolean {
 
+                return false
+            }
+        })
+*/
         // 리사이클러 뷰
         binding.rvList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.rvList.adapter = listAdapter
@@ -155,6 +164,7 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback {
             btn_prevPage.visibility = View.GONE
             btn_nextPage.visibility = View.GONE
             tv_pageNumber.visibility = View.GONE
+            infoWindow.close()
         }
     }
 
@@ -181,7 +191,7 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
-    // 키워드 검색 함수
+    // 키워드 검색 함수 !!!!
     private fun searchKeyword(keyword: String, page: Int) {
         val retrofit = Retrofit.Builder()          // Retrofit 구성
             .baseUrl(BASE_URL)
@@ -207,7 +217,6 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         })
     }
-
     // 검색 결과 처리 함수
     private fun addItemsAndMarkers(searchResult: ResultSearchKeyword?) {
         if (!searchResult?.documents.isNullOrEmpty()) {
@@ -231,7 +240,7 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
                 // infowindow 작성
-                val infoWindow = InfoWindow()
+
                 infoWindow.adapter = object : InfoWindow.DefaultTextAdapter(application) {
                     override fun getText(infoWindow: InfoWindow): CharSequence {
                         return "내 장소 등록/수정하기"
@@ -242,8 +251,12 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback {
                     infoWindow.open(marker)
                     true
                 }
+                // 정보창 클릭 시
+                infoWindow.setOnClickListener(Overlay.OnClickListener {
+                    Toast.makeText(this@SearchActivity, "정보창 클릭됨", Toast.LENGTH_SHORT).show()
+                    false
+                })
             }
-
             binding.btnNextPage.isEnabled = !searchResult.meta.is_end // 페이지가 더 있을 경우 다음 버튼 활성화
             binding.btnPrevPage.isEnabled = pageNumber != 1             // 1페이지가 아닐 경우 이전 버튼 활성화
 

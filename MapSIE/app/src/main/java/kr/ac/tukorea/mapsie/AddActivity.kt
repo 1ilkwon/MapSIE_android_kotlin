@@ -1,5 +1,7 @@
 package kr.ac.tukorea.mapsie
 
+import android.app.Dialog
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,17 +10,23 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.naver.maps.geometry.LatLng
+import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.util.FusedLocationSource
 import kotlinx.android.synthetic.main.activity_detail.*
+import kotlinx.android.synthetic.main.main_body.*
 import kotlinx.android.synthetic.main.main_toolbar.*
 import kr.ac.tukorea.mapsie.SearchPage.ListAdapter
 import kr.ac.tukorea.mapsie.SearchPage.ListLayout
@@ -45,6 +53,7 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
 
     private val listItems = arrayListOf<ListLayout>()   // 리사이클러 뷰 아이템
     private val listAdapter = ListAdapter(listItems)    // 리사이클러 뷰 어댑터
+    private var pageNumber = 1      // 검색 페이지 번호
     private var keyword = ""        // 검색 키워드
 
     // 스피너 배열 index로 뽑아오기 위해 사용
@@ -77,6 +86,36 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
         supportActionBar?.setDisplayShowTitleEnabled(false) // 툴바에 타이틀 안보이게
         toolbar.title = "MapSIE"
         binding.navigationView.setNavigationItemSelectedListener(this)
+
+        // !!!!!! 주소 검색 관련 findViewById 추가
+        var btnSearch = findViewById<Button>(R.id.btn_search)
+        var rv_list = findViewById<RecyclerView>(R.id.rv_list)
+        var add_adress = findViewById<EditText>(R.id.add_adress)
+        var add_name = findViewById<EditText>(R.id.add_name)
+        var adr_text = findViewById<TextView>(R.id.adr_text)
+
+        rv_list.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        rv_list.adapter = listAdapter
+
+        // 검색 버튼
+        btnSearch.setOnClickListener {
+            keyword = add_adress.text.toString()
+            pageNumber = 1
+            searchKeyword(keyword, pageNumber)
+            rv_list.visibility = View.VISIBLE
+            adr_text.visibility = View.VISIBLE
+        }
+
+        // 리사이클러 뷰 (아이템 클릭 시)
+        listAdapter.setItemClickListener(object: ListAdapter.OnItemClickListener {
+            override fun onClick(v: View, position: Int) {
+                //
+                add_adress.setText(listItems[position].road)
+                add_name.setText(listItems[position].name)
+                rv_list.visibility = View.GONE
+                adr_text.visibility = View.GONE
+            }
+        })
 
         var adapter: ArrayAdapter<String>
         adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, dataArr)
@@ -333,6 +372,7 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
 
 // 여기부터 수정
 
+
     // 키워드 검색 함수
     private fun searchKeyword(keyword: String, page: Int) {
         val retrofit = Retrofit.Builder()          // Retrofit 구성
@@ -363,6 +403,7 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
     // 검색 결과 처리 함수
     private fun addItemsAndMarkers(searchResult: ResultSearchKeyword?) {
         if (!searchResult?.documents.isNullOrEmpty()) {
+
             // 검색 결과 있음
             listItems.clear()                   // 리스트 초기화
             for (document in searchResult!!.documents) {
