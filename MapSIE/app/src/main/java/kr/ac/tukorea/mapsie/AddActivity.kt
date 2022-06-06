@@ -14,6 +14,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -137,29 +138,42 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                     // 스피너 선택 이벤트, pos는 0 부터 위 dataArr의 배열에서 index로 들고옴
                     when (position) {
                         0 -> { //카공하기 좋은 곳 Cafe1
-                            var countNum: Int = 0
+                            var countNum: Int
                             var allCountNum: Int = 0
                             binding.mainLayout.saveBtn.setOnClickListener {
                                 // 사용자가 모든 정보를 입력하지 않으면 "모든 정보를 입력해주세요" 토스트메시지
                                 if (binding.mainLayout.addName.text.toString().equals("") || binding.mainLayout.addAdress.text.toString().equals("") || binding.mainLayout.addIntroduce.text.toString().equals(""))
                                 {Toast.makeText(this@AddActivity, "모든 정보를 입력해주세요", Toast.LENGTH_SHORT).show()
                                 } else {
-                                    // 저장할 장소에 함께 들어가야 할 데이터 hashmap으로 저장 -> **(차후에 address 지도 팀이랑 연결 필요)
-                                    var storeInfoMap = hashMapOf(
-                                        "address" to binding.mainLayout.addAdress.text.toString(),
-                                        "name" to binding.mainLayout.addName.text.toString(),
-                                        "introduce" to binding.mainLayout.addIntroduce.text.toString()
-                                    )
-                                    // firebase 구조에 따라 데이터 저장
-                                    db.collection("Cafes").document("Cafe1").collection("Cafe1")
-                                        .document("Cafe1_" + countNum.toString())
-                                        .set(storeInfoMap)
-                                    // 0 -> {...} 함수 내에서 count를 해줌으로 하나의 테마에 새로운 장소가 저장될 때마다 각각 1을 count 해줌
-                                    countNum++
+                                    db.collection("Cafes").document("Cafe1").get().addOnSuccessListener {
+                                        countNum = it["count"].hashCode()
 
-                                    // firebase All 전체 저장
-                                    db.collection("All").document("All1").collection("All1").document("All1_" + countNum.toString())
-                                        .set(storeInfoMap)
+                                        // 저장할 장소에 함께 들어가야 할 데이터 hashmap으로 저장 -> **(차후에 address 지도 팀이랑 연결 필요)
+                                        var storeInfoMap = hashMapOf(
+                                            "address" to binding.mainLayout.addAdress.text.toString(),
+                                            "name" to binding.mainLayout.addName.text.toString(),
+                                            "introduce" to binding.mainLayout.addIntroduce.text.toString()
+                                        )
+                                        // firebase 구조에 따라 데이터 저장
+                                        db.collection("Cafes").document("Cafe1").collection("Cafe1")
+                                            .document("Cafe1_" + countNum.toString())
+                                            .set(storeInfoMap)
+                                        // 0 -> {...} 함수 내에서 count를 해줌으로 하나의 테마에 새로운 장소가 저장될 때마다 각각 1을 count 해줌
+                                        countNum++
+                                        var countMap = hashMapOf(
+                                            "count" to countNum,
+                                            "Tcollect" to "Cafes",
+                                            "Tname" to "카공하기 좋은 곳",
+                                            "Tnum" to "Cafe1",
+                                            "Timg" to "https://firebasestorage.googleapis.com/v0/b/mapsie-1b20c.appspot.com/o/cafe_desert.png?alt=media&token=77ec8e95-2806-4c32-87c8-a7dcb6499240"
+                                        )
+                                        db.collection("Cafes").document("Cafe1").set(countMap)
+
+                                        // firebase All 전체 저장
+                                        db.collection("All").document("All1").collection("All1")
+                                            .document("All1_" + countNum.toString())
+                                            .set(storeInfoMap)
+                                    }
                                     allCountNum++
                                 }
                                 // db에 저장 완료 시 "저장완료" 토스트메시지로 출력
@@ -168,25 +182,37 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                             }
                         } // 이하 반복
                         1 -> { //디저트 맛집 Cafe2
-                            var countNum: Int = 0
+                            var countNum: Int
                             var allCountNum: Int = 0
                             binding.mainLayout.saveBtn.setOnClickListener {
                                 if (binding.mainLayout.addName.text.toString().equals("") || binding.mainLayout.addAdress.text.toString().equals("") || binding.mainLayout.addIntroduce.text.toString().equals(""))
                                 {Toast.makeText(this@AddActivity, "모든 정보를 입력해주세요", Toast.LENGTH_SHORT).show()
                                 } else {
-                                    var storeInfoMap = hashMapOf(
-                                        "address" to binding.mainLayout.addAdress.text.toString(),
-                                        "name" to binding.mainLayout.addName.text.toString(),
-                                        "introduce" to binding.mainLayout.addIntroduce.text.toString()
-                                    )
-                                    db.collection("Cafes").document("Cafe2").collection("Cafe2")
-                                        .document("Cafe2_" + countNum.toString())
-                                        .set(storeInfoMap)
-                                    countNum++
+                                    db.collection("Cafes").document("Cafe2").get().addOnSuccessListener {
+                                        countNum = it["count"].hashCode()
+                                        var storeInfoMap = hashMapOf(
+                                            "address" to binding.mainLayout.addAdress.text.toString(),
+                                            "name" to binding.mainLayout.addName.text.toString(),
+                                            "introduce" to binding.mainLayout.addIntroduce.text.toString()
+                                        )
+                                        db.collection("Cafes").document("Cafe2").collection("Cafe2")
+                                            .document("Cafe2_" + countNum.toString())
+                                            .set(storeInfoMap)
+                                        countNum++
+                                        var countMap = hashMapOf(
+                                            "count" to countNum,
+                                            "Tcollect" to "Cafes",
+                                            "Tname" to "디저트 맛집",
+                                            "Tnum" to "Cafe2",
+                                            "Timg" to "https://firebasestorage.googleapis.com/v0/b/mapsie-1b20c.appspot.com/o/cafe_desert.png?alt=media&token=77ec8e95-2806-4c32-87c8-a7dcb6499240"
+                                        )
+                                        db.collection("Cafes").document("Cafe2").set(countMap)
 
-                                    // firebase All 전체 저장
-                                    db.collection("All").document("All2").collection("All2").document("All2_" + countNum.toString())
-                                        .set(storeInfoMap)
+                                        // firebase All 전체 저장
+                                        db.collection("All").document("All2").collection("All2")
+                                            .document("All2_" + countNum.toString())
+                                            .set(storeInfoMap)
+                                    }
                                     allCountNum++
                                 }
                                 Toast.makeText(this@AddActivity, "저장 완료!", Toast.LENGTH_SHORT).show()
@@ -199,19 +225,31 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                 if (binding.mainLayout.addName.text.toString().equals("") || binding.mainLayout.addAdress.text.toString().equals("") || binding.mainLayout.addIntroduce.text.toString().equals(""))
                                 {Toast.makeText(this@AddActivity, "모든 정보를 입력해주세요", Toast.LENGTH_SHORT).show()
                                 } else {
-                                    var storeInfoMap = hashMapOf(
-                                        "address" to binding.mainLayout.addAdress.text.toString(),
-                                        "name" to binding.mainLayout.addName.text.toString(),
-                                        "introduce" to binding.mainLayout.addIntroduce.text.toString()
-                                    )
-                                    db.collection("Cafes").document("Cafe3").collection("Cafe3")
-                                        .document("Cafe3_" + countNum.toString())
-                                        .set(storeInfoMap)
-                                    countNum++
+                                    db.collection("Cafes").document("Cafe3").get().addOnSuccessListener {
+                                        countNum = it["count"].hashCode()
+                                        var storeInfoMap = hashMapOf(
+                                            "address" to binding.mainLayout.addAdress.text.toString(),
+                                            "name" to binding.mainLayout.addName.text.toString(),
+                                            "introduce" to binding.mainLayout.addIntroduce.text.toString()
+                                        )
+                                        db.collection("Cafes").document("Cafe3").collection("Cafe3")
+                                            .document("Cafe3_" + countNum.toString())
+                                            .set(storeInfoMap)
+                                        countNum++
+                                        var countMap = hashMapOf(
+                                            "count" to countNum,
+                                            "Tcollect" to "Cafes",
+                                            "Tname" to "뷰가 좋은 카페",
+                                            "Tnum" to "Cafe3",
+                                            "Timg" to "https://firebasestorage.googleapis.com/v0/b/mapsie-1b20c.appspot.com/o/cafe_view.png?alt=media&token=f7153b96-3ff8-438d-a665-5ae4bc2ab856"
+                                        )
+                                        db.collection("Cafes").document("Cafe3").set(countMap)
 
-                                    // firebase All 전체 저장
-                                    db.collection("All").document("All3").collection("All3").document("All3_" + countNum.toString())
-                                        .set(storeInfoMap)
+                                        // firebase All 전체 저장
+                                        db.collection("All").document("All3").collection("All3")
+                                            .document("All3_" + countNum.toString())
+                                            .set(storeInfoMap)
+                                    }
                                     allCountNum++
                                 }
                                 Toast.makeText(this@AddActivity, "저장 완료!", Toast.LENGTH_SHORT).show()
@@ -224,19 +262,32 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                 if (binding.mainLayout.addName.text.toString().equals("") || binding.mainLayout.addAdress.text.toString().equals("") || binding.mainLayout.addIntroduce.text.toString().equals(""))
                                 {Toast.makeText(this@AddActivity, "모든 정보를 입력해주세요", Toast.LENGTH_SHORT).show()
                                 } else {
-                                    var storeInfoMap = hashMapOf(
-                                        "address" to binding.mainLayout.addAdress.text.toString(),
-                                        "name" to binding.mainLayout.addName.text.toString(),
-                                        "introduce" to binding.mainLayout.addIntroduce.text.toString()
-                                    )
-                                    db.collection("Foods").document("Food1").collection("Food1")
-                                        .document("Food1_" + countNum.toString())
-                                        .set(storeInfoMap)
-                                    countNum++
+                                    db.collection("Foods").document("Food1").get().addOnSuccessListener {
+                                        countNum = it["count"].hashCode()
+                                        var storeInfoMap = hashMapOf(
+                                            "address" to binding.mainLayout.addAdress.text.toString(),
+                                            "name" to binding.mainLayout.addName.text.toString(),
+                                            "introduce" to binding.mainLayout.addIntroduce.text.toString()
+                                        )
+                                        db.collection("Foods").document("Food1").collection("Food1")
+                                            .document("Food1_" + countNum.toString())
+                                            .set(storeInfoMap)
+                                        countNum++
 
-                                    // firebase All 전체 저장
-                                    db.collection("All").document("All4").collection("All4").document("All4_" + countNum.toString())
-                                        .set(storeInfoMap)
+                                        var countMap = hashMapOf(
+                                            "count" to countNum,
+                                            "Tcollect" to "Foods",
+                                            "Tname" to "양식이 땡길 때",
+                                            "Tnum" to "Food1",
+                                            "Timg" to "https://firebasestorage.googleapis.com/v0/b/mapsie-1b20c.appspot.com/o/food_steak.png?alt=media&token=eb550850-fcff-40b4-b32b-709c14916f69"
+                                        )
+                                        db.collection("Foods").document("Food1").set(countMap)
+
+                                        // firebase All 전체 저장
+                                        db.collection("All").document("All4").collection("All4")
+                                            .document("All4_" + countNum.toString())
+                                            .set(storeInfoMap)
+                                    }
                                     allCountNum++
                                 }
                                 Toast.makeText(this@AddActivity, "저장 완료!", Toast.LENGTH_SHORT).show()
@@ -249,19 +300,33 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                 if (binding.mainLayout.addName.text.toString().equals("") || binding.mainLayout.addAdress.text.toString().equals("") || binding.mainLayout.addIntroduce.text.toString().equals(""))
                                 {Toast.makeText(this@AddActivity, "모든 정보를 입력해주세요", Toast.LENGTH_SHORT).show()
                                 } else {
-                                    var storeInfoMap = hashMapOf(
-                                        "address" to binding.mainLayout.addAdress.text.toString(),
-                                        "name" to binding.mainLayout.addName.text.toString(),
-                                        "introduce" to binding.mainLayout.addIntroduce.text.toString()
-                                    )
-                                    db.collection("Foods").document("Food2").collection("Food2")
-                                        .document("Food2_" + countNum.toString())
-                                        .set(storeInfoMap)
-                                    countNum++
+                                    db.collection("Foods").document("Food2").get().addOnSuccessListener {
+                                        countNum = it["count"].hashCode()
+                                        var storeInfoMap = hashMapOf(
+                                            "address" to binding.mainLayout.addAdress.text.toString(),
+                                            "name" to binding.mainLayout.addName.text.toString(),
+                                            "introduce" to binding.mainLayout.addIntroduce.text.toString()
+                                        )
+                                        db.collection("Foods").document("Food2").collection("Food2")
+                                            .document("Food2_" + countNum.toString())
+                                            .set(storeInfoMap)
 
-                                    // firebase All 전체 저장
-                                    db.collection("All").document("All5").collection("All5").document("All5_" + countNum.toString())
-                                        .set(storeInfoMap)
+                                        countNum++
+
+                                        var countMap = hashMapOf(
+                                            "count" to countNum,
+                                            "Tcollect" to "Foods",
+                                            "Tname" to "혼밥하기 좋은 곳",
+                                            "Tnum" to "Food2",
+                                            "Timg" to "https://firebasestorage.googleapis.com/v0/b/mapsie-1b20c.appspot.com/o/food_alone.png?alt=media&token=ff9a5079-be82-4fed-84d4-5b6ff1bbe57c"
+                                        )
+                                        db.collection("Foods").document("Food2").set(countMap)
+
+                                        // firebase All 전체 저장
+                                        db.collection("All").document("All5").collection("All5")
+                                            .document("All5_" + countNum.toString())
+                                            .set(storeInfoMap)
+                                    }
                                     allCountNum++
                                 }
                                 Toast.makeText(this@AddActivity, "저장 완료!", Toast.LENGTH_SHORT).show()
@@ -274,19 +339,32 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                 if (binding.mainLayout.addName.text.toString().equals("") || binding.mainLayout.addAdress.text.toString().equals("") || binding.mainLayout.addIntroduce.text.toString().equals(""))
                                 {Toast.makeText(this@AddActivity, "모든 정보를 입력해주세요", Toast.LENGTH_SHORT).show()
                                 } else {
-                                    var storeInfoMap = hashMapOf(
-                                        "address" to binding.mainLayout.addAdress.text.toString(),
-                                        "name" to binding.mainLayout.addName.text.toString(),
-                                        "introduce" to binding.mainLayout.addIntroduce.text.toString()
-                                    )
-                                    db.collection("Foods").document("Food3").collection("Food3")
-                                        .document("Food3_" + countNum.toString())
-                                        .set(storeInfoMap)
-                                    countNum++
+                                    db.collection("Foods").document("Food3").get().addOnSuccessListener {
+                                        countNum = it["count"].hashCode()
+                                        var storeInfoMap = hashMapOf(
+                                            "address" to binding.mainLayout.addAdress.text.toString(),
+                                            "name" to binding.mainLayout.addName.text.toString(),
+                                            "introduce" to binding.mainLayout.addIntroduce.text.toString()
+                                        )
+                                        db.collection("Foods").document("Food3").collection("Food3")
+                                            .document("Food3_" + countNum.toString())
+                                            .set(storeInfoMap)
+                                        countNum++
 
-                                    // firebase All 전체 저장
-                                    db.collection("All").document("All6").collection("All6").document("All6_" + countNum.toString())
-                                        .set(storeInfoMap)
+                                        var countMap = hashMapOf(
+                                            "count" to countNum,
+                                            "Tcollect" to "Foods",
+                                            "Tname" to "소개팅할때 추천",
+                                            "Tnum" to "Food3",
+                                            "Timg" to "https://firebasestorage.googleapis.com/v0/b/mapsie-1b20c.appspot.com/o/food_blind_date.png?alt=media&token=8cb7eb29-aa2f-4ead-b0cc-d0df95561c0d"
+                                        )
+                                        db.collection("Foods").document("Food3").set(countMap)
+
+                                        // firebase All 전체 저장
+                                        db.collection("All").document("All6").collection("All6")
+                                            .document("All6_" + countNum.toString())
+                                            .set(storeInfoMap)
+                                    }
                                     allCountNum++
                                 }
                                 Toast.makeText(this@AddActivity, "저장 완료!", Toast.LENGTH_SHORT).show()
@@ -299,19 +377,32 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                 if (binding.mainLayout.addName.text.toString().equals("") || binding.mainLayout.addAdress.text.toString().equals("") || binding.mainLayout.addIntroduce.text.toString().equals(""))
                                 {Toast.makeText(this@AddActivity, "모든 정보를 입력해주세요", Toast.LENGTH_SHORT).show()
                                 } else {
-                                    var storeInfoMap = hashMapOf(
-                                        "address" to binding.mainLayout.addAdress.text.toString(),
-                                        "name" to binding.mainLayout.addName.text.toString(),
-                                        "introduce" to binding.mainLayout.addIntroduce.text.toString()
-                                    )
-                                    db.collection("Park").document("Park1").collection("Park1")
-                                        .document("Park1_"+ countNum.toString())
-                                        .set(storeInfoMap)
-                                    countNum++
+                                    db.collection("Park").document("Park1").get().addOnSuccessListener {
+                                        countNum = it["count"].hashCode()
+                                        var storeInfoMap = hashMapOf(
+                                            "address" to binding.mainLayout.addAdress.text.toString(),
+                                            "name" to binding.mainLayout.addName.text.toString(),
+                                            "introduce" to binding.mainLayout.addIntroduce.text.toString()
+                                        )
+                                        db.collection("Park").document("Park1").collection("Park1")
+                                            .document("Park1_" + countNum.toString())
+                                            .set(storeInfoMap)
+                                        countNum++
 
-                                    // firebase All 전체 저장
-                                    db.collection("All").document("All7").collection("All7").document("All7_" + countNum.toString())
-                                        .set(storeInfoMap)
+                                        var countMap = hashMapOf(
+                                            "count" to countNum,
+                                            "Tcollect" to "Park",
+                                            "Tname" to "산책하기 좋은 공원",
+                                            "Tnum" to "Park1",
+                                            "Timg" to "https://firebasestorage.googleapis.com/v0/b/mapsie-1b20c.appspot.com/o/park_dog_walking.png?alt=media&token=e7ae1cd9-9c27-4634-b5bf-aa58c2d5a087"
+                                        )
+                                        db.collection("Park").document("Park1").set(countMap)
+
+                                        // firebase All 전체 저장
+                                        db.collection("All").document("All7").collection("All7")
+                                            .document("All7_" + countNum.toString())
+                                            .set(storeInfoMap)
+                                    }
                                     allCountNum++
                                 }
                                 Toast.makeText(this@AddActivity, "저장 완료!", Toast.LENGTH_SHORT).show()
@@ -324,19 +415,32 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                 if (binding.mainLayout.addName.text.toString().equals("") || binding.mainLayout.addAdress.text.toString().equals("") || binding.mainLayout.addIntroduce.text.toString().equals(""))
                                 {Toast.makeText(this@AddActivity, "모든 정보를 입력해주세요", Toast.LENGTH_SHORT).show()
                                 } else {
-                                    var storeInfoMap = hashMapOf(
-                                        "address" to binding.mainLayout.addAdress.text.toString(),
-                                        "name" to binding.mainLayout.addName.text.toString(),
-                                        "introduce" to binding.mainLayout.addIntroduce.text.toString()
-                                    )
-                                    db.collection("Park").document("Park2").collection("Park2")
-                                        .document("Park2_"+ countNum.toString())
-                                        .set(storeInfoMap)
-                                    countNum++
+                                    db.collection("Food").document("Food2").get().addOnSuccessListener {
+                                        countNum = it["count"].hashCode()
+                                        var storeInfoMap = hashMapOf(
+                                            "address" to binding.mainLayout.addAdress.text.toString(),
+                                            "name" to binding.mainLayout.addName.text.toString(),
+                                            "introduce" to binding.mainLayout.addIntroduce.text.toString()
+                                        )
+                                        db.collection("Park").document("Park2").collection("Park2")
+                                            .document("Park2_" + countNum.toString())
+                                            .set(storeInfoMap)
+                                        countNum++
 
-                                    // firebase All 전체 저장
-                                    db.collection("All").document("All8").collection("All8").document("All8_" + countNum.toString())
-                                        .set(storeInfoMap)
+                                        var countMap = hashMapOf(
+                                            "count" to countNum,
+                                            "Tcollect" to "Park",
+                                            "Tname" to "런닝하기 좋은 공원",
+                                            "Tnum" to "Park2",
+                                            "Timg" to "https://firebasestorage.googleapis.com/v0/b/mapsie-1b20c.appspot.com/o/park_running.png?alt=media&token=d1a92e35-68b4-4322-b4a7-b920b7fb3111"
+                                        )
+                                        db.collection("Park").document("Park2").set(countMap)
+
+                                        // firebase All 전체 저장
+                                        db.collection("All").document("All8").collection("All8")
+                                            .document("All8_" + countNum.toString())
+                                            .set(storeInfoMap)
+                                    }
                                     allCountNum++
                                 }
                                 Toast.makeText(this@AddActivity, "저장 완료!", Toast.LENGTH_SHORT).show()
@@ -349,19 +453,32 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                 if (binding.mainLayout.addName.text.toString().equals("") || binding.mainLayout.addAdress.text.toString().equals("") || binding.mainLayout.addIntroduce.text.toString().equals(""))
                                 {Toast.makeText(this@AddActivity, "모든 정보를 입력해주세요", Toast.LENGTH_SHORT).show()
                                 } else {
-                                    var storeInfoMap = hashMapOf(
-                                        "address" to binding.mainLayout.addAdress.text.toString(),
-                                        "name" to binding.mainLayout.addName.text.toString(),
-                                        "introduce" to binding.mainLayout.addIntroduce.text.toString()
-                                    )
-                                    db.collection("Park").document("Park3").collection("Park3")
-                                        .document("Park3_"+ countNum.toString())
-                                        .set(storeInfoMap)
-                                    countNum++
+                                    db.collection("Park").document("Park3").get().addOnSuccessListener {
+                                        countNum = it["count"].hashCode()
+                                        var storeInfoMap = hashMapOf(
+                                            "address" to binding.mainLayout.addAdress.text.toString(),
+                                            "name" to binding.mainLayout.addName.text.toString(),
+                                            "introduce" to binding.mainLayout.addIntroduce.text.toString()
+                                        )
+                                        db.collection("Park").document("Park3").collection("Park3")
+                                            .document("Park3_" + countNum.toString())
+                                            .set(storeInfoMap)
+                                        countNum++
 
-                                    // firebase All 전체 저장
-                                    db.collection("All").document("All9").collection("All9").document("All9_" + countNum.toString())
-                                        .set(storeInfoMap)
+                                        var countMap = hashMapOf(
+                                            "count" to countNum,
+                                            "Tcollect" to "Park",
+                                            "Tname" to "꽃구경하기 좋은 공원",
+                                            "Tnum" to "Park3",
+                                            "Timg" to "https://firebasestorage.googleapis.com/v0/b/mapsie-1b20c.appspot.com/o/park_flower.png?alt=media&token=a5d207ec-1245-4d1f-9072-d233720958db"
+                                        )
+                                        db.collection("Park").document("Park3").set(countMap)
+
+                                        // firebase All 전체 저장
+                                        db.collection("All").document("All9").collection("All9")
+                                            .document("All9_" + countNum.toString())
+                                            .set(storeInfoMap)
+                                    }
                                     allCountNum++
                                 }
                                 Toast.makeText(this@AddActivity, "저장 완료!", Toast.LENGTH_SHORT).show()

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.theme_item.view.*
 import kotlinx.android.synthetic.main.theme_place_item.view.*
+import kr.ac.tukorea.mapsie.DetailActivity
 import kr.ac.tukorea.mapsie.MapActivity
 import kr.ac.tukorea.mapsie.R
 
@@ -32,7 +33,7 @@ class ThemePlaceAdapter(private val context: Context, private val themePlaceList
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = themePlaceList[position]
         val listener = View.OnClickListener {
-            val intent = Intent(context, MapActivity::class.java)
+            val intent = Intent(context, DetailActivity::class.java)
             intent.run {
                 context.startActivity(this)
             }

@@ -38,6 +38,13 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //intent로 받기
+        var sName = intent.getStringExtra("Sname")
+        var sAddress = intent.getStringExtra("Saddress")
+
+        binding.mainLayout.placeName.text = sName.toString()
+        binding.mainLayout.placeAddress.text = sAddress.toString()
+
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true) //왼쪽에 뒤로가기버튼생성
         supportActionBar?.setDisplayShowTitleEnabled(false) // 툴바에 타이틀 안보이게
@@ -49,6 +56,9 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         }.addOnFailureListener {
             Toast.makeText(this, ".", Toast.LENGTH_SHORT).show()
         }
+
+
+
 
         initRecycler()  //recyclerview 보여주는 메서드
     }
