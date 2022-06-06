@@ -26,6 +26,7 @@ import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.util.FusedLocationSource
 import kotlinx.android.synthetic.main.activity_detail.*
+import kotlinx.android.synthetic.main.add_body.*
 import kotlinx.android.synthetic.main.main_body.*
 import kotlinx.android.synthetic.main.main_toolbar.*
 import kr.ac.tukorea.mapsie.SearchPage.ListAdapter
@@ -111,6 +112,7 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
             searchKeyword(keyword, pageNumber)
             rv_list.visibility = View.VISIBLE
             adr_text.visibility = View.VISIBLE
+            softkeyboardHide() // 키보드 내리기
         }
 
         // 리사이클러 뷰 (아이템 클릭 시)
@@ -484,5 +486,9 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
             Toast.makeText(this, "검색 결과가 없습니다", Toast.LENGTH_SHORT).show()
         }
     }
-
+    // 자동으로 키보드 내리기
+    fun softkeyboardHide() {
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(add_name.windowToken, 0)
+    }
 }
