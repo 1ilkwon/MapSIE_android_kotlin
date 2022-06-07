@@ -6,13 +6,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/themesearch"
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchThemePlace"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:hint="장소를 입력하시오."
-        android:minHeight="48dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:closeIcon="@drawable/ic_baseline_close_24"
+        app:iconifiedByDefault="false"
+        app:queryHint="장소검색"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/re"
