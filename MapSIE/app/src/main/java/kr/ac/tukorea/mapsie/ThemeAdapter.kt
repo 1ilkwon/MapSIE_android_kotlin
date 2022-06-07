@@ -7,12 +7,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.kakao.sdk.common.KakaoSdk.init
 import kotlinx.android.synthetic.main.theme_item.view.*
+import kr.ac.tukorea.mapsie.MapPage.ThemePlaceRecycleActivity
 
 class ThemeAdapter(private val context:Context, private val themeList: ArrayList<ThemeData>):
     RecyclerView.Adapter<ThemeAdapter.ItemViewHolder>(){
@@ -35,14 +37,17 @@ class ThemeAdapter(private val context:Context, private val themeList: ArrayList
         val item = themeList[position]
         val listener = View.OnClickListener { it ->
             //Toast.makeText(it.context, "title : ${item.title}", Toast.LENGTH_SHORT).show()
-            val intent = Intent(context, MapActivity::class.java)
+            val intent1 = Intent(context, MapActivity::class.java)
 
-            intent.putExtra("ThemeName", item.num)
-            intent.putExtra("ThemeCollection", item.collect)
-            Log.d("checktest", item.num)
-            intent.run { context.startActivity(this) }
-            //intent.putExtra("ThemeName","${item.title.toString()}" )
-            //intent.putExtra("ThemeName", "${themeList[position].title}")
+            intent1.putExtra("ThemeName", item.num)
+            intent1.putExtra("ThemeCollection", item.collect)
+            intent1.run { context.startActivity(this) }
+
+            val reintent = Intent(context, ThemePlaceRecycleActivity::class.java)
+//
+//            reintent.putExtra("ThemeName", item.num)
+//            reintent.putExtra("ThemeCollection", item.collect)
+
         }
 
         holder.apply {

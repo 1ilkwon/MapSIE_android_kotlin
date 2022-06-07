@@ -1,5 +1,6 @@
 package kr.ac.tukorea.mapsie
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -11,6 +12,9 @@ import com.google.firebase.ktx.Firebase
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
 import com.naver.maps.map.util.FusedLocationSource
+import kotlinx.android.synthetic.main.activity_my_page.*
+import kr.ac.tukorea.mapsie.MapActivity.Companion.LOCATION_PERMISSION_REQUEST_CODE
+import kr.ac.tukorea.mapsie.MapPage.ThemePlaceRecycleActivity
 import kr.ac.tukorea.mapsie.databinding.ActivityMapBinding
 import kr.ac.tukorea.mapsie.ThemeAdapter
 
@@ -30,6 +34,9 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         // 카카오 검색 API
         const val BASE_URL = "https://dapi.kakao.com/"
         const val API_KEY = "KakaoAK d17bbf0efd9f63a03f1bfc74fa148dbd"  // REST API 키
+
+        lateinit var Tvalue : String
+        lateinit var TCollect : String
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,24 +45,30 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         val view = binding.root
         setContentView(view)
         // db의 컬렉션 가져오기
-        val Tvalue = intent.getStringExtra("ThemeName")
-        val TCollect = intent.getStringExtra("ThemeCollection")
+        Tvalue = intent.getStringExtra("ThemeName").toString()
+        TCollect = intent.getStringExtra("ThemeCollection").toString()
         Toast.makeText(this, Tvalue.toString(), Toast.LENGTH_SHORT).show()
         Log.d("checktest", "title: $Tvalue")
+        val reIntent = Intent(this, ThemePlaceRecycleActivity::class.java)
+        reIntent.putExtra("ThemeName1", Tvalue)
+        Log.d("checkF",Tvalue.toString())
+        reIntent.putExtra("ThemeCollection1", TCollect)
 
 
         binding.themaDetailListButton.setOnClickListener {
-            val dialog = CustomDialog(this)
+            //val dialog = CustomDialog(this)
+            val intentlist = Intent(this, ThemePlaceRecycleActivity::class.java)
+            startActivity(intentlist)
             //dialog.showDia()
             db.collection(TCollect.toString()).document(Tvalue.toString()).collection(Tvalue.toString())
                 .get().addOnSuccessListener { result ->
                     for(document in result) {
                         var name = document.data?.get("name").toString()
                         var address = document["address"].toString()
-                        var introduce = document["introduce"].toString()
+                        //var introduce = document["introduce"].toString()
                         Log.d("checkVname", name)
                         Log.d("checkVaddress", address)
-                        Log.d("checkVintroduce", introduce)
+                        //Log.d("checkVintroduce", introduce)
                     }
                 }
 
