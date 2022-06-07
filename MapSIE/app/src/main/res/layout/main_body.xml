@@ -13,7 +13,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="카카오맵 위치" />
+        android:text="네이버맵 위치" />
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchTheme"
         android:layout_width="match_parent"
@@ -23,7 +23,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:closeIcon="@drawable/ic_baseline_close_24"
         app:iconifiedByDefault="false"
-        app:queryHint="장소검색"/>
+        app:queryHint="장소검색"
+        />
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

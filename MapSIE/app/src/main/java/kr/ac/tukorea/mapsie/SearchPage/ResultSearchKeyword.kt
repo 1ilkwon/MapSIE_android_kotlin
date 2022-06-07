@@ -1,4 +1,4 @@
-package kr.ac.tukorea.mapsie
+package kr.ac.tukorea.mapsie.SearchPage
 
 // 검색 결과를 담는 클래스
 data class ResultSearchKeyword(

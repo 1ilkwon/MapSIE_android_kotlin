@@ -5,10 +5,17 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.Menu
 import android.view.MenuItem
+
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+
+import android.widget.EditText
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.SearchView
+
 import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
 import com.bumptech.glide.Glide
@@ -22,7 +29,10 @@ import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.main_body.*
 import kotlinx.android.synthetic.main.main_drawer_header.*
 import kotlinx.android.synthetic.main.main_toolbar.*
+
 import kotlinx.android.synthetic.main.theme_detail_list_n_search.view.*
+
+import kr.ac.tukorea.mapsie.SearchPage.SearchActivity
 import kr.ac.tukorea.mapsie.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -54,6 +64,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(binding.root)
 
 
+
         //만약 firebase auth에 현재 user가 비어있으면 시작 페이지를 LoginActivity로 하고 auth가 있으면(즉, 로그인 되어있으면) MainActivity로 연결
         if (Firebase.auth.currentUser == null) {
             startActivity(
@@ -80,6 +91,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         supportActionBar?.setDisplayShowTitleEnabled(false) // 툴바에 타이틀 안보이게
         toolbar.title = "MapSIE"
         binding.navigationView.setNavigationItemSelectedListener(this)
+
+        // (돋보기 모양 누르면 Search 페이지로)
+        binding.mainLayout.searchEditText.setOnClickListener {
+            startActivity(Intent(this, SearchActivity::class.java))
+        }
+       /* binding.mainLayout.searchEditText.setOnClickListener {
+            startActivity(Intent(this, SearchActivity::class.java))
+        }*/
 
         db.collection("users").document(Firebase.auth.currentUser?.uid ?: "No User").get().addOnSuccessListener {
             member_nickname.text = it["signName"].toString()
@@ -119,9 +138,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             super.onBackPressed()
         }
     }
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {    //메뉴바 클릭 시 실행하는 메서드
         when(item.itemId){
-            R.id.home -> Toast.makeText(this,"홈화면 실행",Toast.LENGTH_SHORT).show()
+            R.id.home -> Toast.makeText(this, "홈화면 실행", Toast.LENGTH_SHORT).show()
             R.id.mypage-> startActivity(Intent(this, MyPageActivity::class.java))
             R.id.guideline-> startActivity(Intent(this, GuideActivity::class.java))
             R.id.addPage -> startActivity(Intent(this, AddActivity::class.java))
@@ -157,8 +177,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             for (document in result) {
                 var Tname = document.data?.get("Tname").toString()
                 var Timg = document["Timg"].toString()
+                var Tnum = document["Tnum"].toString()
+                var Tcollect = document["Tcollect"].toString()
                 themeList.add(
-                    ThemeData(Timg, Tname)
+                    ThemeData(Timg, Tname, Tnum, Tcollect)
                 )
                 themeAdapter = ThemeAdapter(this,themeList)
                 binding.mainLayout.themeRecycler.adapter = themeAdapter
@@ -169,8 +191,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             for (document in result) {
                 var Tname = document.data?.get("Tname").toString()
                 var Timg = document["Timg"].toString()
+                var Tnum = document["Tnum"].toString()
+                var Tcollect = document["Tcollect"].toString()
                 themeList.add(
-                    ThemeData(Timg, Tname)
+                    ThemeData(Timg, Tname,Tnum, Tcollect)
                 )
                 themeAdapter = ThemeAdapter(this,themeList)
                 binding.mainLayout.themeRecycler.adapter = themeAdapter
@@ -181,8 +205,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             for (document in result) {
                 var Tname = document.data?.get("Tname").toString()
                 var Timg = document["Timg"].toString()
+                var Tnum = document["Tnum"].toString()
+                var Tcollect = document["Tcollect"].toString()
                 themeList.add(
-                    ThemeData(Timg, Tname)
+                    ThemeData(Timg, Tname,Tnum, Tcollect)
                 )
                 themeAdapter = ThemeAdapter(this,themeList)
                 binding.mainLayout.themeRecycler.adapter = themeAdapter
@@ -197,20 +223,24 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 for (document in result) {
                     var Tname = document.data?.get("Tname").toString()
                     var Timg = document["Timg"].toString()
+                    var Tnum = document["Tnum"].toString()
+                    var Tcollect = document["Tcollect"].toString()
                     themeList.add(
-                        ThemeData(Timg, Tname)
+                        ThemeData(Timg, Tname,Tnum, Tcollect)
                     )
                     themeAdapter = ThemeAdapter(this,themeList)
                     binding.mainLayout.themeRecycler.adapter = themeAdapter
                     themeAdapter.notifyDataSetChanged()
-                }
+            }
                 }
                 db.collection("Foods").get().addOnSuccessListener { result ->
                     for (document in result) {
                         var Tname = document.data?.get("Tname").toString()
                         var Timg = document["Timg"].toString()
+                        var Tnum = document["Tnum"].toString()
+                        var Tcollect = document["Tcollect"].toString()
                         themeList.add(
-                            ThemeData(Timg, Tname)
+                            ThemeData(Timg, Tname,Tnum, Tcollect)
                         )
                         themeAdapter = ThemeAdapter(this,themeList)
                         binding.mainLayout.themeRecycler.adapter = themeAdapter
@@ -221,8 +251,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     for (document in result) {
                         var Tname = document.data?.get("Tname").toString()
                         var Timg = document["Timg"].toString()
+                        var Tnum = document["Tnum"].toString()
+                        var Tcollect = document["Tcollect"].toString()
                         themeList.add(
-                            ThemeData(Timg, Tname)
+                            ThemeData(Timg, Tname,Tnum,Tcollect)
                         )
                         themeAdapter = ThemeAdapter(this,themeList)
                         binding.mainLayout.themeRecycler.adapter = themeAdapter
@@ -238,8 +270,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 for (document in result) {
                     var Tname = document.data?.get("Tname").toString()
                     var Timg = document["Timg"].toString()
+                    var Tnum = document["Tnum"].toString()
+                    var Tcollect = document["Tcollect"].toString()
                     themeList.add(
-                        ThemeData(Timg, Tname)
+                        ThemeData(Timg, Tname,Tnum, Tcollect)
                     )
                     themeAdapter = ThemeAdapter(this,themeList)
                     binding.mainLayout.themeRecycler.adapter = themeAdapter
@@ -253,8 +287,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 for (document in result) {
                     var Tname = document.data?.get("Tname").toString()
                     var Timg = document["Timg"].toString()
+                    var Tnum = document["Tnum"].toString()
+                    var Tcollect = document["Tcollect"].toString()
                     themeList.add(
-                        ThemeData(Timg, Tname)
+                        ThemeData(Timg, Tname,Tnum, Tcollect)
                     )
                     themeAdapter = ThemeAdapter(this,themeList)
                     binding.mainLayout.themeRecycler.adapter = themeAdapter
@@ -268,8 +304,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 for (document in result) {
                     var Tname = document.data?.get("Tname").toString()
                     var Timg = document["Timg"].toString()
+                    var Tnum = document["Tnum"].toString()
+                    var Tcollect = document["Tcollect"].toString()
                     themeList.add(
-                        ThemeData(Timg, Tname)
+                        ThemeData(Timg, Tname, Tnum,Tcollect)
                     )
                     themeAdapter = ThemeAdapter(this,themeList)
                     binding.mainLayout.themeRecycler.adapter = themeAdapter
@@ -277,14 +315,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 }
             }
         }
-//        var themeList = arrayListOf<ThemeData>( //테마 추가
-//            ThemeData(ContextCompat.getDrawable(this, R.drawable.ic_baseline_favorite_border_24)!!, "테마 제목"),  //테마 추가
-//            ThemeData(ContextCompat.getDrawable(this, R.drawable.flower)!!, "꽃구경 가기 좋은 공원")
-//        )
-//        themeAdapter = ThemeAdapter(this, themeList)
-//        binding.mainLayout.themeRecycler.adapter = themeAdapter   // main_body.xml에 id값 theme_recycler
-//
-//        themeAdapter.notifyDataSetChanged()
     }
 }
 
