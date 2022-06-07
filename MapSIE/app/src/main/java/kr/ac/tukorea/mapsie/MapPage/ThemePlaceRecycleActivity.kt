@@ -25,8 +25,6 @@ class ThemePlaceRecycleActivity : AppCompatActivity() {
 
     var db: FirebaseFirestore = Firebase.firestore
     lateinit var themePlaceAdapter: ThemePlaceAdapter
-    //데이터를 담을 배열
-    var placeList = ArrayListof<ThemePlaceList>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

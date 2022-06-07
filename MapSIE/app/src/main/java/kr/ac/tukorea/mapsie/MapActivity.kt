@@ -56,14 +56,9 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
         binding.themaDetailListButton.setOnClickListener {
-            //val dialog = CustomDialog(this)
             val intentlist = Intent(this, ThemePlaceRecycleActivity::class.java)
             startActivity(intentlist)
             //dialog.showDia()
-
-            val dialog = CustomDialog(this)
-            val intentlist = Intent(this, ThemePlaceRecycleActivity::class.java)
-            startActivity(intentlist)
             db.collection(TCollect.toString()).document(Tvalue.toString()).collection(Tvalue.toString())
                 .get().addOnSuccessListener { result ->
                     for(document in result) {
