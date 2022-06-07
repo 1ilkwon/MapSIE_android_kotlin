@@ -10,6 +10,7 @@ import com.google.firebase.ktx.Firebase
 import kr.ac.tukorea.mapsie.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,8 +33,13 @@ class LoginActivity : AppCompatActivity() {
             startActivity(
                 Intent(this, SignUpActivity::class.java)
             )
-
         }
+
+        /*
+        startActivity(
+            Intent(this, MainActivity::class.java)
+        )
+        */
     }
 
     // 로그인 함수, Firebase auth에 입력받은 userEmail과 password가 있다면 로그인 성공시켜서 MainActivity로 인텐트 시킴

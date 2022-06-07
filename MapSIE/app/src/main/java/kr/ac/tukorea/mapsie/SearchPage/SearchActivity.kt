@@ -15,10 +15,10 @@ import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
 import com.naver.maps.map.overlay.InfoWindow
 import com.naver.maps.map.overlay.Marker
+import com.naver.maps.map.overlay.Overlay
 import com.naver.maps.map.util.FusedLocationSource
-import kr.ac.tukorea.mapsie.KakaoAPI
+import kr.ac.tukorea.mapsie.*
 import kr.ac.tukorea.mapsie.R
-import kr.ac.tukorea.mapsie.ResultSearchKeyword
 import kr.ac.tukorea.mapsie.databinding.ActivitySearchBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -30,6 +30,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 class SearchActivity : AppCompatActivity(), OnMapReadyCallback {
 
     var TAG: String = "로그"
+
+    val infoWindow = InfoWindow()
 
     private lateinit var locationSource: FusedLocationSource
     private lateinit var naverMap: NaverMap
@@ -58,16 +60,52 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback {
         var btn_nextPage = findViewById<Button>(R.id.btn_nextPage)
         var tv_pageNumber = findViewById<TextView>(R.id.tv_pageNumber)
         var rv_list = findViewById<RecyclerView>(R.id.rv_list)
+/*
+        infoWindow.setOnClickListener(object : Overlay.OnClickListener {
+            override fun onClick(overlay: Overlay): Boolean {
 
+                return false
+            }
+        })
+*/
         // 리사이클러 뷰
         binding.rvList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.rvList.adapter = listAdapter
+        val addpageintent = Intent(this, AddActivity::class.java)
 
         // 리사이클러 뷰
         listAdapter.setItemClickListener(object: ListAdapter.OnItemClickListener {
             override fun onClick(v: View, position: Int) {
                 val cameraUpdate = CameraUpdate.scrollAndZoomTo(LatLng(listItems[position].y, listItems[position].x), 11.3)
                 naverMap.moveCamera(cameraUpdate)
+
+                val marker = Marker()
+                marker.position = LatLng(listItems[position].y, listItems[position].x)
+                marker.map = naverMap
+
+                infoWindow.adapter = object : InfoWindow.DefaultTextAdapter(application) {
+                    override fun getText(infoWindow: InfoWindow): CharSequence {
+                        return "★ 내 장소 등록/수정하기"
+                    }
+                }
+
+                infoWindow.position = LatLng(listItems[position].y, listItems[position].x)
+                infoWindow.open(marker)
+
+                // 정보창 클릭 시                
+                infoWindow.setOnClickListener(Overlay.OnClickListener {
+                    Toast.makeText(this@SearchActivity, "내 장소 등록/수정하기", Toast.LENGTH_SHORT).show()
+                    addpageintent.putExtra("name", listItems[position].name)
+                    addpageintent.putExtra("road", listItems[position].road)
+                    startActivity(addpageintent)
+                    false
+                })
+                // 마커 클릭 시
+                marker.setOnClickListener { overlay ->
+                    infoWindow.open(marker)
+                    true
+                }
+                
                 /* 리사이클러 뷰에서 선택한 부분만 마커 표시 (off)
                 val marker = Marker()
                 marker.position = LatLng(listItems[position].y, listItems[position].x)
@@ -98,8 +136,6 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback {
             btn_prevPage.visibility = View.VISIBLE
             btn_nextPage.visibility = View.VISIBLE
             tv_pageNumber.visibility = View.VISIBLE
-
-
         }
 
         // 이전 페이지 버튼
@@ -158,6 +194,7 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback {
             btn_prevPage.visibility = View.GONE
             btn_nextPage.visibility = View.GONE
             tv_pageNumber.visibility = View.GONE
+//            infoWindow.close()
         }
     }
 
@@ -184,7 +221,7 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
-    // 키워드 검색 함수
+    // 키워드 검색 함수 !!!!
     private fun searchKeyword(keyword: String, page: Int) {
         val retrofit = Retrofit.Builder()          // Retrofit 구성
             .baseUrl(BASE_URL)
@@ -210,7 +247,6 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         })
     }
-
     // 검색 결과 처리 함수
     private fun addItemsAndMarkers(searchResult: ResultSearchKeyword?) {
         if (!searchResult?.documents.isNullOrEmpty()) {
@@ -227,17 +263,16 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback {
                 )
                 listItems.add(item)
                 listAdapter.notifyDataSetChanged()
-                /* 검색 결과 전부 다 마커 표시하기 (on)*/
+                /* 검색 결과 전부 다 마커 표시하기 (on)
                 val marker = Marker()
                 marker.position = LatLng(document.y.toDouble(), document.x.toDouble())
                 marker.map = naverMap
-
-
+                */
                 // infowindow 작성
-                val infoWindow = InfoWindow()
-                infoWindow.adapter = object : InfoWindow.DefaultTextAdapter(application) {
+
+/*                infoWindow.adapter = object : InfoWindow.DefaultTextAdapter(application) {
                     override fun getText(infoWindow: InfoWindow): CharSequence {
-                        return "내 장소 등록/수정하기"
+                        return "★ 내 장소 등록/수정하기"
                     }
                 }
                 infoWindow.position = LatLng(document.y.toDouble(), document.x.toDouble())
@@ -245,8 +280,17 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback {
                     infoWindow.open(marker)
                     true
                 }
-            }
+                // 정보창 클릭 시
 
+                infoWindow.setOnClickListener(Overlay.OnClickListener {
+                    Toast.makeText(this@SearchActivity, "내 장소 등록/수정하기", Toast.LENGTH_SHORT).show()
+                    val addpageintent = Intent(this, AddActivity::class.java)
+                    addpageintent.putExtra("place", document.place_name)
+                    addpageintent.putExtra("road", document.road_address_name)
+                    startActivity(addpageintent)
+                    false
+                })*/
+            }
             binding.btnNextPage.isEnabled = !searchResult.meta.is_end // 페이지가 더 있을 경우 다음 버튼 활성화
             binding.btnPrevPage.isEnabled = pageNumber != 1             // 1페이지가 아닐 경우 이전 버튼 활성화
 

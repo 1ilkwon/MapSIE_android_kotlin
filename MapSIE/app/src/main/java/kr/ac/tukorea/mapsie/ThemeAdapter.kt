@@ -27,10 +27,8 @@ class ThemeAdapter(private val context:Context, private val themeList: ArrayList
         //필터를 위한 변수
         var filter = themeList
 
-
         inner class ItemViewHolder(itemView:View): RecyclerView.ViewHolder(itemView){
             private var view:View = itemView
-
 
             fun bind(listener: View.OnClickListener, item:ThemeData) {
                 view.theme_title.text = item.title
@@ -49,9 +47,19 @@ class ThemeAdapter(private val context:Context, private val themeList: ArrayList
         val item = filter[position]
         val listener = View.OnClickListener { it ->
             //Toast.makeText(it.context, "title : ${item.title}", Toast.LENGTH_SHORT).show()
-            val intent = Intent(context, MapActivity::class.java)
-            intent.run { context.startActivity(this) }
+            val intent1 = Intent(context, MapActivity::class.java)
+
+            intent1.putExtra("ThemeName", item.num)
+            intent1.putExtra("ThemeCollection", item.collect)
+            intent1.run { context.startActivity(this) }
+
+            val reintent = Intent(context, ThemePlaceRecycleActivity::class.java)
+//
+//            reintent.putExtra("ThemeName", item.num)
+//            reintent.putExtra("ThemeCollection", item.collect)
+
         }
+
         holder.apply {
             bind(listener, item)
             itemView.tag = item

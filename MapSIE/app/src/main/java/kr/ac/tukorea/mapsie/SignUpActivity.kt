@@ -77,6 +77,7 @@ class SignUpActivity : AppCompatActivity() {
                             "passwdCk" to binding.passwdCkText.text.toString(),
                             "address" to binding.addressText.text.toString(),
                             "introduce" to binding.introduceText.text.toString(),
+                            "count" to 0,
                             "signImg" to downloadUri.toString()
                         )
                         // db안에 있는 users 컬렉션에 위 userMap에서 담은 정보를 넣어줌
