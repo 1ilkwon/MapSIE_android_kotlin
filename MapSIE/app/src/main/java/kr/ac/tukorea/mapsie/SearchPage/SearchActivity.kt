@@ -106,16 +106,28 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback {
                 // 마커 클릭 시
                 marker.setOnClickListener { overlay ->
                     infoWindow.open(marker)
-                    // 정보창 클릭 시
                     infoWindow.setOnClickListener(Overlay.OnClickListener {
                         Toast.makeText(this@SearchActivity, "내 장소 등록/수정하기", Toast.LENGTH_SHORT).show()
                         addpageintent.putExtra("name", listItems[position].name)
                         addpageintent.putExtra("road", listItems[position].road)
+                        addpageintent.putExtra("x", listItems[position].x)
+                        addpageintent.putExtra("y", listItems[position].y)
                         startActivity(addpageintent)
                         false
                     })
+                    // 정보창 클릭 시
                     true
                 }
+
+                infoWindow.setOnClickListener(Overlay.OnClickListener {
+                    Toast.makeText(this@SearchActivity, "내 장소 등록/수정하기", Toast.LENGTH_SHORT).show()
+                    addpageintent.putExtra("name", listItems[position].name)
+                    addpageintent.putExtra("road", listItems[position].road)
+                    addpageintent.putExtra("x", listItems[position].x)
+                    addpageintent.putExtra("y", listItems[position].y)
+                    startActivity(addpageintent)
+                    false
+                })
                 
                 /* 리사이클러 뷰에서 선택한 부분만 마커 표시 (off)
                 val marker = Marker()
