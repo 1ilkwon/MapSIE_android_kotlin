@@ -70,8 +70,9 @@ class ThemePlaceRecycleActivity : AppCompatActivity() {
                     var address = document["address"].toString()
                     var theme = document["Tname"].toString()
                     var storeNum = document["storeNum"].toString()
+                    var placeImage = document["placeImage"].toString()
                     //modelList.add(ThemePlaceList(name,address))
-                    modelList.add(ThemePlaceList(name, address,theme, storeNum))
+                    modelList.add(ThemePlaceList(name, address,placeImage, theme, storeNum))    //이미지까지
 
 
                     themePlaceAdapter = ThemePlaceAdapter(this,modelList)
