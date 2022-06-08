@@ -1,6 +1,7 @@
 package kr.ac.tukorea.mapsie.MapPage
 
 
+import android.app.Person
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -10,6 +11,9 @@ import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.theme_item.view.*
 import kotlinx.android.synthetic.main.theme_place_item.view.*
 import kr.ac.tukorea.mapsie.DetailActivity
@@ -24,13 +28,12 @@ class ThemePlaceAdapter(private val context: Context, private val themePlaceList
     var unfilter = themePlaceList
     //필터를 위한 변수
     var filter = themePlaceList
-
-
     override fun getItemCount(): Int = filter.size //(구현 중)
 
     // 각 항목에 필요한 기능을 구현
-    inner class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
-        private var view: View = v
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private var view: View = itemView
+
         fun bind(listener: View.OnClickListener, item: ThemePlaceList) {
             view.themeplacename.text = item.placename
             view.themeplaceaddress.text = item.placeaddress
@@ -38,10 +41,15 @@ class ThemePlaceAdapter(private val context: Context, private val themePlaceList
             view.setOnClickListener(listener)
         }
     }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ThemePlaceAdapter.ViewHolder {
+        val view =
+            LayoutInflater.from(context).inflate(R.layout.theme_place_item, parent, false)
+        return ViewHolder(view)
+    }
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        //val item = themePlaceList[position]
+        val item = filter[position]
         val item = filter[position]
         val listener = View.OnClickListener {
             val intent = Intent(context, DetailActivity::class.java)
@@ -63,11 +71,10 @@ class ThemePlaceAdapter(private val context: Context, private val themePlaceList
     }
 
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ThemePlaceAdapter.ViewHolder {
-            val view =
-                LayoutInflater.from(context).inflate(R.layout.theme_place_item, parent, false)
-            return ViewHolder(view)
-        }
+
+    override fun getItemCount(): Int {
+        return filter.size
+    }
 
     //리사이클뷰 필터링 메서드 (구현 중)
     override fun getFilter(): Filter {

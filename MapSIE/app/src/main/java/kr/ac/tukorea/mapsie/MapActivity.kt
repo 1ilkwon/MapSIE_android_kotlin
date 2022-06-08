@@ -1,6 +1,7 @@
 package kr.ac.tukorea.mapsie
 
-import android.content.Intent
+
+import  android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -11,12 +12,11 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
+import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.util.FusedLocationSource
-import kotlinx.android.synthetic.main.activity_my_page.*
-import kr.ac.tukorea.mapsie.MapActivity.Companion.LOCATION_PERMISSION_REQUEST_CODE
 import kr.ac.tukorea.mapsie.MapPage.ThemePlaceRecycleActivity
 import kr.ac.tukorea.mapsie.databinding.ActivityMapBinding
-import kr.ac.tukorea.mapsie.ThemeAdapter
+
 
 
 class MapActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -58,20 +58,18 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         binding.themaDetailListButton.setOnClickListener {
             val intentlist = Intent(this, ThemePlaceRecycleActivity::class.java)
             startActivity(intentlist)
-            //dialog.showDia()
             db.collection(TCollect.toString()).document(Tvalue.toString()).collection(Tvalue.toString())
                 .get().addOnSuccessListener { result ->
                     for(document in result) {
                         var name = document.data?.get("name").toString()
                         var address = document["address"].toString()
-                        //var introduce = document["introduce"].toString()
                         Log.d("checkVname", name)
                         Log.d("checkVaddress", address)
-                        //Log.d("checkVintroduce", introduce)
                     }
                 }
 
         }
+
 
 
 
@@ -127,5 +125,10 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         val camera = CameraUpdate.scrollAndZoomTo(LatLng(37.38, 126.8),11.0)
             .animate(CameraAnimation.Easing, 1200) // 카메라 에니메이션효과 1.2초안에
         naverMap.moveCamera(camera)
+
+        val marker = Marker()
+        marker.position = LatLng(37.5670135, 126.9783740)
+        marker.map = naverMap
     }
+
 }

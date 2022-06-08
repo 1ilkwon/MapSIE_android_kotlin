@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchThemePlace"
         android:layout_width="match_parent"

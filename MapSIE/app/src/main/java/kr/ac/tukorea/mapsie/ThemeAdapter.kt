@@ -13,9 +13,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
-import com.kakao.sdk.common.KakaoSdk.init
 import kotlinx.android.synthetic.main.theme_item.view.*
 import kr.ac.tukorea.mapsie.MapPage.ThemePlaceRecycleActivity
 import java.util.*
@@ -55,10 +52,6 @@ class ThemeAdapter(private val context:Context, private val themeList: ArrayList
             intent1.putExtra("ThemeCollection", item.collect)
             intent1.run { context.startActivity(this) }
 
-            val reintent = Intent(context, ThemePlaceRecycleActivity::class.java)
-//
-//            reintent.putExtra("ThemeName", item.num)
-//            reintent.putExtra("ThemeCollection", item.collect)
 
         }
 
@@ -72,6 +65,7 @@ class ThemeAdapter(private val context:Context, private val themeList: ArrayList
         //return themeList.size
         return filter.size
     }
+
 
     //리사이클뷰 필터링 메서드
     override fun getFilter(): Filter {

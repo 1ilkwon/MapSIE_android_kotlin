@@ -1,9 +1,13 @@
 package kr.ac.tukorea.mapsie.SearchPage
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
+import android.view.KeyEvent.KEYCODE_ENTER
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -17,7 +21,8 @@ import com.naver.maps.map.overlay.InfoWindow
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.Overlay
 import com.naver.maps.map.util.FusedLocationSource
-import kr.ac.tukorea.mapsie.*
+import kr.ac.tukorea.mapsie.AddActivity
+import kr.ac.tukorea.mapsie.KakaoAPI
 import kr.ac.tukorea.mapsie.R
 import kr.ac.tukorea.mapsie.databinding.ActivitySearchBinding
 import retrofit2.Call
@@ -79,6 +84,11 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback {
                 val cameraUpdate = CameraUpdate.scrollAndZoomTo(LatLng(listItems[position].y, listItems[position].x), 11.3)
                 naverMap.moveCamera(cameraUpdate)
 
+                rv_list.visibility = View.GONE
+                btn_prevPage.visibility = View.GONE
+                btn_nextPage.visibility = View.GONE
+                tv_pageNumber.visibility = View.GONE
+
                 val marker = Marker()
                 marker.position = LatLng(listItems[position].y, listItems[position].x)
                 marker.map = naverMap
@@ -92,19 +102,32 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback {
                 infoWindow.position = LatLng(listItems[position].y, listItems[position].x)
                 infoWindow.open(marker)
 
-                // 정보창 클릭 시                
+
+                // 마커 클릭 시
+                marker.setOnClickListener { overlay ->
+                    infoWindow.open(marker)
+                    infoWindow.setOnClickListener(Overlay.OnClickListener {
+                        Toast.makeText(this@SearchActivity, "내 장소 등록/수정하기", Toast.LENGTH_SHORT).show()
+                        addpageintent.putExtra("name", listItems[position].name)
+                        addpageintent.putExtra("road", listItems[position].road)
+                        addpageintent.putExtra("x", listItems[position].x)
+                        addpageintent.putExtra("y", listItems[position].y)
+                        startActivity(addpageintent)
+                        false
+                    })
+                    // 정보창 클릭 시
+                    true
+                }
+
                 infoWindow.setOnClickListener(Overlay.OnClickListener {
                     Toast.makeText(this@SearchActivity, "내 장소 등록/수정하기", Toast.LENGTH_SHORT).show()
                     addpageintent.putExtra("name", listItems[position].name)
                     addpageintent.putExtra("road", listItems[position].road)
+                    addpageintent.putExtra("x", listItems[position].x)
+                    addpageintent.putExtra("y", listItems[position].y)
                     startActivity(addpageintent)
                     false
                 })
-                // 마커 클릭 시
-                marker.setOnClickListener { overlay ->
-                    infoWindow.open(marker)
-                    true
-                }
                 
                 /* 리사이클러 뷰에서 선택한 부분만 마커 표시 (off)
                 val marker = Marker()
@@ -136,6 +159,7 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback {
             btn_prevPage.visibility = View.VISIBLE
             btn_nextPage.visibility = View.VISIBLE
             tv_pageNumber.visibility = View.VISIBLE
+            softkeyboardHide() // 키보드 내리기
         }
 
         // 이전 페이지 버튼
@@ -194,6 +218,7 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback {
             btn_prevPage.visibility = View.GONE
             btn_nextPage.visibility = View.GONE
             tv_pageNumber.visibility = View.GONE
+            softkeyboardHide() // 키보드 내리기
 //            infoWindow.close()
         }
     }
@@ -298,5 +323,11 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback {
             // 검색 결과 없음
             Toast.makeText(this, "검색 결과가 없습니다", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    // 자동으로 키보드 내리기
+    fun softkeyboardHide() {
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.etSearchField.windowToken, 0)
     }
 }
