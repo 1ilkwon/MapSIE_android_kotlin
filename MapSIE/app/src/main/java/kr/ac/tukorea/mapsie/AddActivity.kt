@@ -136,7 +136,6 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
             searchKeyword(keyword, pageNumber)
             rv_list.visibility = View.VISIBLE
             adr_text.visibility = View.VISIBLE
-            softkeyboardHide() // 키보드 내리기
         }
 
         // 리사이클러 뷰 (아이템 클릭 시)
@@ -725,9 +724,4 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
     }
 
 }
-    // 자동으로 키보드 내리기
-    fun softkeyboardHide() {
-        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(add_name.windowToken, 0)
-    }
-}
+
