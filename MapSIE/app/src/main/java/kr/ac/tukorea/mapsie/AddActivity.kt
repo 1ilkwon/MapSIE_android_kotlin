@@ -1,11 +1,14 @@
 package kr.ac.tukorea.mapsie
 
+import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.provider.MediaStore
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -18,15 +21,19 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.util.FusedLocationSource
 import kotlinx.android.synthetic.main.activity_detail.*
+import kotlinx.android.synthetic.main.activity_sign_up.*
 import kotlinx.android.synthetic.main.add_body.*
 import kotlinx.android.synthetic.main.main_body.*
 import kotlinx.android.synthetic.main.main_toolbar.*
@@ -40,8 +47,14 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.text.SimpleDateFormat
+import java.util.*
 
 class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+    private lateinit var imagesRef: StorageReference
+    private val OPEN_GALLERY = 1111
+    var fileName: String = SimpleDateFormat("yyyymmdd_HHmmss").format(Date())
+    var downloadUri: Uri? = null    //storage에서 다운받는 이미지의 uri
 
     private lateinit var locationSource: FusedLocationSource
 
@@ -76,6 +89,7 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
     private lateinit var binding: ActivityAddBinding
 
     var db: FirebaseFirestore = Firebase.firestore
+    var storage: FirebaseStorage = FirebaseStorage.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -173,6 +187,7 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                             "introduce" to binding.mainLayout.addIntroduce.text.toString(),
                                             "storeNum" to "Cafe1_" + countNum.toString(),
                                             "Tname" to "카공하기 좋은 곳",
+                                            "placeImage" to downloadUri.toString()
                                         )
                                         // firebase 구조에 따라 데이터 저장
                                         db.collection("Cafes").document("Cafe1").collection("Cafe1")
@@ -185,7 +200,7 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                             "Tcollect" to "Cafes",
                                             "Tname" to "카공하기 좋은 곳",
                                             "Tnum" to "Cafe1",
-                                            "Timg" to "https://firebasestorage.googleapis.com/v0/b/mapsie-1b20c.appspot.com/o/cafe_desert.png?alt=media&token=77ec8e95-2806-4c32-87c8-a7dcb6499240"
+                                            "Timg" to "https://firebasestorage.googleapis.com/v0/b/mapsie-1b20c.appspot.com/o/cafe_study.png?alt=media&token=77ec8e95-2806-4c32-87c8-a7dcb6499240"
                                         )
                                         db.collection("Cafes").document("Cafe1").set(countMap)
 
@@ -216,6 +231,7 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                             "introduce" to binding.mainLayout.addIntroduce.text.toString(),
                                             "storeNum" to "Cafe2_" + countNum.toString(),
                                             "Tname" to "디저트 맛집",
+                                            "placeImage" to downloadUri.toString()
                                         )
                                         db.collection("Cafes").document("Cafe2").collection("Cafe2")
                                             .document("Cafe2_" + countNum.toString())
@@ -255,6 +271,7 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                             "introduce" to binding.mainLayout.addIntroduce.text.toString(),
                                             "storeNum" to "Cafe3_" + countNum.toString(),
                                             "Tname" to "뷰가 좋은 카페",
+                                            "placeImage" to downloadUri.toString()
                                         )
                                         db.collection("Cafes").document("Cafe3").collection("Cafe3")
                                             .document("Cafe3_" + countNum.toString())
@@ -294,6 +311,7 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                             "introduce" to binding.mainLayout.addIntroduce.text.toString(),
                                             "storeNum" to "Food1_" + countNum.toString(),
                                             "Tname" to "양식이 땡길 때",
+                                            "placeImage" to downloadUri.toString()
                                         )
                                         db.collection("Foods").document("Food1").collection("Food1")
                                             .document("Food1_" + countNum.toString())
@@ -334,6 +352,7 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                             "introduce" to binding.mainLayout.addIntroduce.text.toString(),
                                             "storeNum" to "Food2_" + countNum.toString(),
                                             "Tname" to "혼밥하기 좋은 곳",
+                                            "placeImage" to downloadUri.toString()
                                         )
                                         db.collection("Foods").document("Food2").collection("Food2")
                                             .document("Food2_" + countNum.toString())
@@ -375,6 +394,7 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                             "introduce" to binding.mainLayout.addIntroduce.text.toString(),
                                             "storeNum" to "Food3_" + countNum.toString(),
                                             "Tname" to "소개팅할때 추천",
+                                            "placeImage" to downloadUri.toString()
                                         )
                                         db.collection("Foods").document("Food3").collection("Food3")
                                             .document("Food3_" + countNum.toString())
@@ -415,6 +435,7 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                             "introduce" to binding.mainLayout.addIntroduce.text.toString(),
                                             "storeNum" to "Park1_" + countNum.toString(),
                                             "Tname" to "산책하기 좋은 공원",
+                                            "placeImage" to downloadUri.toString()
                                         )
                                         db.collection("Park").document("Park1").collection("Park1")
                                             .document("Park1_" + countNum.toString())
@@ -455,6 +476,7 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                             "introduce" to binding.mainLayout.addIntroduce.text.toString(),
                                             "storeNum" to "Park2_" + countNum.toString(),
                                             "Tname" to "런닝하기 좋은 공원",
+                                            "placeImage" to downloadUri.toString()
                                         )
                                         db.collection("Park").document("Park2").collection("Park2")
                                             .document("Park2_" + countNum.toString())
@@ -495,6 +517,7 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                             "introduce" to binding.mainLayout.addIntroduce.text.toString(),
                                             "storeNum" to "Park3_" + countNum.toString(),
                                             "Tname" to "꽃구경하기 좋은 공원",
+                                            "placeImage" to downloadUri.toString()
                                         )
                                         db.collection("Park").document("Park3").collection("Park3")
                                             .document("Park3_" + countNum.toString())
@@ -522,6 +545,9 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                         }
                     }
                 }
+        }
+        binding.mainLayout.addImg.setOnClickListener{
+            openGallery()
         }
     }
 
@@ -638,10 +664,70 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
         }
     }
 
+    //갤러리에서 사진 가져오기
+    private fun openGallery() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = MediaStore.Images.Media.CONTENT_TYPE
+        intent.data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+        intent.type = "image/*"
+        startActivityForResult(intent, OPEN_GALLERY)
+    }
+
+    //firebae storage 이미지 업로드
+    private fun uploadImageTOFirebase(uri: Uri) {
+        storage = FirebaseStorage.getInstance()   //FirebaseStorage 인스턴스 생성
+        imagesRef = storage.reference.child("placeImg/").child(fileName)    //기본 참조 위치/placeImg/${fileName}
+        //이미지 파일 업로드
+        var uploadTask = imagesRef.putFile(uri)
+        uploadTask.addOnSuccessListener { taskSnapshot ->
+            Toast.makeText(this, "성공", Toast.LENGTH_SHORT).show()
+        }.addOnFailureListener {
+            println(it)
+            Toast.makeText(this, "실패", Toast.LENGTH_SHORT).show()
+        }
+
+        val urlTask = uploadTask.continueWithTask { task->
+            if(!task.isSuccessful) {
+                task.exception?.let {
+                    throw it
+                }
+            }
+            imagesRef.downloadUrl
+        }.addOnCompleteListener{ task->
+            if(task.isSuccessful){
+                downloadUri = task.result
+            } else{
+                Toast.makeText(this, "다운로드 실패", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    @Override
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if( resultCode == Activity.RESULT_OK) {
+            if( requestCode ==  OPEN_GALLERY) {
+                uploadImageTOFirebase(data?.data!!)
+                try {
+                    Glide.with(this)
+                        .load(data?.data!!)
+                        .override(60, 60)
+                        .error(R.drawable.ic_baseline_account_circle_24)
+                        .fallback(R.drawable.ic_baseline_add_a_photo_24)
+                        .into(signImg)
+                }
+                catch (e:Exception)
+                {
+                    e.printStackTrace()
+                }
+            }
+        }
+    }
+
+}
     // 자동으로 키보드 내리기
     fun softkeyboardHide() {
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(add_name.windowToken, 0)
     }
 }
-
