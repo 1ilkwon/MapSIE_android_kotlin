@@ -94,6 +94,8 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
         var add_adress = findViewById<EditText>(R.id.add_adress)
         var add_name = findViewById<EditText>(R.id.add_name)
         var adr_text = findViewById<TextView>(R.id.adr_text)
+        var x1 : Double
+        var y1 : Double
 
         rv_list.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         rv_list.adapter = listAdapter
@@ -101,6 +103,13 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
         if (intent.hasExtra("road") && intent.hasExtra("name")) {
             add_name.setText(intent.getStringExtra("name"))
             add_adress.setText(intent.getStringExtra("road"))
+
+            // 좌표 가져온거 x1과 y1로 표시
+            x1 = (intent.getDoubleExtra("x", 0.0))
+            y1 = (intent.getDoubleExtra("y", 0.0))
+            // 좌표 가져와졌는지 확인 지우시면됩니다.
+            Toast.makeText(this@AddActivity, "$x1\n$y1", Toast.LENGTH_SHORT).show()
+
 //            Toast.makeText(this@AddActivity, "주소,장소 값 INTENT TEST", Toast.LENGTH_SHORT).show()
         }
 
@@ -120,6 +129,13 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
             override fun onClick(v: View, position: Int) {
                 add_adress.setText(listItems[position].road)
                 add_name.setText(listItems[position].name)
+
+                // 좌표 가져온거 x1과 y1로 표시
+                x1 = listItems[position].x
+                y1 = listItems[position].y
+                // 좌표 가져와졌는지 확인 지우시면됩니다.
+                Toast.makeText(this@AddActivity, "$x1\n$y1", Toast.LENGTH_SHORT).show()
+
                 rv_list.visibility = View.GONE
                 adr_text.visibility = View.GONE
             }
