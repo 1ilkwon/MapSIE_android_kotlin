@@ -12,6 +12,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
+import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.util.FusedLocationSource
 import kr.ac.tukorea.mapsie.MapPage.ThemePlaceRecycleActivity
 import kr.ac.tukorea.mapsie.databinding.ActivityMapBinding
@@ -124,6 +125,10 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         val camera = CameraUpdate.scrollAndZoomTo(LatLng(37.38, 126.8),11.0)
             .animate(CameraAnimation.Easing, 1200) // 카메라 에니메이션효과 1.2초안에
         naverMap.moveCamera(camera)
+
+        val marker = Marker()
+        marker.position = LatLng(37.5670135, 126.9783740)
+        marker.map = naverMap
     }
 
 }
