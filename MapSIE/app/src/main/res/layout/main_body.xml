@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:text="네이버맵 위치" />
     <androidx.appcompat.widget.SearchView
-        android:id="@+id/search_edit_text"
+        android:id="@+id/searchTheme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
