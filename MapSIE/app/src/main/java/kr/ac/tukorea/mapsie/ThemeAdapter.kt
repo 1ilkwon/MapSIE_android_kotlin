@@ -17,6 +17,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.kakao.sdk.common.KakaoSdk.init
 import kotlinx.android.synthetic.main.theme_item.view.*
+import kr.ac.tukorea.mapsie.MapPage.ThemePlaceRecycleActivity
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -32,7 +33,8 @@ class ThemeAdapter(private val context:Context, private val themeList: ArrayList
 
             fun bind(listener: View.OnClickListener, item:ThemeData) {
                 view.theme_title.text = item.title
-                Glide.with(itemView).load(item.img).into(view.theme_img)
+                Glide.with(itemView).load(item.img).error(R.drawable.ic_baseline_account_circle_24)
+                    .fallback(R.drawable.ic_baseline_add_a_photo_24).into(view.theme_img)
                 view.setOnClickListener(listener)
             }
         }
@@ -71,51 +73,6 @@ class ThemeAdapter(private val context:Context, private val themeList: ArrayList
         return filter.size
     }
 
-
-    //필러를 위한 메서드
-//    override fun getFilter(): Filter {
-//        return itemFilter
-//    }
-//    inner class ItemFilter:Filter(){
-//            override fun performFiltering(charSequence: CharSequence): FilterResults {
-//                val filterString = charSequence.toString()
-//                val results = FilterResults()
-//
-//                //검색이 필요없을 경우를 위해 원본 배열을 복제
-//                val filteredList: ArrayList<ThemeData> = ArrayList<ThemeData>()
-//                //공백제외 아무런 값이 없을 경우 -> 원본 배열
-//                if (filterString.trim { it <= ' ' }.isEmpty()) {
-//                    results.values = themeList
-//                    results.count = themeList.size
-//
-//                    return results
-//                    //공백제외 2글자 이하인 경우 -> 이름으로만 검색
-//                } else if (filterString.trim { it <= ' ' }.length <= 2) {
-//                    for (theme in themeList) {
-//                        if (theme.title.contains(filterString)) {
-//                            filteredList.add(theme)
-//                        }
-//                    }
-//                    //그 외의 경우(공백제외 2글자 초과) -> 이름/전화번호로 검색
-//                } else {
-//                    for (theme in themeList) {
-//                        if (theme.title.contains(filterString)) {
-//                            filteredList.add(theme)
-//                        }
-//                    }
-//                }
-//                results.values = filteredList
-//                results.count = filteredList.size
-//
-//                return results
-//            }
-//            @SuppressLint("NotifyDataSetChanged")
-//            override fun publishResults(charSequence: CharSequence?, filterResults: FilterResults) {
-//                filteredTheme.clear()
-//                filteredTheme.addAll(filterResults.values as ArrayList<ThemeData>)
-//                notifyDataSetChanged()
-//            }
-//    }
     //리사이클뷰 필터링 메서드
     override fun getFilter(): Filter {
         return object : Filter() {

@@ -10,11 +10,7 @@ import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-
 import android.widget.EditText
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.widget.SearchView
 import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
 import com.bumptech.glide.Glide
@@ -27,7 +23,6 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.main_drawer_header.*
 import kotlinx.android.synthetic.main.main_toolbar.*
-import kotlinx.android.synthetic.main.theme_detail_list_n_search.view.*
 import kr.ac.tukorea.mapsie.SearchPage.SearchActivity
 import kr.ac.tukorea.mapsie.databinding.ActivityMainBinding
 
@@ -90,9 +85,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         binding.navigationView.setNavigationItemSelectedListener(this)
 
         // (돋보기 모양 누르면 Search 페이지로)
-        binding.mainLayout.searchEditText.setOnClickListener {
-            startActivity(Intent(this, SearchActivity::class.java))
-        }
+//        binding.mainLayout.searchEditText.setOnClickListener {
+//            startActivity(Intent(this, SearchActivity::class.java))
+//        }
        /* binding.mainLayout.searchEditText.setOnClickListener {
             startActivity(Intent(this, SearchActivity::class.java))
         }*/

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.theme_item.view.*
 import kotlinx.android.synthetic.main.theme_place_item.view.*
 import kr.ac.tukorea.mapsie.DetailActivity
@@ -23,9 +24,9 @@ class ThemePlaceAdapter(private val context: Context, private val themePlaceList
     var unfilter = themePlaceList
     //필터를 위한 변수
     var filter = themePlaceList
-    val item = filter[position]
 
-    override fun getItemCount(): Int = themePlaceList.size
+
+    override fun getItemCount(): Int = filter.size //(구현 중)
 
     // 각 항목에 필요한 기능을 구현
     inner class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
@@ -33,15 +34,18 @@ class ThemePlaceAdapter(private val context: Context, private val themePlaceList
         fun bind(listener: View.OnClickListener, item: ThemePlaceList) {
             view.themeplacename.text = item.placename
             view.themeplaceaddress.text = item.placeaddress
+            Glide.with(itemView).load(item.placeimage).into(view.place_image)
             view.setOnClickListener(listener)
         }
     }
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = themePlaceList[position]
+        //val item = themePlaceList[position]
+        val item = filter[position]
         val listener = View.OnClickListener {
             val intent = Intent(context, DetailActivity::class.java)
+            intent.putExtra("Simage", item.placeimage)
             intent.putExtra("Sname", item.placename)
             intent.putExtra("Saddress", item.placeaddress)
             intent.putExtra("Stheme", item.placeTheme)
@@ -65,7 +69,7 @@ class ThemePlaceAdapter(private val context: Context, private val themePlaceList
             return ViewHolder(view)
         }
 
-    //리사이클뷰 필터링 메서드
+    //리사이클뷰 필터링 메서드 (구현 중)
     override fun getFilter(): Filter {
         return object : Filter() {
             override fun performFiltering(constraint: CharSequence?): FilterResults {
@@ -75,7 +79,7 @@ class ThemePlaceAdapter(private val context: Context, private val themePlaceList
                 } else {
                     var resultList = ArrayList<ThemePlaceList>()
                     for (item in unfilter) {
-                        if (item.title.toLowerCase().contains(charSearch.toLowerCase()))
+                        if (item.placename.toLowerCase().contains(charSearch.toLowerCase()))
                             resultList.add(item)
                     }
                     filter = resultList
