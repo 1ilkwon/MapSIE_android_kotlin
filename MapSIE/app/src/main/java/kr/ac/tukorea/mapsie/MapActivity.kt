@@ -70,8 +70,6 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         }
 
 
-
-
         // 타이틀바 숨기기
         var actionBar: ActionBar?
         actionBar = supportActionBar
