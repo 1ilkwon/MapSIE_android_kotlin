@@ -71,10 +71,6 @@ class ThemePlaceAdapter(private val context: Context, private val themePlaceList
 
 
 
-    override fun getItemCount(): Int {
-        return filter.size
-    }
-
     //리사이클뷰 필터링 메서드 (구현 중)
     override fun getFilter(): Filter {
         return object : Filter() {

@@ -20,7 +20,10 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.main_drawer_header.*
+import kotlinx.android.synthetic.main.main_drawer_header.member_icon
+import kotlinx.android.synthetic.main.main_drawer_header.member_nickname
 import kotlinx.android.synthetic.main.main_toolbar.*
+import kotlinx.android.synthetic.main.review_item.*
 import kr.ac.tukorea.mapsie.SearchPage.SearchActivity
 import kr.ac.tukorea.mapsie.databinding.ActivityMainBinding
 

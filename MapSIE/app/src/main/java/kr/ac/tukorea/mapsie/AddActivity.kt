@@ -123,8 +123,8 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
         var add_adress = findViewById<EditText>(R.id.add_adress)
         var add_name = findViewById<EditText>(R.id.add_name)
         var adr_text = findViewById<TextView>(R.id.adr_text)
-        var x1 : Double
-        var y1 : Double
+        var x1 : Double? = null
+        var y1 : Double? = null
 
         rv_list.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         rv_list.adapter = listAdapter
@@ -150,7 +150,6 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
             searchKeyword(keyword, pageNumber)
             rv_list.visibility = View.VISIBLE
             adr_text.visibility = View.VISIBLE
-            softkeyboardHide() // 키보드 내리기
         }
 
         // 리사이클러 뷰 (아이템 클릭 시)
@@ -201,7 +200,9 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                             "introduce" to binding.mainLayout.addIntroduce.text.toString(),
                                             "storeNum" to "Cafe1_" + countNum.toString(),
                                             "Tname" to "카공하기 좋은 곳",
-                                            "placeImage" to downloadUri.toString()
+                                            "placeImage" to downloadUri.toString(),
+                                            "x" to x1,
+                                            "y" to y1,
                                         )
                                         // firebase 구조에 따라 데이터 저장
                                         db.collection("Cafes").document("Cafe1").collection("Cafe1")
@@ -245,7 +246,9 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                             "introduce" to binding.mainLayout.addIntroduce.text.toString(),
                                             "storeNum" to "Cafe2_" + countNum.toString(),
                                             "Tname" to "디저트 맛집",
-                                            "placeImage" to downloadUri.toString()
+                                            "placeImage" to downloadUri.toString(),
+                                            "x" to x1,
+                                            "y" to y1,
                                         )
                                         db.collection("Cafes").document("Cafe2").collection("Cafe2")
                                             .document("Cafe2_" + countNum.toString())
@@ -285,7 +288,9 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                             "introduce" to binding.mainLayout.addIntroduce.text.toString(),
                                             "storeNum" to "Cafe3_" + countNum.toString(),
                                             "Tname" to "뷰가 좋은 카페",
-                                            "placeImage" to downloadUri.toString()
+                                            "placeImage" to downloadUri.toString(),
+                                            "x" to x1,
+                                            "y" to y1,
                                         )
                                         db.collection("Cafes").document("Cafe3").collection("Cafe3")
                                             .document("Cafe3_" + countNum.toString())
@@ -325,7 +330,9 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                             "introduce" to binding.mainLayout.addIntroduce.text.toString(),
                                             "storeNum" to "Food1_" + countNum.toString(),
                                             "Tname" to "양식이 땡길 때",
-                                            "placeImage" to downloadUri.toString()
+                                            "placeImage" to downloadUri.toString(),
+                                            "x" to x1,
+                                            "y" to y1,
                                         )
                                         db.collection("Foods").document("Food1").collection("Food1")
                                             .document("Food1_" + countNum.toString())
@@ -366,7 +373,9 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                             "introduce" to binding.mainLayout.addIntroduce.text.toString(),
                                             "storeNum" to "Food2_" + countNum.toString(),
                                             "Tname" to "혼밥하기 좋은 곳",
-                                            "placeImage" to downloadUri.toString()
+                                            "placeImage" to downloadUri.toString(),
+                                            "x" to x1,
+                                            "y" to y1,
                                         )
                                         db.collection("Foods").document("Food2").collection("Food2")
                                             .document("Food2_" + countNum.toString())
@@ -408,7 +417,9 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                             "introduce" to binding.mainLayout.addIntroduce.text.toString(),
                                             "storeNum" to "Food3_" + countNum.toString(),
                                             "Tname" to "소개팅할때 추천",
-                                            "placeImage" to downloadUri.toString()
+                                            "placeImage" to downloadUri.toString(),
+                                            "x" to x1,
+                                            "y" to y1,
                                         )
                                         db.collection("Foods").document("Food3").collection("Food3")
                                             .document("Food3_" + countNum.toString())
@@ -449,7 +460,9 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                             "introduce" to binding.mainLayout.addIntroduce.text.toString(),
                                             "storeNum" to "Park1_" + countNum.toString(),
                                             "Tname" to "산책하기 좋은 공원",
-                                            "placeImage" to downloadUri.toString()
+                                            "placeImage" to downloadUri.toString(),
+                                            "x" to x1,
+                                            "y" to y1,
                                         )
                                         db.collection("Park").document("Park1").collection("Park1")
                                             .document("Park1_" + countNum.toString())
@@ -490,7 +503,9 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                             "introduce" to binding.mainLayout.addIntroduce.text.toString(),
                                             "storeNum" to "Park2_" + countNum.toString(),
                                             "Tname" to "런닝하기 좋은 공원",
-                                            "placeImage" to downloadUri.toString()
+                                            "placeImage" to downloadUri.toString(),
+                                            "x" to x1,
+                                            "y" to y1,
                                         )
                                         db.collection("Park").document("Park2").collection("Park2")
                                             .document("Park2_" + countNum.toString())
@@ -531,7 +546,9 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                             "introduce" to binding.mainLayout.addIntroduce.text.toString(),
                                             "storeNum" to "Park3_" + countNum.toString(),
                                             "Tname" to "꽃구경하기 좋은 공원",
-                                            "placeImage" to downloadUri.toString()
+                                            "placeImage" to downloadUri.toString(),
+                                            "x" to x1,
+                                            "y" to y1,
                                         )
                                         db.collection("Park").document("Park3").collection("Park3")
                                             .document("Park3_" + countNum.toString())
@@ -732,6 +749,7 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
             }
         }
     }
+
 
     // 자동으로 키보드 내리기
     fun softkeyboardHide() {
