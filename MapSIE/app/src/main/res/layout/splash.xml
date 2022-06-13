@@ -10,6 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:adjustViewBounds="true"
-        android:src="@mipmap/splashimg2"/>
+        android:background="@mipmap/splash"/>
 
 </LinearLayout>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GuideActivity"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/main_toolbar"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/mypage_register"/>
+            <TextView
+                android:id="@+id/guidetext1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:text="REGIET ?"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/explanationText1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textSize="17dp"
+            android:text="추천하고 싶은 장소가 있나요? 테마를 이용해서 추가해 보세요! 테마당 같은 장소를 중복할 수 없어요. 그럴 땐 리뷰나 하트를 눌러서 추천해 주세요:)"
+            android:background="@drawable/layout_background"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/heart"/>
+            <TextView
+                android:id="@+id/guidetext2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:text="HEART ?"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/explanationText2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textSize="17dp"
+            android:text="상단에 하트를 누르면 마이페이지에 저장! 추천하고 싶은 장소이거나 나중에 가보고 싶은 장소를 저장해 보세요:)"
+            android:background="@drawable/layout_background"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/mypage_search"/>
+            <TextView
+                android:id="@+id/guidetext3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="SEARCH ?"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/explanationText3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textSize="17dp"
+            android:text="메인페이지의 로고를 누르면 테마 상관없이 모든 장소를 검색할 수 있어요. 테마별 검색을 하고 싶다면 테마를 누르고 검색해 주세요:)"
+            android:background="@drawable/layout_background"/>
+    </LinearLayout>
+
+</LinearLayout>

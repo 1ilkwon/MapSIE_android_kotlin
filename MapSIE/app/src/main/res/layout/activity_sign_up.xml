@@ -8,17 +8,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="#FCF6F5"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/signup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="#FCF6F5"
+            android:layout_margin="20dp"
             android:text="회원가입"
             android:textSize="20dp" />
 
@@ -26,40 +22,48 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_margin="10dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
         android:backgroundTint="#FCF6F5"
         android:orientation="vertical">
 
-        <ImageButton
-            android:id="@+id/signImg"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_add_a_photo_24" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:backgroundTint="#FCF6F5"
-            android:text="닉네임"
+            android:text="프로필 설정"
+            android:layout_gravity="center"
             android:textColor="#000000"
             android:textStyle="bold" />
 
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/signImg"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_baseline_account_circle_24" />
         <EditText
             android:id="@+id/signName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:backgroundTint="#FCF6F5"
             android:ems="10"
-            android:hint=" 닉네임"
+            android:hint=" 닉네임을 입력해 주세요"
             android:inputType="text"
             android:textSize="15dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="#FCF6F5"
             android:text="아이디"
             android:textColor="#000000"
             android:textStyle="bold" />
@@ -68,17 +72,17 @@
             android:id="@+id/signID"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="#FCF6F5"
             android:ems="10"
-            android:hint="이메일 형태로 입력해주세요"
+            android:backgroundTint="#FCF6F5"
+            android:hint="이메일 형태로 입력해 주세요"
             android:inputType="text"
             android:textSize="15dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="#FCF6F5"
             android:text="비밀번호"
+            android:layout_marginTop="10dp"
             android:textColor="#000000"
             android:textStyle="bold" />
 
@@ -95,6 +99,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:backgroundTint="#FCF6F5"
             android:text="비밀번호 확인"
             android:textColor="#000000"
@@ -113,6 +118,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:backgroundTint="#FCF6F5"
             android:text="거주지"
             android:textColor="#000000"
@@ -124,13 +130,14 @@
             android:layout_height="wrap_content"
             android:backgroundTint="#FCF6F5"
             android:ems="10"
-            android:hint="거주지를 입력해주세요"
+            android:hint="거주지를 입력해 주세요"
             android:inputType="text"
             android:textSize="15dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:backgroundTint="#FCF6F5"
             android:text="한줄 소개"
             android:textColor="#000000"
@@ -138,21 +145,23 @@
 
         <EditText
             android:id="@+id/introduceText"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#FCF6F5"
             android:ems="10"
-            android:hint="본인을 한줄로 소개하세요"
+            android:hint="본인을 한 줄로 소개해 주세요"
             android:inputType="text"
             android:textSize="15dp" />
 
         <Button
             android:id="@+id/SignUpBtn"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:layout_gravity="center"
-            android:background="@drawable/layout_background"
-            android:text="회원가입" />
+            android:background="@drawable/btn_background"
+            android:textColor="@color/white"
+            android:text="완료" />
 
 
     </LinearLayout>

@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:closeIcon="@drawable/ic_baseline_close_24"
         app:iconifiedByDefault="false"
-        app:queryHint="장소검색"/>
+        app:queryHint="테마별 장소 검색"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/re"
