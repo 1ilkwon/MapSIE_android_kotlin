@@ -96,12 +96,44 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="링크주소" />
+
+
+            </TableRow>
+            <TableRow
+                android:layout_margin="5dp">
+
+            </TableRow>
+
+            <TableRow
+                android:layout_marginBottom="5dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="0"
+                    android:src="@drawable/thumbs" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    android:text="추천"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="소개글" />
+
+
             </TableRow>
         </TableLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:orientation="vertical">
 
         <LinearLayout

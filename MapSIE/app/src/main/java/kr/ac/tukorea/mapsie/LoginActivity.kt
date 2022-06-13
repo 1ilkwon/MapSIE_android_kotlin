@@ -16,6 +16,12 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+//        // 로그인 생략
+//        startActivity(
+//            Intent(this, MainActivity::class.java)
+//        )
+//        finish()
+
         //binding으로 변경
         binding = ActivityLoginBinding.inflate(layoutInflater)
         val view = binding.root
@@ -53,7 +59,7 @@ class LoginActivity : AppCompatActivity() {
                     finish()
                 } else {
                     Log.w("LoginActivity", "signInWithEmail", it.exception)
-                    Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "이메일과 패스워드가 일치하지 않습니다.", Toast.LENGTH_SHORT).show()
                 }
             }
     }
