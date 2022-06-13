@@ -1,7 +1,6 @@
 package kr.ac.tukorea.mapsie.MapPage
 
 
-import android.app.Person
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -28,7 +27,6 @@ class ThemePlaceAdapter(private val context: Context, private val themePlaceList
     var unfilter = themePlaceList
     //필터를 위한 변수
     var filter = themePlaceList
-    override fun getItemCount(): Int = filter.size //(구현 중)
 
     // 각 항목에 필요한 기능을 구현
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -49,7 +47,6 @@ class ThemePlaceAdapter(private val context: Context, private val themePlaceList
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = filter[position]
         val item = filter[position]
         val listener = View.OnClickListener {
             val intent = Intent(context, DetailActivity::class.java)
