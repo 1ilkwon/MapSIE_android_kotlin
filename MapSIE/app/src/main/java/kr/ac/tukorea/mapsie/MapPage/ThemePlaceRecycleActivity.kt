@@ -38,7 +38,6 @@ class ThemePlaceRecycleActivity : AppCompatActivity() {
         setContentView(view)
 
 
-
         //테마검색
         binding.searchThemePlace.setOnQueryTextListener(object: SearchView.OnQueryTextListener,
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
@@ -58,12 +57,8 @@ class ThemePlaceRecycleActivity : AppCompatActivity() {
     private fun initRecycler(){
         var modelList = ArrayList<ThemePlaceList>()
 
-        //Intent로 값 가져오기
-        Log.d("Theme1", Tvalue)
-        Log.d("Theme2", TCollect.toString())
-
-        db.collection(TCollect.toString()).document(Tvalue.toString())
-            .collection(Tvalue.toString())
+        db.collection(TCollect).document(Tvalue)
+            .collection(Tvalue)
             .get().addOnSuccessListener { result ->
                 for (document in result) {
                     var name = document.data?.get("name").toString()

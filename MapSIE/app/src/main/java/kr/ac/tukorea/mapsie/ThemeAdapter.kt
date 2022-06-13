@@ -51,8 +51,6 @@ class ThemeAdapter(private val context:Context, private val themeList: ArrayList
             intent1.putExtra("ThemeName", item.num)
             intent1.putExtra("ThemeCollection", item.collect)
             intent1.run { context.startActivity(this) }
-
-
         }
 
         holder.apply {

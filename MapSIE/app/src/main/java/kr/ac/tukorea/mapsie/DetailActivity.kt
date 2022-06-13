@@ -13,6 +13,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.GravityCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -37,6 +38,7 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
     // firestore 연결 위해 기입
     var db: FirebaseFirestore = Firebase.firestore
 
+
     //recyclerview를 위한 코드
     lateinit var reviewAdapter: ReviewAdapter
     //intent로 받기
@@ -57,8 +59,11 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         Log.d("sname",sName.toString())
         var sAddress = intent.getStringExtra("Saddress")
         var sTheme = intent.getStringExtra("Stheme")
+        var Position = intent.getStringExtra("Position")
+
         //var sStoreNum = intent.getStringExtra("SstoreName")
         Log.d("snamead", sAddress.toString())
+        Log.d("position", Position.toString())
         binding.mainLayout.placeName.text = sName.toString()
         binding.mainLayout.placeAddress.text = sAddress.toString()
         binding.mainLayout.placeTheme.text = sTheme.toString()
@@ -83,9 +88,15 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
 
         //리뷰 쓰는 버튼 누르면 review페이지로 화면전환
         binding.mainLayout.writeReview.setOnClickListener{
-            startActivity(
-                Intent(this, MainActivity::class.java)
-            )
+            val intent = Intent(this, ReviewActivity::class.java)
+            intent.putExtra("position", Position)
+            intent.run{
+                startActivity(this)
+            }
+//            startActivity(
+//                Intent(this, ReviewActivity::class.java)
+//
+            //)
         }
 
         initRecycler()  //recyclerview 보여주는 메서드
@@ -174,12 +185,31 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
 
 
     private fun initRecycler(){
-        var reviewList = arrayListOf<ReviewData>( //리뷰 추가
+//        var reviewList = arrayListOf<ReviewData>( //리뷰 추가
+//        )
+        var reviewList = ArrayList<ReviewData>()
+        var Position = intent.getStringExtra("Position")
 
-        )
-        reviewAdapter = ReviewAdapter(this, reviewList)
-        binding.mainLayout.reviewRecycler.adapter = reviewAdapter
+        db.collection(TCollect).document(Tvalue).collection(Tvalue)
+            .document(Tvalue + "_" + Position).collection("review")
+            .get().addOnSuccessListener { result ->
+                for(document in result) {
+                    var content = document["context"].toString()
+                    var nickname = document["userName"].toString()
+                    // var nickname
+                    reviewList.add(ReviewData(nickname,content))
 
-        reviewAdapter.notifyDataSetChanged()
+                    reviewAdapter = ReviewAdapter(this, reviewList)
+                    binding.mainLayout.reviewRecycler.adapter = reviewAdapter
+
+                    val layout = LinearLayoutManager(this)
+                    binding.mainLayout.reviewRecycler.layoutManager = layout
+                    binding.mainLayout.reviewRecycler.setHasFixedSize(true)
+                }
+            }
+//        reviewAdapter = ReviewAdapter(this, reviewList)
+//        binding.mainLayout.reviewRecycler.adapter = reviewAdapter
+
+//        reviewAdapter.notifyDataSetChanged()
     }
 }

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.firestore.FirebaseFirestore
@@ -49,13 +50,15 @@ class ThemePlaceAdapter(private val context: Context, private val themePlaceList
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = filter[position]
         val listener = View.OnClickListener {
+            var curPos : Int = position
             val intent = Intent(context, DetailActivity::class.java)
             intent.putExtra("Simage", item.placeimage)
             intent.putExtra("Sname", item.placename)
             intent.putExtra("Saddress", item.placeaddress)
             intent.putExtra("Stheme", item.placeTheme)
             intent.putExtra("SstoreName", item.placeNum) // 문서 이름
-
+            intent.putExtra("Position", position.toString())
+            //Toast.makeText(context,"this",Toast.LENGTH_SHORT).show()
 
             intent.run {
                 context.startActivity(this)
@@ -68,6 +71,10 @@ class ThemePlaceAdapter(private val context: Context, private val themePlaceList
     }
 
 
+
+    override fun getItemCount(): Int {
+        return filter.size
+    }
 
     //리사이클뷰 필터링 메서드 (구현 중)
     override fun getFilter(): Filter {
@@ -98,7 +105,6 @@ class ThemePlaceAdapter(private val context: Context, private val themePlaceList
         }
     }
 
-    }
-
+}
 
 

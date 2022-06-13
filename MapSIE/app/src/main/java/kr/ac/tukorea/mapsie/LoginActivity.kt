@@ -35,6 +35,10 @@ class LoginActivity : AppCompatActivity() {
             )
         }
 
+//        /*로그인 생략 지우면됨*/
+//        startActivity(
+//            Intent(this, MainActivity::class.java)
+//        )
 
     }
 

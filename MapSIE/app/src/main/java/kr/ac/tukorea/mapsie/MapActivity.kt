@@ -12,11 +12,12 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
+import com.naver.maps.map.overlay.InfoWindow
 import com.naver.maps.map.overlay.Marker
+import com.naver.maps.map.overlay.Overlay
 import com.naver.maps.map.util.FusedLocationSource
 import kr.ac.tukorea.mapsie.MapPage.ThemePlaceRecycleActivity
 import kr.ac.tukorea.mapsie.databinding.ActivityMapBinding
-
 
 
 class MapActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -24,6 +25,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var binding: ActivityMapBinding
     var TAG: String = "로그"
     var db: FirebaseFirestore = Firebase.firestore
+    val infoWindow = InfoWindow()
 
     private lateinit var locationSource: FusedLocationSource
     private lateinit var naverMap: NaverMap
@@ -67,9 +69,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                         Log.d("checkVaddress", address)
                     }
                 }
-
         }
-
 
         // 타이틀바 숨기기
         var actionBar: ActionBar?
@@ -126,23 +126,42 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
 
         // 마커 찍기
         val marker = Marker()
-//        var x : Double? = null
-//        var y : Double? = null
         db.collection(TCollect).document(Tvalue).collection(Tvalue).get().addOnSuccessListener {
             result ->
             for(document in result) {
-                var x = document.data?.get("x").hashCode()
-                var y = document["y"].hashCode()
-                var x1 = x.toDouble()
+                var x = document.data?.get("x").toString()
+                var y = document["y"].toString()
+                var name = document.data?.get("name").toString()
                 //marker.position = LatLng(x as Double,y as Double)
                 //marker.position = LatLng(x, y.toDouble())
                 //marker.position = LatLng(37.5670135, 126.9783740)
                 Log.d("X", x.toString())
                 Log.d("y", y.toString())
+                Log.d("name", name)
 
+                // 마커 찍기
+                val marker = Marker()
+                marker.position = LatLng(y.toDouble(), x.toDouble())
                 marker.map = naverMap
+
+                infoWindow.position = LatLng(y.toDouble(), x.toDouble())
+                marker.setOnClickListener { overlay ->
+                    infoWindow.open(marker)
+                    infoWindow.adapter = object : InfoWindow.DefaultTextAdapter(application) {
+                        override fun getText(infoWindow: InfoWindow): CharSequence {
+                            return "$name\n상세 페이지"
+                        }
+                    }
+                    infoWindow.setOnClickListener(Overlay.OnClickListener {
+//                      startActivity(상세페이지 이동 해야함)
+                        false
+                    })
+                    // 정보창 클릭 시
+                    true
+                }
             }
         }
+
 //        marker.position = LatLng(37.5670135, 126.9783740)
 //        marker.map = naverMap
     }
