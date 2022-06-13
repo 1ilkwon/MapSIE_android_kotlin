@@ -272,6 +272,7 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         })
     }
+
     // 검색 결과 처리 함수
     private fun addItemsAndMarkers(searchResult: ResultSearchKeyword?) {
         if (!searchResult?.documents.isNullOrEmpty()) {

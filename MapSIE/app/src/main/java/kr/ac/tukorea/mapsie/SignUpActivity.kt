@@ -6,6 +6,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.widget.ImageView
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
@@ -42,9 +43,9 @@ class SignUpActivity : AppCompatActivity() {
         storage = FirebaseStorage.getInstance()
         db = FirebaseFirestore.getInstance()
 
-        binding.signImg.setOnClickListener {
+/*        binding.signImg.setOnClickListener {
             openGallery()
-        }
+        }*/
 
         // 회원가입 버튼 누르면 나타나는 이벤트
         binding.SignUpBtn.setOnClickListener {
@@ -148,7 +149,7 @@ class SignUpActivity : AppCompatActivity() {
                     .override(60, 60)
                     .error(R.drawable.ic_baseline_account_circle_24)
                     .fallback(R.drawable.ic_baseline_account_circle_24)
-                    .into(signImg)
+                    .into(signImg as ImageView)
                  }
                 catch (e:Exception)
                 {

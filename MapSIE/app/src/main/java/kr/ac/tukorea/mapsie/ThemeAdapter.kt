@@ -50,6 +50,7 @@ class ThemeAdapter(private val context:Context, private val themeList: ArrayList
 
             intent1.putExtra("ThemeName", item.num)
             intent1.putExtra("ThemeCollection", item.collect)
+            intent1.putExtra("ThemeFullName", item.title)
             intent1.run { context.startActivity(this) }
         }
 
@@ -63,7 +64,6 @@ class ThemeAdapter(private val context:Context, private val themeList: ArrayList
         //return themeList.size
         return filter.size
     }
-
 
     //리사이클뷰 필터링 메서드
     override fun getFilter(): Filter {

@@ -1,7 +1,5 @@
 package kr.ac.tukorea.mapsie.MapPage
 
-import android.content.Intent
-import android.content.res.Resources
 import android.hardware.Camera
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -22,21 +20,16 @@ import kr.ac.tukorea.mapsie.databinding.ActivityThemePlaceRecycleBinding
 
 class ThemePlaceRecycleActivity : AppCompatActivity() {
 
-
     private lateinit var binding: ActivityThemePlaceRecycleBinding
 
     var db: FirebaseFirestore = Firebase.firestore
     lateinit var themePlaceAdapter: ThemePlaceAdapter
-
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityThemePlaceRecycleBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-
 
         //테마검색
         binding.searchThemePlace.setOnQueryTextListener(object: SearchView.OnQueryTextListener,
@@ -53,10 +46,8 @@ class ThemePlaceRecycleActivity : AppCompatActivity() {
         initRecycler()
     }
 
-
     private fun initRecycler(){
         var modelList = ArrayList<ThemePlaceList>()
-
         db.collection(TCollect).document(Tvalue)
             .collection(Tvalue)
             .get().addOnSuccessListener { result ->
@@ -67,8 +58,7 @@ class ThemePlaceRecycleActivity : AppCompatActivity() {
                     var storeNum = document["storeNum"].toString()
                     var placeImage = document["placeImage"].toString()
                     //modelList.add(ThemePlaceList(name,address))
-                    modelList.add(ThemePlaceList(name, address,placeImage, theme, storeNum))    //이미지까지
-
+                    modelList.add(ThemePlaceList(name, address, placeImage, theme, storeNum))    //이미지까지
 
                     themePlaceAdapter = ThemePlaceAdapter(this,modelList)
                     binding.re.adapter = themePlaceAdapter
