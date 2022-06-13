@@ -126,9 +126,27 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
             .animate(CameraAnimation.Easing, 1200) // 카메라 에니메이션효과 1.2초안에
         naverMap.moveCamera(camera)
 
+        // 마커 찍기
         val marker = Marker()
-        marker.position = LatLng(37.5670135, 126.9783740)
-        marker.map = naverMap
+//        var x : Double? = null
+//        var y : Double? = null
+        db.collection(TCollect).document(Tvalue).collection(Tvalue).get().addOnSuccessListener {
+            result ->
+            for(document in result) {
+                var x = document.data?.get("x").hashCode()
+                var y = document["y"].hashCode()
+                var x1 = x.toDouble()
+                //marker.position = LatLng(x as Double,y as Double)
+                //marker.position = LatLng(x, y.toDouble())
+                //marker.position = LatLng(37.5670135, 126.9783740)
+                Log.d("X", x.toString())
+                Log.d("y", y.toString())
+
+                marker.map = naverMap
+            }
+        }
+//        marker.position = LatLng(37.5670135, 126.9783740)
+//        marker.map = naverMap
     }
 
 }

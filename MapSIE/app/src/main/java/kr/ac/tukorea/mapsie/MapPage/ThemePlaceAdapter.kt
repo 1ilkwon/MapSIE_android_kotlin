@@ -50,7 +50,6 @@ class ThemePlaceAdapter(private val context: Context, private val themePlaceList
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = filter[position]
-        val item = filter[position]
         val listener = View.OnClickListener {
             val intent = Intent(context, DetailActivity::class.java)
             intent.putExtra("Simage", item.placeimage)
@@ -71,10 +70,6 @@ class ThemePlaceAdapter(private val context: Context, private val themePlaceList
     }
 
 
-
-    override fun getItemCount(): Int {
-        return filter.size
-    }
 
     //리사이클뷰 필터링 메서드 (구현 중)
     override fun getFilter(): Filter {
