@@ -20,6 +20,7 @@
         android:id = "@+id/place_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:text="장소이름"
@@ -33,7 +34,9 @@
                 android:layout_marginBottom="5dp">
 
                 <ImageView
-                    android:layout_width="wrap_content"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginRight="5dp"
                     android:layout_weight="0"
                     android:src="@drawable/ic_baseline_tag_24" />
 
@@ -55,7 +58,9 @@
             <TableRow
                 android:layout_marginBottom="5dp">
                 <ImageView
-                    android:layout_width="wrap_content"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginRight="5dp"
                     android:layout_weight="0"
                     android:src="@drawable/ic_baseline_location_on_24" />
                 <TextView
@@ -73,8 +78,11 @@
             </TableRow>
             <TableRow
                 android:layout_marginBottom="5dp">
+
                 <ImageView
-                    android:layout_width="wrap_content"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginRight="5dp"
                     android:layout_weight="0"
                     android:src="@drawable/ic_baseline_link_24" />
                 <TextView
@@ -108,10 +116,9 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
             <ImageButton
                 android:id="@+id/write_review"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/btn_background"
-                android:src="@drawable/ic_baseline_create_24" />
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/ic_baseline_create_24" />
         </LinearLayout>
 
         <!--리뷰 뷰-->

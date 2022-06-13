@@ -13,6 +13,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.GravityCompat
+import com.bumptech.glide.Glide
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -21,6 +22,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_detail.*
+import kotlinx.android.synthetic.main.activity_sign_up.*
 import kotlinx.android.synthetic.main.detail_body.*
 import kotlinx.android.synthetic.main.main_body.*
 import kotlinx.android.synthetic.main.main_drawer_header.*
@@ -45,7 +47,11 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
+        var sImage = intent.getStringExtra("Simage")
+        Glide.with(this).load(sImage)
+            .error(R.drawable.ic_baseline_account_circle_24)
+            .fallback(R.drawable.ic_baseline_image_24)
+            .into(place_image)
 
         var sName = intent.getStringExtra("Sname")
         Log.d("sname",sName.toString())
@@ -65,8 +71,21 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
 
         db.collection("users").document(Firebase.auth.currentUser?.uid ?: "No User").get().addOnSuccessListener {
             member_nickname.text = it["signName"].toString()
+            Glide.with(this)
+                .load(it["signImg"])
+                .override(60, 60)
+                .error(R.drawable.ic_baseline_account_circle_24)    //에러가 났을 때
+                .fallback(R.drawable.ic_baseline_account_circle_24) //signImg값이 없다면 기본 사진 출력
+                .into(member_icon)
         }.addOnFailureListener {
             Toast.makeText(this, ".", Toast.LENGTH_SHORT).show()
+        }
+
+        //리뷰 쓰는 버튼 누르면 review페이지로 화면전환
+        binding.mainLayout.writeReview.setOnClickListener{
+            startActivity(
+                Intent(this, MainActivity::class.java)
+            )
         }
 
         initRecycler()  //recyclerview 보여주는 메서드

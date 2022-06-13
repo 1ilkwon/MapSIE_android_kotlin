@@ -6,11 +6,9 @@ import android.os.Handler
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.SearchView
-
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-
 import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
 import com.bumptech.glide.Glide
@@ -21,10 +19,11 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_detail.*
-import kotlinx.android.synthetic.main.main_body.*
 import kotlinx.android.synthetic.main.main_drawer_header.*
+import kotlinx.android.synthetic.main.main_drawer_header.member_icon
+import kotlinx.android.synthetic.main.main_drawer_header.member_nickname
 import kotlinx.android.synthetic.main.main_toolbar.*
-
+import kotlinx.android.synthetic.main.review_item.*
 import kr.ac.tukorea.mapsie.SearchPage.SearchActivity
 import kr.ac.tukorea.mapsie.databinding.ActivityMainBinding
 
@@ -32,6 +31,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var binding: ActivityMainBinding
     // firestore 연결 위해 기입
     var db: FirebaseFirestore = Firebase.firestore
+
     var pos = 0
     var i : Int = 1
     var dataArr = arrayOf(
@@ -82,21 +82,24 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true) //왼쪽에 뒤로가기버튼생성
         supportActionBar?.setDisplayShowTitleEnabled(false) // 툴바에 타이틀 안보이게
-        toolbar.title = "MapSIE"
         binding.navigationView.setNavigationItemSelectedListener(this)
-
-        // (돋보기 모양 누르면 Search 페이지로)
+        toolbar.title = "MapSIE"
         binding.mainLayout.searchTheme.setOnClickListener {
             startActivity(Intent(this, SearchActivity::class.java))
         }
 
-
         db.collection("users").document(Firebase.auth.currentUser?.uid ?: "No User").get().addOnSuccessListener {
             member_nickname.text = it["signName"].toString()
-            Glide.with(this).load(it["signImg"]).into(member_icon)
+            Glide.with(this)
+                .load(it["signImg"])
+                .override(60, 60)
+                .error(R.drawable.ic_baseline_account_circle_24)    //에러가 났을 때
+                .fallback(R.drawable.ic_baseline_account_circle_24) //signImg값이 없다면 기본 사진 출력
+                .into(member_icon)
         }.addOnFailureListener {
             Toast.makeText(this, ".", Toast.LENGTH_SHORT).show()
         }
+
 
         initRecycler()  //recyclerview 보여주는 메서드
     }
@@ -123,8 +126,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onBackPressed() {  //기본 폰에 내장되어 있는 ◀뒤로가기 누르면
         if(drawer_layout.isDrawerOpen(GravityCompat.END)){
             drawer_layout.closeDrawers()
-            // 테스트를 위해 뒤로가기 버튼시 Toast 메시지
-            Toast.makeText(this,"뒤로가기버튼 테스트",Toast.LENGTH_SHORT).show()
         } else{
             super.onBackPressed()
         }
@@ -132,7 +133,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {    //메뉴바 클릭 시 실행하는 메서드
         when(item.itemId){
-            R.id.home -> Toast.makeText(this, "홈화면 실행", Toast.LENGTH_SHORT).show()
+            R.id.home -> drawer_layout.closeDrawers()
             R.id.mypage-> startActivity(Intent(this, MyPageActivity::class.java))
             R.id.guideline-> startActivity(Intent(this, GuideActivity::class.java))
             R.id.addPage -> startActivity(Intent(this, AddActivity::class.java))

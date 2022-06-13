@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.theme_item.view.*
+import kr.ac.tukorea.mapsie.MapPage.ThemePlaceRecycleActivity
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -29,7 +30,8 @@ class ThemeAdapter(private val context:Context, private val themeList: ArrayList
 
             fun bind(listener: View.OnClickListener, item:ThemeData) {
                 view.theme_title.text = item.title
-                Glide.with(itemView).load(item.img).into(view.theme_img)
+                Glide.with(itemView).load(item.img).error(R.drawable.ic_baseline_account_circle_24)
+                    .fallback(R.drawable.ic_baseline_add_a_photo_24).into(view.theme_img)
                 view.setOnClickListener(listener)
             }
         }
@@ -63,7 +65,6 @@ class ThemeAdapter(private val context:Context, private val themeList: ArrayList
         //return themeList.size
         return filter.size
     }
-
 
 
     //리사이클뷰 필터링 메서드

@@ -1,7 +1,6 @@
 package kr.ac.tukorea.mapsie.MapPage
 
 
-import android.app.Person
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -10,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -35,6 +35,7 @@ class ThemePlaceAdapter(private val context: Context, private val themePlaceList
         fun bind(listener: View.OnClickListener, item: ThemePlaceList) {
             view.themeplacename.text = item.placename
             view.themeplaceaddress.text = item.placeaddress
+            Glide.with(itemView).load(item.placeimage).into(view.place_image)
             view.setOnClickListener(listener)
         }
     }
@@ -47,9 +48,9 @@ class ThemePlaceAdapter(private val context: Context, private val themePlaceList
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = filter[position]
-
         val listener = View.OnClickListener {
             val intent = Intent(context, DetailActivity::class.java)
+            intent.putExtra("Simage", item.placeimage)
             intent.putExtra("Sname", item.placename)
             intent.putExtra("Saddress", item.placeaddress)
             intent.putExtra("Stheme", item.placeTheme)
@@ -68,11 +69,7 @@ class ThemePlaceAdapter(private val context: Context, private val themePlaceList
 
 
 
-    override fun getItemCount(): Int {
-        return filter.size
-    }
-
-    //리사이클뷰 필터링 메서드
+    //리사이클뷰 필터링 메서드 (구현 중)
     override fun getFilter(): Filter {
         return object : Filter() {
             override fun performFiltering(constraint: CharSequence?): FilterResults {
