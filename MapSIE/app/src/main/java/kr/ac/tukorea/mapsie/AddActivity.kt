@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -36,6 +37,7 @@ import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import kotlinx.android.synthetic.main.add_body.*
 import kotlinx.android.synthetic.main.main_body.*
+import kotlinx.android.synthetic.main.main_drawer_header.*
 import kotlinx.android.synthetic.main.main_toolbar.*
 import kr.ac.tukorea.mapsie.SearchPage.ListAdapter
 import kr.ac.tukorea.mapsie.SearchPage.ListLayout
@@ -102,6 +104,18 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
         supportActionBar?.setDisplayShowTitleEnabled(false) // 툴바에 타이틀 안보이게
         toolbar.title = "MapSIE"
         binding.navigationView.setNavigationItemSelectedListener(this)
+
+        db.collection("users").document(Firebase.auth.currentUser?.uid ?: "No User").get().addOnSuccessListener {
+            member_nickname.text = it["signName"].toString()
+            Glide.with(this)
+                .load(it["signImg"])
+                .override(60, 60)
+                .error(R.drawable.ic_baseline_account_circle_24)    //에러가 났을 때
+                .fallback(R.drawable.ic_baseline_account_circle_24) //signImg값이 없다면 기본 사진 출력
+                .into(member_icon)
+        }.addOnFailureListener {
+            Toast.makeText(this, ".", Toast.LENGTH_SHORT).show()
+        }
 
         // !!!!!! 주소 검색 관련 findViewById 추가
         var btnSearch = findViewById<Button>(R.id.btn_search)
