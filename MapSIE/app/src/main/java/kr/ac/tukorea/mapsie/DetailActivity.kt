@@ -81,6 +81,13 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             Toast.makeText(this, ".", Toast.LENGTH_SHORT).show()
         }
 
+        //리뷰 쓰는 버튼 누르면 review페이지로 화면전환
+        binding.mainLayout.writeReview.setOnClickListener{
+            startActivity(
+                Intent(this, MainActivity::class.java)
+            )
+        }
+
         initRecycler()  //recyclerview 보여주는 메서드
     }
 

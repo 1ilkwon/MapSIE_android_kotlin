@@ -82,9 +82,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true) //왼쪽에 뒤로가기버튼생성
         supportActionBar?.setDisplayShowTitleEnabled(false) // 툴바에 타이틀 안보이게
-        toolbar.title = "MapSIE"
         binding.navigationView.setNavigationItemSelectedListener(this)
-
+        toolbar.title = "MapSIE"
         binding.mainLayout.searchTheme.setOnClickListener {
             startActivity(Intent(this, SearchActivity::class.java))
         }
@@ -127,8 +126,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onBackPressed() {  //기본 폰에 내장되어 있는 ◀뒤로가기 누르면
         if(drawer_layout.isDrawerOpen(GravityCompat.END)){
             drawer_layout.closeDrawers()
-            // 테스트를 위해 뒤로가기 버튼시 Toast 메시지
-            Toast.makeText(this,"뒤로가기버튼 테스트",Toast.LENGTH_SHORT).show()
         } else{
             super.onBackPressed()
         }
@@ -136,7 +133,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {    //메뉴바 클릭 시 실행하는 메서드
         when(item.itemId){
-            R.id.home -> Toast.makeText(this, "홈화면 실행", Toast.LENGTH_SHORT).show()
+            R.id.home -> drawer_layout.closeDrawers()
             R.id.mypage-> startActivity(Intent(this, MyPageActivity::class.java))
             R.id.guideline-> startActivity(Intent(this, GuideActivity::class.java))
             R.id.addPage -> startActivity(Intent(this, AddActivity::class.java))

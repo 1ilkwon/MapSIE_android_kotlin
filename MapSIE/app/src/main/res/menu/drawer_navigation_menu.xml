@@ -12,14 +12,13 @@
         android:icon = "@drawable/ic_baseline_library_books_24"
         android:title = "가이드라인"
         />
+    <item android:id = "@+id/addPage"
+        android:icon = "@drawable/ic_baseline_post_add_24"
+        android:title = "페이지추가"
+        />
 
     <item android:id = "@+id/logout"
         android:icon = "@drawable/ic_baseline_logout_24"
         android:title = "로그아웃"
-        />
-
-    <item android:id = "@+id/addPage"
-        android:icon = "@drawable/ic_baseline_logout_24"
-        android:title = "페이지추가"
         />
 </menu>

@@ -28,7 +28,7 @@ class ThemePlaceAdapter(private val context: Context, private val themePlaceList
     var unfilter = themePlaceList
     //필터를 위한 변수
     var filter = themePlaceList
-    override fun getItemCount(): Int = filter.size //(구현 중)
+    //override fun getItemCount(): Int = filter.size //(구현 중)
 
     // 각 항목에 필요한 기능을 구현
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
