@@ -3,7 +3,6 @@ package kr.ac.tukorea.mapsie
 import  android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
@@ -38,6 +37,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
 
         lateinit var Tvalue : String
         lateinit var TCollect : String
+        lateinit var ThemeFullName : String
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,13 +48,14 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         // db의 컬렉션 가져오기
         Tvalue = intent.getStringExtra("ThemeName").toString()
         TCollect = intent.getStringExtra("ThemeCollection").toString()
-        Toast.makeText(this, Tvalue, Toast.LENGTH_SHORT).show()
+        ThemeFullName = intent.getStringExtra("ThemeFullName").toString()
         Log.d("checktest", "title: $Tvalue")
         val reIntent = Intent(this, ThemePlaceRecycleActivity::class.java)
         reIntent.putExtra("ThemeName1", Tvalue)
         Log.d("checkF",Tvalue)
         reIntent.putExtra("ThemeCollection1", TCollect)
 
+        binding.themaDetailListButton.text = "$ThemeFullName\nLIST"
 
         binding.themaDetailListButton.setOnClickListener {
             val intentlist = Intent(this, ThemePlaceRecycleActivity::class.java)
