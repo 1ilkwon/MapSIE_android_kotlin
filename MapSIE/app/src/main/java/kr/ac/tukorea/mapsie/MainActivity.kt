@@ -84,6 +84,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         binding.mainLayout.searchTheme.setOnClickListener {
             startActivity(Intent(this, SearchActivity::class.java))
         }
+        binding.mainLayout.searchAll.setOnClickListener {
+            startActivity(Intent(this, SearchActivity::class.java))
+        }
 
         db.collection("users").document(Firebase.auth.currentUser?.uid ?: "No User").get().addOnSuccessListener {
             member_nickname.text = it["signName"].toString()
@@ -94,9 +97,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 .fallback(R.drawable.ic_baseline_account_circle_24) //signImg값이 없다면 기본 사진 출력
                 .into(member_icon as ImageView)
         }.addOnFailureListener {
-            Toast.makeText(this, ".", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this, ".", Toast.LENGTH_SHORT).show()
         }
-
 
         initRecycler()  //recyclerview 보여주는 메서드
     }
