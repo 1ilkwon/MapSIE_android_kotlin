@@ -43,9 +43,9 @@ class SignUpActivity : AppCompatActivity() {
         storage = FirebaseStorage.getInstance()
         db = FirebaseFirestore.getInstance()
 
-/*        binding.signImg.setOnClickListener {
+        binding.signImg.setOnClickListener {
             openGallery()
-        }*/
+        }
 
         // 회원가입 버튼 누르면 나타나는 이벤트
         binding.SignUpBtn.setOnClickListener {

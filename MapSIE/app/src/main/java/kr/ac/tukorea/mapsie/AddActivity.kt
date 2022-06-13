@@ -734,9 +734,9 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
     override fun onNavigationItemSelected(item: MenuItem): Boolean {    //메뉴바 클릭 시 실행하는 메서드
         when (item.itemId) {
             R.id.home -> startActivity(Intent(this, MainActivity::class.java))
-            R.id.mypage -> startActivity(Intent(this, MyPageActivity::class.java))
-            R.id.guideline -> startActivity(Intent(this, GuideActivity::class.java))
-            R.id.addPage -> Toast.makeText(this, "추가화면 실행", Toast.LENGTH_SHORT).show()
+            R.id.mypage-> startActivity(Intent(this, MyPageActivity::class.java))
+            R.id.guideline-> startActivity(Intent(this, GuideActivity::class.java))
+            R.id.addPage -> startActivity(Intent(this, AddActivity::class.java))
             R.id.logout -> {
                 val builder = AlertDialog.Builder(this)
                     .apply {
