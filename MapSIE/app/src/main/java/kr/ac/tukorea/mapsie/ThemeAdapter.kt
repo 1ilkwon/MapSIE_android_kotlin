@@ -66,7 +66,6 @@ class ThemeAdapter(private val context:Context, private val themeList: ArrayList
         return filter.size
     }
 
-
     //리사이클뷰 필터링 메서드
     override fun getFilter(): Filter {
         return object : Filter() {

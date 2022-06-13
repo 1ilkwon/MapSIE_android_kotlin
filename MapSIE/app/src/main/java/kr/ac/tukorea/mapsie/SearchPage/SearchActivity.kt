@@ -272,6 +272,7 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         })
     }
+
     // 검색 결과 처리 함수
     private fun addItemsAndMarkers(searchResult: ResultSearchKeyword?) {
         if (!searchResult?.documents.isNullOrEmpty()) {
@@ -331,8 +332,4 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback {
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(binding.etSearchField.windowToken, 0)
     }
-    /*
-    fun mapmarker(){
-
-    }*/
 }
