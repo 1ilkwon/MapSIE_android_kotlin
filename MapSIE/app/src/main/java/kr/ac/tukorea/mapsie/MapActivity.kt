@@ -22,6 +22,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var binding: ActivityMapBinding
     var TAG: String = "로그"
     var db: FirebaseFirestore = Firebase.firestore
+    val infoWindow = InfoWindow()
 
     val infoWindow = InfoWindow()
 
@@ -69,7 +70,6 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                         Log.d("checkVaddress", address)
                     }
                 }
-
         }
 
         // 타이틀바 숨기기
@@ -125,12 +125,8 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
             .animate(CameraAnimation.Easing, 1200) // 카메라 에니메이션효과 1.2초안에
         naverMap.moveCamera(camera)
 
-//        var x : Double? = null
-//        var y : Double? = null
         db.collection(TCollect).document(Tvalue).collection(Tvalue).get().addOnSuccessListener {
             result ->
-
-
             for(document in result) {
                 var x = document.data?.get("x").toString()
                 var y = document["y"].toString()
@@ -150,11 +146,13 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                 marker.map = naverMap
 
                 // 정보창 관련
+
                 infoWindow.position = LatLng(y.toDouble(), x.toDouble())
                 marker.setOnClickListener { overlay ->
                     infoWindow.open(marker)
                     infoWindow.adapter = object : InfoWindow.DefaultTextAdapter(application) {
                         override fun getText(infoWindow: InfoWindow): CharSequence {
+
                             return "$name"
                         }
                     }
@@ -173,6 +171,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
             }
         }
+
     }
 
 }

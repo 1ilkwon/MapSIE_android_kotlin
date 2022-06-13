@@ -22,7 +22,7 @@ public class ReviewAdapter (private val context:Context, private val reviewList:
                 private var view: View = itemView
 
                 fun bind(listener: View.OnClickListener, item: ReviewData) {
-                        view.member_icon.setImageDrawable(item.icon)
+//                        view.member_icon.setImageDrawable(item.icon)
                         view.member_nickname.text = item.nickname
                         view.review_content.text = item.content
                         view.setOnClickListener(listener)

@@ -17,13 +17,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <Button
-                android:id="@+id/cancel_review"
-                android:layout_width="70dp"
-                android:layout_height="35dp"
-                android:text="취소"
-                android:background="@color/white"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+<!--            <Button-->
+<!--                android:id="@+id/cancel_review"-->
+<!--                android:layout_width="70dp"-->
+<!--                android:layout_height="35dp"-->
+<!--                android:text="취소"-->
+<!--                android:background="@color/white"-->
+<!--                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />-->
 
             <View
                 android:layout_width="0dp"
@@ -58,7 +58,7 @@
                 android:text="nickname" />
         </LinearLayout>
 
-        <TextView
+        <EditText
             android:id="@+id/review_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
