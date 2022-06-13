@@ -1,8 +1,6 @@
 package kr.ac.tukorea.mapsie
 
 import android.app.Activity
-import android.app.Dialog
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -13,11 +11,9 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -30,8 +26,6 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import com.naver.maps.geometry.LatLng
-import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.util.FusedLocationSource
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
@@ -750,11 +744,10 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
         }
     }
 
-
     // 자동으로 키보드 내리기
     fun softkeyboardHide() {
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(add_name.windowToken, 0)
-    }
+
 }
 
