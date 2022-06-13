@@ -24,8 +24,6 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
     var db: FirebaseFirestore = Firebase.firestore
     val infoWindow = InfoWindow()
 
-    val infoWindow = InfoWindow()
-
     private lateinit var locationSource: FusedLocationSource
     private lateinit var naverMap: NaverMap
 
