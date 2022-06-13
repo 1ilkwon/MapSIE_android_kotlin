@@ -7,5 +7,5 @@ class  ThemePlaceList(
     var placeaddress: String,      // 도로명 주소
     var placeimage: String,
     var placeTheme: String,
-    var placeNum: String, // 문서 이름
+    var placeNum: String// 문서 이름
 )

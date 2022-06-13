@@ -1,7 +1,5 @@
 package kr.ac.tukorea.mapsie.MapPage
 
-import android.content.Intent
-import android.content.res.Resources
 import android.hardware.Camera
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -50,11 +48,6 @@ class ThemePlaceRecycleActivity : AppCompatActivity() {
 
     private fun initRecycler(){
         var modelList = ArrayList<ThemePlaceList>()
-
-        //Intent로 값 가져오기
-        Log.d("Theme1", Tvalue)
-        Log.d("Theme2", TCollect)
-
         db.collection(TCollect).document(Tvalue)
             .collection(Tvalue)
             .get().addOnSuccessListener { result ->
@@ -65,7 +58,7 @@ class ThemePlaceRecycleActivity : AppCompatActivity() {
                     var storeNum = document["storeNum"].toString()
                     var placeImage = document["placeImage"].toString()
                     //modelList.add(ThemePlaceList(name,address))
-                    modelList.add(ThemePlaceList(name, address,placeImage, theme, storeNum))    //이미지까지
+                    modelList.add(ThemePlaceList(name, address, placeImage, theme, storeNum))    //이미지까지
 
                     themePlaceAdapter = ThemePlaceAdapter(this,modelList)
                     binding.re.adapter = themePlaceAdapter

@@ -14,7 +14,7 @@
         />
     <item android:id = "@+id/addPage"
         android:icon = "@drawable/ic_baseline_post_add_24"
-        android:title = "장소 등록"
+        android:title = "장소등록"
         />
 
     <item android:id = "@+id/logout"

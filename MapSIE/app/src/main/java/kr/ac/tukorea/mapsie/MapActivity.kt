@@ -3,7 +3,6 @@ package kr.ac.tukorea.mapsie
 import  android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
@@ -23,7 +22,6 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var binding: ActivityMapBinding
     var TAG: String = "로그"
     var db: FirebaseFirestore = Firebase.firestore
-
     val infoWindow = InfoWindow()
 
     private lateinit var locationSource: FusedLocationSource
@@ -38,6 +36,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
 
         lateinit var Tvalue : String
         lateinit var TCollect : String
+        lateinit var ThemeFullName : String
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,13 +47,14 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         // db의 컬렉션 가져오기
         Tvalue = intent.getStringExtra("ThemeName").toString()
         TCollect = intent.getStringExtra("ThemeCollection").toString()
-        Toast.makeText(this, Tvalue, Toast.LENGTH_SHORT).show()
+        ThemeFullName = intent.getStringExtra("ThemeFullName").toString()
         Log.d("checktest", "title: $Tvalue")
         val reIntent = Intent(this, ThemePlaceRecycleActivity::class.java)
         reIntent.putExtra("ThemeName1", Tvalue)
         Log.d("checkF",Tvalue)
         reIntent.putExtra("ThemeCollection1", TCollect)
 
+        binding.themaDetailListButton.text = "$ThemeFullName\nLIST"
 
         binding.themaDetailListButton.setOnClickListener {
             val intentlist = Intent(this, ThemePlaceRecycleActivity::class.java)
@@ -68,7 +68,6 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                         Log.d("checkVaddress", address)
                     }
                 }
-
         }
 
         // 타이틀바 숨기기
@@ -124,16 +123,16 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
             .animate(CameraAnimation.Easing, 1200) // 카메라 에니메이션효과 1.2초안에
         naverMap.moveCamera(camera)
 
-//        var x : Double? = null
-//        var y : Double? = null
         db.collection(TCollect).document(Tvalue).collection(Tvalue).get().addOnSuccessListener {
             result ->
-
-
             for(document in result) {
                 var x = document.data?.get("x").toString()
                 var y = document["y"].toString()
                 var name = document.data?.get("name").toString()
+                var address = document["address"].toString()
+                var theme = document["Tname"].toString()
+                var storeNum = document["storeNum"].toString()
+                var placeImage = document["placeImage"].toString()
 
                 Log.d("X", x)
                 Log.d("y", y)
@@ -145,16 +144,24 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                 marker.map = naverMap
 
                 // 정보창 관련
+
                 infoWindow.position = LatLng(y.toDouble(), x.toDouble())
                 marker.setOnClickListener { overlay ->
                     infoWindow.open(marker)
                     infoWindow.adapter = object : InfoWindow.DefaultTextAdapter(application) {
                         override fun getText(infoWindow: InfoWindow): CharSequence {
-                            return "$name\n상세 페이지"
+
+                            return "$name"
                         }
                     }
                     infoWindow.setOnClickListener(Overlay.OnClickListener {
-//                      startActivity(상세페이지 이동 해야함)
+                        val deatailpageintent = Intent(this, DetailActivity::class.java)
+                        deatailpageintent.putExtra("Simage", placeImage)
+                        deatailpageintent.putExtra("Sname", name)
+                        deatailpageintent.putExtra("Saddress", address)
+                        deatailpageintent.putExtra("Stheme", theme)
+                        deatailpageintent.putExtra("SstoreName", storeNum) // 문서 이름
+                      startActivity(deatailpageintent)
                         false
                     })
                     // 정보창 클릭 시
@@ -162,6 +169,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
             }
         }
+
     }
 
 }
