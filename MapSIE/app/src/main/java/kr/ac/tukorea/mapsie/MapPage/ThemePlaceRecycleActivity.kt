@@ -22,22 +22,16 @@ import kr.ac.tukorea.mapsie.databinding.ActivityThemePlaceRecycleBinding
 
 class ThemePlaceRecycleActivity : AppCompatActivity() {
 
-
     private lateinit var binding: ActivityThemePlaceRecycleBinding
 
     var db: FirebaseFirestore = Firebase.firestore
     lateinit var themePlaceAdapter: ThemePlaceAdapter
-
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityThemePlaceRecycleBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-
-
 
         //테마검색
         binding.searchThemePlace.setOnQueryTextListener(object: SearchView.OnQueryTextListener,
@@ -54,16 +48,15 @@ class ThemePlaceRecycleActivity : AppCompatActivity() {
         initRecycler()
     }
 
-
     private fun initRecycler(){
         var modelList = ArrayList<ThemePlaceList>()
 
         //Intent로 값 가져오기
         Log.d("Theme1", Tvalue)
-        Log.d("Theme2", TCollect.toString())
+        Log.d("Theme2", TCollect)
 
-        db.collection(TCollect.toString()).document(Tvalue.toString())
-            .collection(Tvalue.toString())
+        db.collection(TCollect).document(Tvalue)
+            .collection(Tvalue)
             .get().addOnSuccessListener { result ->
                 for (document in result) {
                     var name = document.data?.get("name").toString()
@@ -73,7 +66,6 @@ class ThemePlaceRecycleActivity : AppCompatActivity() {
                     var placeImage = document["placeImage"].toString()
                     //modelList.add(ThemePlaceList(name,address))
                     modelList.add(ThemePlaceList(name, address,placeImage, theme, storeNum))    //이미지까지
-
 
                     themePlaceAdapter = ThemePlaceAdapter(this,modelList)
                     binding.re.adapter = themePlaceAdapter

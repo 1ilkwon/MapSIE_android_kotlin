@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ImageView
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -45,8 +46,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         "런닝하기 좋은 공원",
         "꽃구경하기 좋은 공원"
     )
-
-
     //recyclerview를 위한 코themeAdapter드
     lateinit var themeAdapter: ThemeAdapter
 
@@ -55,8 +54,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         //binding 방식으로 변경
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-
 
         //만약 firebase auth에 현재 user가 비어있으면 시작 페이지를 LoginActivity로 하고 auth가 있으면(즉, 로그인 되어있으면) MainActivity로 연결
         if (Firebase.auth.currentUser == null) {
@@ -87,6 +84,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         binding.mainLayout.searchTheme.setOnClickListener {
             startActivity(Intent(this, SearchActivity::class.java))
         }
+        binding.mainLayout.searchAll.setOnClickListener {
+            startActivity(Intent(this, SearchActivity::class.java))
+        }
 
         db.collection("users").document(Firebase.auth.currentUser?.uid ?: "No User").get().addOnSuccessListener {
             member_nickname.text = it["signName"].toString()
@@ -95,15 +95,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 .override(60, 60)
                 .error(R.drawable.ic_baseline_account_circle_24)    //에러가 났을 때
                 .fallback(R.drawable.ic_baseline_account_circle_24) //signImg값이 없다면 기본 사진 출력
-                .into(member_icon)
+                .into(member_icon as ImageView)
         }.addOnFailureListener {
-            Toast.makeText(this, ".", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this, ".", Toast.LENGTH_SHORT).show()
         }
-
 
         initRecycler()  //recyclerview 보여주는 메서드
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar_menu, menu)       //툴바 메뉴
@@ -160,6 +158,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
         return false
     }
+
     private fun initRecycler(){
         // **<생각해 보니 테마까지 db에서 가져올 필요 없을 수도 있을 것 같음> => 수정 필요
         // 각각의 리사이클러뷰 아이템 클릭하면 지도 떠야함 => 연결 필요

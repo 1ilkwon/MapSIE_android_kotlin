@@ -81,7 +81,7 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback {
         // 리사이클러 뷰
         listAdapter.setItemClickListener(object: ListAdapter.OnItemClickListener {
             override fun onClick(v: View, position: Int) {
-                val cameraUpdate = CameraUpdate.scrollAndZoomTo(LatLng(listItems[position].y, listItems[position].x), 11.3)
+                val cameraUpdate = CameraUpdate.scrollAndZoomTo(LatLng(listItems[position].y, listItems[position].x), 13.5)
                 naverMap.moveCamera(cameraUpdate)
 
                 rv_list.visibility = View.GONE
@@ -272,6 +272,7 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         })
     }
+
     // 검색 결과 처리 함수
     private fun addItemsAndMarkers(searchResult: ResultSearchKeyword?) {
         if (!searchResult?.documents.isNullOrEmpty()) {
@@ -288,6 +289,7 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback {
                 )
                 listItems.add(item)
                 listAdapter.notifyDataSetChanged()
+
                 /* 검색 결과 전부 다 마커 표시하기 (on)
                 val marker = Marker()
                 marker.position = LatLng(document.y.toDouble(), document.x.toDouble())

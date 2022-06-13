@@ -1,7 +1,6 @@
 package kr.ac.tukorea.mapsie.MapPage
 
 
-import android.app.Person
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -9,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.firestore.FirebaseFirestore
@@ -28,7 +28,6 @@ class ThemePlaceAdapter(private val context: Context, private val themePlaceList
     var unfilter = themePlaceList
     //필터를 위한 변수
     var filter = themePlaceList
-    //override fun getItemCount(): Int = filter.size //(구현 중)
 
     // 각 항목에 필요한 기능을 구현
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -37,7 +36,7 @@ class ThemePlaceAdapter(private val context: Context, private val themePlaceList
         fun bind(listener: View.OnClickListener, item: ThemePlaceList) {
             view.themeplacename.text = item.placename
             view.themeplaceaddress.text = item.placeaddress
-            Glide.with(itemView).load(item.placeimage).into(view.place_image)
+            Glide.with(itemView).load(item.placeimage).into(view.place_image as ImageView)
             view.setOnClickListener(listener)
         }
     }
@@ -71,6 +70,10 @@ class ThemePlaceAdapter(private val context: Context, private val themePlaceList
 
 
 
+    override fun getItemCount(): Int {
+        return filter.size
+    }
+
     //리사이클뷰 필터링 메서드 (구현 중)
     override fun getFilter(): Filter {
         return object : Filter() {
@@ -100,7 +103,5 @@ class ThemePlaceAdapter(private val context: Context, private val themePlaceList
         }
     }
 
-    }
-
-
+}
 

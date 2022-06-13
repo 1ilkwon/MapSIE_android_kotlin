@@ -28,23 +28,18 @@
 <!--            android:name=".ThemeDialogActivity"-->
 <!--            android:exported="true" />-->
         <activity
-
             android:name=".SearchPage.SearchActivity"
             android:exported="true" />
         <activity android:name=".MapActivity"
             android:exported="true"/>
+
         <!-- 로딩화면 -->
-
-            android:name=".MapActivity"
-            android:exported="true" /> <!-- 로딩화면 -->
-
         <activity
             android:name=".SplashActivity"
             android:exported="true"
             android:theme="@style/StyleSplash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
