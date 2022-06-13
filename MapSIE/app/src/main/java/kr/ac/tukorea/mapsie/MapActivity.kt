@@ -134,7 +134,6 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                 var x = document.data?.get("x").toString()
                 var y = document["y"].toString()
                 var name = document.data?.get("name").toString()
-
                 var address = document["address"].toString()
                 var theme = document["Tname"].toString()
                 var storeNum = document["storeNum"].toString()
@@ -155,7 +154,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                     infoWindow.open(marker)
                     infoWindow.adapter = object : InfoWindow.DefaultTextAdapter(application) {
                         override fun getText(infoWindow: InfoWindow): CharSequence {
-                            return "$name\n상세 페이지"
+                            return "$name"
                         }
                     }
                     infoWindow.setOnClickListener(Overlay.OnClickListener {
