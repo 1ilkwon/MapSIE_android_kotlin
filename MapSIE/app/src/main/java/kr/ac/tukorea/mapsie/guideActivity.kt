@@ -6,6 +6,6 @@ import android.os.Bundle
 class GuideActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_guide)
+        setContentView(R.layout.guide_body)
     }
 }

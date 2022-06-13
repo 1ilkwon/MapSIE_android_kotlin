@@ -709,12 +709,7 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
             if( requestCode ==  OPEN_GALLERY) {
                 uploadImageTOFirebase(data?.data!!)
                 try {
-                    Glide.with(this)
-                        .load(data?.data!!)
-                        .override(60, 60)
-                        .error(R.drawable.ic_baseline_account_circle_24)
-                        .fallback(R.drawable.ic_baseline_add_a_photo_24)
-                        .into(signImg)
+                    binding.mainLayout.placeImgAddress.text = data?.data.toString()
                 }
                 catch (e:Exception)
                 {
@@ -724,10 +719,10 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
         }
     }
 
-}
     // 자동으로 키보드 내리기
     fun softkeyboardHide() {
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(add_name.windowToken, 0)
     }
 }
+

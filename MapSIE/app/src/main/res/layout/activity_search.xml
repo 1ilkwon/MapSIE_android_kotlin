@@ -36,8 +36,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:background="#99bb77">
+        app:layout_constraintStart_toStartOf="parent">
 
         <EditText
             android:id="@+id/et_search_field"
@@ -46,7 +45,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:ems="10"
-            android:hint="여기에서 장소를 검색하고 등록해 보세요"
+            android:hint="장소를 검색하고 등록해 보세요 !"
             android:inputType="textPersonName"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@+id/btn_search"
@@ -58,9 +57,11 @@
             android:id="@+id/btn_search"
             style="@style/Widget.AppCompat.Button.Small"
             android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_marginEnd="8dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
             android:text="검색"
+            android:background="@drawable/btn_background"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

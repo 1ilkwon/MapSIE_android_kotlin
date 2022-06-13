@@ -147,7 +147,7 @@ class SignUpActivity : AppCompatActivity() {
                     .load(data?.data!!)
                     .override(60, 60)
                     .error(R.drawable.ic_baseline_account_circle_24)
-                    .fallback(R.drawable.ic_baseline_add_a_photo_24)
+                    .fallback(R.drawable.ic_baseline_account_circle_24)
                     .into(signImg)
                  }
                 catch (e:Exception)
