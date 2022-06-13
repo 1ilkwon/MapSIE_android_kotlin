@@ -146,7 +146,9 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
     }
     override fun onNavigationItemSelected(item: MenuItem): Boolean {    //메뉴바 클릭 시 실행하는 메서드
         when(item.itemId){
-            R.id.home -> Toast.makeText(this,"홈화면 실행",Toast.LENGTH_SHORT).show()
+            R.id.home -> {
+                startActivity(Intent(this, MainActivity::class.java))
+                Toast.makeText(this,"홈 화면",Toast.LENGTH_SHORT).show() }
             R.id.mypage-> startActivity(Intent(this, MyPageActivity::class.java))
             R.id.guideline-> startActivity(Intent(this, GuideActivity::class.java))
             R.id.addPage -> startActivity(Intent(this, AddActivity::class.java))

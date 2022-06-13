@@ -135,6 +135,11 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                 var y = document["y"].toString()
                 var name = document.data?.get("name").toString()
 
+                var address = document["address"].toString()
+                var theme = document["Tname"].toString()
+                var storeNum = document["storeNum"].toString()
+                var placeImage = document["placeImage"].toString()
+
                 Log.d("X", x)
                 Log.d("y", y)
                 Log.d("name", name)
@@ -154,7 +159,13 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                         }
                     }
                     infoWindow.setOnClickListener(Overlay.OnClickListener {
-//                      startActivity(상세페이지 이동 해야함)
+                        val deatailpageintent = Intent(this, DetailActivity::class.java)
+                        deatailpageintent.putExtra("Simage", placeImage)
+                        deatailpageintent.putExtra("Sname", name)
+                        deatailpageintent.putExtra("Saddress", address)
+                        deatailpageintent.putExtra("Stheme", theme)
+                        deatailpageintent.putExtra("SstoreName", storeNum) // 문서 이름
+                      startActivity(deatailpageintent)
                         false
                     })
                     // 정보창 클릭 시
