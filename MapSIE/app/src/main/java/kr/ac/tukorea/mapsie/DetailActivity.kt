@@ -151,8 +151,6 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
     override fun onBackPressed() {  //기본 폰에 내장되어 있는 ◀뒤로가기 누르면
         if(drawer_layout.isDrawerOpen(GravityCompat.END)){
             drawer_layout.closeDrawers()
-            // 테스트를 위해 뒤로가기 버튼시 Toast 메시지
-            Toast.makeText(this,"뒤로가기버튼 테스트",Toast.LENGTH_SHORT).show()
         } else{
             super.onBackPressed()
         }
@@ -199,8 +197,9 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                 for(document in result) {
                     var content = document["context"].toString()
                     var nickname = document["userName"].toString()
+                    var icon = document["userIcon"].toString()
                     // var nickname
-                    reviewList.add(ReviewData(nickname,content))
+                    reviewList.add(ReviewData(icon,nickname,content))
 
                     reviewAdapter = ReviewAdapter(this, reviewList)
                     binding.mainLayout.reviewRecycler.adapter = reviewAdapter

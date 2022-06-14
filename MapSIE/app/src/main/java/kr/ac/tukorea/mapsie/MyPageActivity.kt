@@ -47,7 +47,7 @@ class MyPageActivity : AppCompatActivity() {
                 .override(60, 60)
                 .error(R.drawable.ic_baseline_account_circle_24)    //에러가 났을 때
                 .fallback(R.drawable.ic_baseline_account_circle_24) //signImg값이 없다면 기본 사진 출력
-//                .into(binding.signImg)
+                .into(binding.signImg)
             binding.signName.text = it["signName"].toString()
             binding.address.text = it["address"].toString()
             binding.introduce.text = it["introduce"].toString()

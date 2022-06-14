@@ -61,6 +61,7 @@ class ReviewActivity : AppCompatActivity() {
 
             var countNum : Int = 0
             var userName: String = ""
+            var userIcon: String = ""
             db.collection(TCollect).document(Tvalue).collection(Tvalue).document(Tvalue + "_" +position)
                 .get().addOnSuccessListener {
                     countNum = it["Rcount"].hashCode()
@@ -68,10 +69,12 @@ class ReviewActivity : AppCompatActivity() {
                     db.collection("users").document(Firebase.auth.currentUser?.uid?:"No User")
                         .get().addOnSuccessListener {
                             userName = it["signName"].toString()
+                            userIcon = it["signImg"].toString()
 
                             var reviewMap = hashMapOf(
                                 "context" to binding.reviewContent.text.toString(),
-                                "userName" to userName
+                                "userName" to userName,
+                                "userIcon" to userIcon
                             )
 
                             db.collection(TCollect).document(Tvalue).collection(Tvalue).document(Tvalue + "_" + position)

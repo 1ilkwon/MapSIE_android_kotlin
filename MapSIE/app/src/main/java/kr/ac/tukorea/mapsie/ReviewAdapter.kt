@@ -11,6 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.kakao.sdk.common.KakaoSdk.init
 import kotlinx.android.synthetic.main.review_item.view.*
 import kotlinx.android.synthetic.main.theme_item.view.*
@@ -22,7 +23,10 @@ public class ReviewAdapter (private val context:Context, private val reviewList:
                 private var view: View = itemView
 
                 fun bind(listener: View.OnClickListener, item: ReviewData) {
-//                        view.member_icon.setImageDrawable(item.icon)
+                        Glide.with(itemView).load(item.icon)
+                                .error(R.drawable.ic_baseline_account_circle_24)
+                                .fallback(R.drawable.ic_baseline_account_circle_24)
+                                .into(view.member_icon)
                         view.member_nickname.text = item.nickname
                         view.review_content.text = item.content
                         view.setOnClickListener(listener)
@@ -37,7 +41,7 @@ public class ReviewAdapter (private val context:Context, private val reviewList:
         override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
                 val item = reviewList[position]
                 val listener = View.OnClickListener { it ->
-                        Toast.makeText(it.context, "title : ${item.content}", Toast.LENGTH_SHORT).show()
+                        //Toast.makeText(it.context, "title : ${item.content}", Toast.LENGTH_SHORT).show()
                 }
                 holder.apply {
                         bind(listener, item)

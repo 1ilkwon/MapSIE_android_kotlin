@@ -30,7 +30,7 @@ class ThemeAdapter(private val context:Context, private val themeList: ArrayList
 
             fun bind(listener: View.OnClickListener, item:ThemeData) {
                 view.theme_title.text = item.title
-                Glide.with(itemView).load(item.img).error(R.drawable.ic_baseline_account_circle_24)
+                Glide.with(itemView).load(item.img).error(R.drawable.ic_baseline_add_a_photo_24)
                     .fallback(R.drawable.ic_baseline_add_a_photo_24).into(view.theme_img)
                 view.setOnClickListener(listener)
             }
