@@ -14,6 +14,7 @@ import com.naver.maps.map.overlay.InfoWindow
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.Overlay
 import com.naver.maps.map.util.FusedLocationSource
+import kotlinx.android.synthetic.main.activity_my_page.*
 import kr.ac.tukorea.mapsie.MapPage.ThemePlaceRecycleActivity
 import kr.ac.tukorea.mapsie.databinding.ActivityMapBinding
 
@@ -133,6 +134,8 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                 var theme = document["Tname"].toString()
                 var storeNum = document["storeNum"].toString()
                 var placeImage = document["placeImage"].toString()
+                var introduce = document["introduce"].toString()
+                var tCount = document["Tcount"].hashCode()
 
                 Log.d("X", x)
                 Log.d("y", y)
@@ -160,7 +163,9 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                         deatailpageintent.putExtra("Sname", name)
                         deatailpageintent.putExtra("Saddress", address)
                         deatailpageintent.putExtra("Stheme", theme)
+                        deatailpageintent.putExtra("Introduce", introduce)
                         deatailpageintent.putExtra("SstoreName", storeNum) // 문서 이름
+                        deatailpageintent.putExtra("Position", tCount.toString())
                       startActivity(deatailpageintent)
                         false
                     })

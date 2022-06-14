@@ -61,6 +61,7 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         var sAddress = intent.getStringExtra("Saddress")
         var sTheme = intent.getStringExtra("Stheme")
         var Position = intent.getStringExtra("Position")
+        var introduce = intent.getStringExtra("Introduce")
 
         //var sStoreNum = intent.getStringExtra("SstoreName")
         Log.d("snamead", sAddress.toString())
@@ -68,6 +69,7 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         binding.mainLayout.placeName.text = sName.toString()
         binding.mainLayout.placeAddress.text = sAddress.toString()
         binding.mainLayout.placeTheme.text = sTheme.toString()
+        binding.mainLayout.placeIntroduce.text = introduce.toString()
 
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true) //왼쪽에 뒤로가기버튼생성

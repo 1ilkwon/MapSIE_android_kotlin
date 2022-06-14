@@ -60,6 +60,7 @@ class ThemePlaceAdapter(private val context: Context, private val themePlaceList
             intent.putExtra("Stheme", item.placeTheme)
             intent.putExtra("SstoreName", item.placeNum) // 문서 이름
             intent.putExtra("Position", position.toString())
+            intent.putExtra("Introduce", item.introduce)
             //Toast.makeText(context,"this",Toast.LENGTH_SHORT).show()
 
             intent.run {
