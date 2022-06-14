@@ -20,22 +20,6 @@ class MyPageActivity : AppCompatActivity() {
 
     lateinit var themePlaceAdapter: ThemePlaceAdapter
 
-    //var heartList = arrayListOf<Heart>()
-//        Heart("이름 테스트1", "주소 테스트1"),
-//        Heart("이름 테스트2", "주소 테스트2"),
-//        Heart("이름 테스트3", "주소 테스트3"),
-//        Heart("이름 테스트4", "주소 테스트4"),
-//        Heart("이름 테스트5", "주소 테스트5"),
-//        Heart("이름 테스트6", "주소 테스트6"),
-//        Heart("이름 테스트7", "주소 테스트7")
-//    db.collection("users").document(Firebase.auth.currentUser?.uid ?: "No User")
-//        .collection("hearts").get().addOnSuccessListener { result ->
-//        for(document in result){
-//
-//        }
-//        }
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMyPageBinding.inflate(layoutInflater)
@@ -53,15 +37,8 @@ class MyPageActivity : AppCompatActivity() {
                     var heartAdapter = HeartListAdapter(this, heartList)
                     //heart_ListView.adapter = heartAdapter
                     binding.heartListView.adapter = heartAdapter
-
-//                    val layout = LinearLayoutManager(this)
-//                    binding.heartListView.l
-
                 }
             }
-
-//        val heartAdapter = HeartListAdapter(this, heartList)
-//        heart_ListView.adapter = heartAdapter
 
         //db에서 값 꺼내오는 파트
         db.collection("users").document(Firebase.auth.currentUser?.uid?: "No User").get().addOnSuccessListener {

@@ -223,6 +223,7 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                             "x" to x1,
                                             "y" to y1,
                                             "Rcount" to 0,
+                                            "Tcount" to countNum,
                                         )
                                         // firebase 구조에 따라 데이터 저장
                                         db.collection("Cafes").document("Cafe1").collection("Cafe1")
@@ -283,6 +284,7 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                             "x" to x1,
                                             "y" to y1,
                                             "Rcount" to 0,
+                                            "Tcount" to countNum,
                                         )
                                         db.collection("Cafes").document("Cafe2").collection("Cafe2")
                                             .document("Cafe2_" + countNum.toString())
@@ -338,6 +340,7 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                             "x" to x1,
                                             "y" to y1,
                                             "Rcount" to 0,
+                                            "Tcount" to countNum,
                                         )
                                         db.collection("Cafes").document("Cafe3").collection("Cafe3")
                                             .document("Cafe3_" + countNum.toString())
@@ -393,6 +396,7 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                             "x" to x1,
                                             "y" to y1,
                                             "Rcount" to 0,
+                                            "Tcount" to countNum,
                                         )
                                         db.collection("Foods").document("Food1").collection("Food1")
                                             .document("Food1_" + countNum.toString())
@@ -449,6 +453,7 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                             "x" to x1,
                                             "y" to y1,
                                             "Rcount" to 0,
+                                            "Tcount" to countNum,
                                         )
                                         db.collection("Foods").document("Food2").collection("Food2")
                                             .document("Food2_" + countNum.toString())
@@ -505,6 +510,7 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                             "x" to x1,
                                             "y" to y1,
                                             "Rcount" to 0,
+                                            "Tcount" to countNum,
                                         )
                                         db.collection("Foods").document("Food3").collection("Food3")
                                             .document("Food3_" + countNum.toString())
@@ -560,6 +566,7 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                             "x" to x1,
                                             "y" to y1,
                                             "Rcount" to 0,
+                                            "Tcount" to countNum,
                                         )
                                         db.collection("Park").document("Park1").collection("Park1")
                                             .document("Park1_" + countNum.toString())
@@ -616,6 +623,8 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                             "x" to x1,
                                             "y" to y1,
                                             "Rcount" to 0,
+                                            // position 넘겨오기 위해 집어넣음
+                                            "Tcount" to countNum,
                                         )
                                         db.collection("Park").document("Park2").collection("Park2")
                                             .document("Park2_" + countNum.toString())
@@ -671,6 +680,7 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                                             "x" to x1,
                                             "y" to y1,
                                             "Rcount" to 0,
+                                            "Tcount" to countNum,
                                         )
                                         db.collection("Park").document("Park3").collection("Park3")
                                             .document("Park3_" + countNum.toString())
