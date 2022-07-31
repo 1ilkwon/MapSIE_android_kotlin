@@ -4,6 +4,7 @@ package kr.ac.tukorea.mapsie
 import  android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.ListAdapter
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +16,7 @@ import com.naver.maps.map.*
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.util.FusedLocationSource
 import kr.ac.tukorea.mapsie.MapPage.ThemePlaceRecycleActivity
+import kr.ac.tukorea.mapsie.SearchPage.ListLayout
 import kr.ac.tukorea.mapsie.databinding.ActivityMapBinding
 
 
@@ -141,10 +143,11 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                 //marker.position = LatLng(37.5670135, 126.9783740)
                 Log.d("X", x.toString())
                 Log.d("y", y.toString())
-
+                marker.position = LatLng(x.toDouble(), y.toDouble())
                 marker.map = naverMap
             }
         }
+
 //        marker.position = LatLng(37.5670135, 126.9783740)
 //        marker.map = naverMap
     }

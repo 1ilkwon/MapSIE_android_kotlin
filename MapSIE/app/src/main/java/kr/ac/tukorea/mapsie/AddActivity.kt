@@ -51,6 +51,7 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
     private val OPEN_GALLERY = 1111
     var fileName: String = SimpleDateFormat("yyyymmdd_HHmmss").format(Date())
     var downloadUri: Uri? = null    //storage에서 다운받는 이미지의 uri
+    val Mainintent = Intent(this, MainActivity::class.java)
 
     private lateinit var locationSource: FusedLocationSource
 
@@ -743,11 +744,6 @@ class AddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
             }
         }
     }
-
-    // 자동으로 키보드 내리기
-    fun softkeyboardHide() {
-        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(add_name.windowToken, 0)
 
 }
 
